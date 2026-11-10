@@ -1,0 +1,330 @@
+# QuantCrypto Chameleon Engine (v5.0): Sistema Adaptativo de Crescimento e Preservação
+
+Este repositório contém a arquitetura de engenharia de software, os modelos de Ciência de Dados e a metodologia de construção incremental para um robô de **Trading Sistemático Adaptativo (1h/4h)** na Binance Spot. O sistema foi projetado para escalar um patrimônio inicial de **300 XRP** sem uso de alavancagem, combinando eficiência máxima de capital nos momentos de alta convicção com defesa automática em meses adversos.
+
+---
+
+## 1. Arquitetura Patrimonial: Core-Satellite + Cofre de Lucros
+
+Para que o seu patrimônio cresça tanto pela valorização natural do mercado cripto quanto pelo giro ativo do robô, o capital inicial de **300 XRP** é dividido em duas frentes complementares, somadas a um mecanismo automático de acumulação:
+
+* **Carteira Core (50% — 150 XRP em Hold Intocável):** Guardada fora do alcance da chave de API do robô. Garante que você aproveite 100% de grandes ciclos de valorização do XRP no longo prazo sem risco operacional.
+* **Carteira Tática Camaleão (50% — Equivalente a 150 XRP convertidos em USDT):** Constitui 100% do caixa operacional do robô ($C_{\text{usdt}}$). Permite que o sistema opere qualquer uma das 8 moedas mais líquidas do mercado e fique 100% protegido em Dólar (`USDT`) durante quedas gerais.
+* **Cofre Divisor de Lucros por Acúmulo (`profit_splitter.py`):** A cada operação fechada no lucro, o sistema separa contabilmente **70% do ganho líquido** para reinvestir na banca do robô (juros compostos) e **30% para comprar mais moedas para o Hold**.
+* *Trava Inteligente Anti-Erro da Binance:* Como 30% do lucro de um único trade em uma banca inicial pode dar menos de 5 dólares (ex: $1,20), tentar comprar a moeda imediatamente causaria erro na corretora (`MIN_NOTIONAL`). O sistema acumula essa fatia de 30% em uma variável do banco de dados (`pending_hodl_bucket_usdt`) e **só dispara a compra automática para o Hold quando o cofrinho acumula pelo menos 10,00 USDT**.
+
+
+
+---
+
+## 2. O Cérebro "Camaleão": Adaptação aos 3 Climas de Mercado
+
+Um robô comum perde dinheiro nos meses ruins porque tenta usar uma única ferramenta (comprar rompimentos ou recuos de alta) quando o mercado está andando de lado ou despencando.
+
+Este motor funciona como um carro de Fórmula 1 com **Sensor de Clima**: a cada fechamento de vela de **1 hora (1h)**, ele olha primeiro para a estrutura macro de **4 horas (4h)** para identificar em qual dos **3 Regimes de Mercado** o ativo se encontra, trocando automaticamente a estratégia ativa:
+
+| Regime Detectado (Clima) | Como o Robô Identifica (Regra Matemática) | Estratégia Ativada no Gráfico de 1h | Objetivo Operacional |
+| --- | --- | --- | --- |
+| **1. Sol Aberto (Bull Trend)** | $\text{Close}_{4h} > \text{EMA}_{100, 4h}$, inclinação positiva e $\text{CHOP}_{14} < 50$ (tendência limpa) | `trend_pullback_1h` (Compra recuos na $\text{EMA}_{20}$) | Acelerar a banca usando de 40% a 95% do caixa nos sinais A+ |
+| **2. Pista Ensaboada (Lateral / Range)** | $\text{CHOP}_{14} \ge 55$ e $\text{ADX}_{14} < 22$ (mercado preso em um caixote sem direção) | `range_pingpong_1h` (Compra no fundo da Banda de Bollinger + $\text{RSI}_{14} < 32$) | Fazer ganhos curtos e rápidos comprando barato no "chão" e vendendo no meio do canal |
+| **3. Tempestade (Bear / Crash)** | $\text{Close}_{4h} < \text{EMA}_{100, 4h}$ com médias apontando para baixo | **Defesa em USDT** + `capitulation_snap_1h` (Caça ao "Elástico Esticado") | Manter 100% em dólar; só comprar se houver pânico extremo ($\text{RSI}_2 < 5$ e Volume $> 3\times$ a média) para pegar o repique rápido |
+
+### 2.1. Giro Rápido no Gráfico de 1 Hora e Fila "Single-Slot"
+
+Para não deixar o capital preso por vários dias esperando uma única operação terminar, o mapa é lido no gráfico de 4h, mas **o gatilho de entrada e saída ocorre no gráfico de 1 hora (1h)**, permitindo que o capital gire dentro do mesmo dia.
+
+* **Cesta Congelada de 8 Ativos Líquidos (Sem Memecoins):** `BTCUSDT`, `ETHUSDT`, `SOLUSDT`, `BNBUSDT`, `XRPUSDT`, `ADAUSDT`, `LINKUSDT` e `AVAXUSDT`.
+* **Modo Sniper (1 Posição por Vez — `MAX_OPEN_POSITIONS = 1`):** O robô concentra o poder de fogo em **apenas 1 moeda por vez**. Se duas moedas derem sinal na mesma hora, o desempate escolhe a moeda com maior **Força Relativa Ajustada por Volatilidade** nas últimas 12 horas:
+
+$$\text{RS}_{\text{score}} = \frac{\text{Close}_t - \text{Close}_{t-12}}{\text{ATR}_{14, t}}$$
+
+
+
+---
+
+## 3. Inteligência de Alocação Dinâmica e "Modo Fantasma"
+
+Para superar o crescimento lento de sistemas engessados sem jamais usar alavancagem (mantendo **risco zero de liquidação** por operar apenas no mercado à vista Spot), o motor gerencia o tamanho da aposta e a própria curva de acertos usando três mecanismos:
+
+### 3.1. O Semáforo de Convicção (Kelly Fracionado no Mercado Spot)
+
+Em vez de deixar 60% do seu dinheiro dormindo em todas as operações, o módulo `position_sizer.py` classifica a qualidade do sinal e ajusta o uso do caixa em USDT:
+
+1. **Sinal Nota C (Duvidoso ou Reprovado pela IA):** Contexto ruim ou volume fraco. **Alocação = 0% do caixa** (o robô ignora o trade).
+2. **Sinal Nota B (Oportunidade Padrão):** Regra técnica cumprida com probabilidade moderada. O robô arrisca **1,0% da carteira tática** no *Stop Loss*, alocando tipicamente entre **35% e 50% do caixa em USDT**.
+3. **Sinal Nota A+ (Alta Convicção / Alinhamento Total):** Tendência de 4h limpa, recuo perfeito em 1h, volume acima de $1,5\times$ a média e probabilidade da IA no topo do ranking. O robô pisa no acelerador e aloca **até 95% do caixa em USDT** (mantendo 5% de margem para taxas e arredondamentos).
+* *Por que isso é seguro sem alavancagem?* Como o *Stop Loss* técnico no gráfico de 1h fica a cerca de $2,0\%$ a $2,5\%$ de distância, colocar 95% do caixa à vista significa que, se tudo der errado, você perde apenas **2,0% a 2,4% da carteira tática**. Porém, se a moeda subir **6% ou 8%** naquela pernada, **toda a sua carteira tática cresce +6% a +7,5% em um único trade!**
+
+
+
+### 3.2. Trava de "Risco Zero" no Meio da Operação (Free-Roll no +1,2R)
+
+Para evitar que uma operação vencedora volte tudo e vire prejuízo:
+
+* Assim que o preço avança a seu favor e atinge **$+1,2R$** (1,2 vezes o tamanho do risco inicial), o robô cancela o *Stop Loss* original na Binance e o reposiciona exatamente no **preço de entrada acrescido das taxas ($0,0R$ — Empate / Breakeven)**.
+* A partir desse minuto, você tem uma operação com **risco zero de perder dinheiro** e potencial livre para buscar o alvo cheio de **$+2,5R$**.
+
+### 3.3. O "Modo Fantasma" (Shadow Mode / Freio Contra Meses Ruins)
+
+Mesmo com o Sensor de Clima, mudanças bruscas no mercado mundial podem fazer qualquer estratégia errar. Para impedir que o robô perca dinheiro em sequência num mês difícil, o sistema possui uma máquina de estados automática chamada **Modo Fantasma**:
+
+1. **Disparo da Proteção:** Se o robô sofrer **2 Stops seguidos** operando dinheiro real (ou acumular **-4% de queda na semana**), ele muda imediatamente seu status no banco de dados de `LIVE_MODE` para `SHADOW_MODE` (Modo Fantasma).
+2. **Treino sem Gastar Dinheiro:** Enquanto está no Modo Fantasma, o robô **bloqueia o envio de ordens reais para a Binance**, mas continua lendo as velas de 1h e registrando as operações "de mentirinha" (simuladas com taxas e *slippage*) dentro de uma tabela virtual no SQLite.
+3. **Religamento Automático por Mérito:** O robô só é autorizado a voltar sozinho para o `LIVE_MODE` (dinheiro real) quando consegue **acertar 2 operações virtuais no Modo Fantasma** (ou acumular $+2,0R$ virtuais), provando matematicamente que o mercado voltou a respeitar os sinais.
+
+---
+
+## 4. Ciência de Dados, Simetria Treino-Produção e Estudo de Ablação
+
+A camada de Inteligência Artificial (**Meta-Labeling**) funciona como um juiz que dá a nota de probabilidade de cada sinal ($P_{\text{win}}$) para definir se o trade é **Nota C (Bloqueado)**, **Nota B (Mão Normal)** ou **Nota A+ (Mão Cheia Spot 95%)**.
+
+### 4.1. Regras para Eliminar Ilusões no Backtest (Zero Train-Serve Skew)
+
+No Google Colab, o simulador obedece exatamente às mesmas restrições físicas da conta real na Binance:
+
+* **Base Multi-Ativo com Pesos de Unicidade:** O modelo é treinado nos sinais dos 8 ativos agrupados (gerando mais de 3.000 eventos candidatos no gráfico de 1h em 3 anos), aplicando peso $w_i = 1 / c_t$ para sinais simultâneos e expurgo (*embargo*) entre treino e teste.
+* **Simulação de Fila Single-Slot Cronológica:** Na hora de medir o lucro do portfólio no teste fora da amostra, sinais que aparecem enquanto o robô já está posicionado em outra moeda são **descartados**, reproduzindo fielmente a sua conta real.
+* **Ancoragem e Pior Caso Intra-Vela:** A entrada é contada na abertura da vela seguinte com *slippage* ($P_{\text{exec}}$). Se uma vela histórica tocar no *Stop* e no *Alvo* dentro da mesma hora, o simulador conta **Stop Loss primeiro**.
+* **Custo Dinâmico em Unidades de $R$:** A taxa de corretagem ($0,15\%$ ida e volta com BNB) somada ao *slippage* ($0,05\%$) é descontada proporcionalmente à distância do *stop* de cada operação:
+
+$$C_{R, i} = \frac{f_{\text{ida+volta}} + s}{d_{\text{stop\_pct}, i}}$$
+
+
+
+### 4.2. As 5 Variáveis Estacionárias (Features da IA)
+
+Calculadas estritamente na vela fechada (índice `-2`), sem qualquer vazamento do futuro:
+
+1. `atr_pct`: Volatilidade atual em porcentagem do preço ($\text{ATR}_{14} / \text{Close}_t$).
+2. `dist_ema100_atr`: Distância até a média longa medida em unidades de $\text{ATR}_{14}$.
+3. `rvol_20`: Volume da vela dividido pela mediana das últimas 20 velas fechadas.
+4. `chop_14`: Índice de bagunça/lateralização (*Choppiness Index* de 14 períodos).
+5. `btc_regime_ret`: Retorno logarítmico do Bitcoin nas últimas 12 horas (alinhado por `close_time`).
+
+### 4.3. Calibração por Quantil e Estudo de Ablação (A / B / C / D)
+
+Em vez de usar um corte fixo arbitrário (como 55%), o modelo calibrado divide os sinais em **3 faixas (tercis)** baseadas no histórico de treino:
+
+* **Tercil Inferior (33% piores):** Nota C $\rightarrow$ Operação bloqueada.
+* **Tercil Médio (33% intermediários):** Nota B $\rightarrow$ Operação aprovada com mão padrão (risco de 1%).
+* **Tercil Superior (33% melhores):** Nota A+ $\rightarrow$ Operação aprovada com mão máxima (até 95% do caixa Spot).
+
+No Google Colab (`02_ablation_chameleon_sim.ipynb`), nenhuma peça é ativada no escuro. Comparamos quatro degraus fora da amostra:
+
+* **Degrau A:** *Buy & Hold* passivo.
+* **Degrau B:** Apenas 1 estratégia fixa (sem troca de clima e sem IA).
+* **Degrau C:** Cérebro Camaleão (3 Climas + Modo Fantasma, sem IA).
+* **Degrau D:** Cérebro Camaleão completo + IA calibrando lotes Nota B e Nota A+.
+
+---
+
+## 5. Engenharia de Resiliência e Integração com a Binance
+
+Para que quedas de internet ou reinicializações do servidor nunca deixem o seu dinheiro desprotegido:
+
+1. **Gravação Pré-Envio (`Write-Ahead State` no SQLite):** Antes de enviar qualquer ordem de compra para a Binance, o robô grava a intenção no banco `SQLite` com status `PENDING_ENTRY` e um código único (`newClientOrderId = f"CHM_{symbol}_{timestamp}"`).
+2. **Ordem OCO Nativa com Margem Contra Flash-Crash:** Assim que a compra executa, o robô registra o *Take Profit* e o *Stop Loss* diretamente nos servidores da Binance via ordem **OCO**. O preço limite de venda do stop (`stopLimitPrice`) é posicionado **1,2% abaixo** do gatilho (`stopPrice`), evitando que a ordem seja pulada em quedas violentas.
+3. **Reconciliador Automático no Boot (`state_reconciler.py`):** Toda vez que o robô liga, ele confere os saldos e ordens abertas na Binance contra o banco `SQLite`. Se encontrar uma moeda comprada que ficou sem ordem OCO (porque a luz acabou no meio da compra), ele cria a ordem OCO de proteção no primeiro segundo antes de fazer qualquer outra coisa.
+4. **Infraestrutura Custo Zero e Segurança:**
+* **Google Colab:** Usado apenas para treinar e rodar o Estudo de Ablação.
+* **VPS 24/7 (Oracle Cloud Always Free / AWS):** Roda o motor em Docker consumindo menos de 100 MB de RAM.
+* **Chaves de API Blindadas:** Chaves **Ed25519** sem permissão de saque (*Withdrawals OFF*) e travadas no IP fixo da VPS (*IP Whitelist*).
+
+
+
+---
+
+## 6. Metodologia de Construção Incremental (Como Construir Sem Se Perder)
+
+**Regra de Ouro da Engenharia:** Se você escrever os 15 arquivos do sistema de uma só vez e ligar o robô, ele vai apresentar erros silenciosos e você não saberá onde consertar.
+
+Por isso, o desenvolvimento segue a **Arquitetura em Blocos de LEGO (6 Estágios Isolados)**. Você só constrói o Bloco 2 depois que o Bloco 1 passar no teste automático dele.
+
+```
+[Bloco 1: Dados e Banco] ──► [Bloco 2: Indicadores e Clima] ──► [Bloco 3: Backtest no Colab]
+                                                                             │
+[Bloco 6: Produção + Cofre] ◄── [Bloco 5: Binance Testnet + OCO] ◄── [Bloco 4: Risco + Modo Fantasma]
+
+```
+
+### Estágio 1: Fundação, Banco de Dados e Coletor (`src/core/` e `src/data/`)
+
+* **O que vamos codificar:** Apenas a criação das tabelas no `SQLite`, o leitor do arquivo `strategies.yaml` e o script que baixa as velas fechadas de 1h e 4h das 8 moedas na Binance.
+* **Zero lógica de trade aqui:** O robô ainda não sabe o que é comprar ou vender.
+* **Teste de Aprovação (Gate 1):** Rodar um comando simples que verifica se as 8 moedas foram salvas sem buracos de horário e se a última vela lida é sempre a vela **100% fechada** (índice `-2`).
+
+### Estágio 2: Matemática dos Indicadores e Sensor dos 3 Climas (`src/features/` e `src/regimes/`)
+
+* **O que vamos codificar:** As funções puras que calculam `EMA`, `ATR`, `RSI`, `Bollinger`, `ADX` e `CHOP`, além da função `detect_market_regime()` que devolve apenas uma palavra: `BULL`, `SIDEWAYS` ou `BEAR`.
+* **Teste de Aprovação (Gate 2):** Rodar testes unitários (`pytest`) com uma tabela pequena de preços conhecidos para provar que a matemática não tem erro de divisão por zero nem olha dados do futuro.
+
+### Estágio 3: O Simulador de Fila Única no Google Colab (`notebooks/`)
+
+* **O que vamos codificar:** O notebook que pega os blocos 1 e 2 e simula os últimos 3 a 4 anos no Google Colab, testando o Degrau B (1 estratégia), o Degrau C (3 climas + Modo Fantasma) e o Degrau D (com a IA separando trades Nota B e Nota A+).
+* **Teste de Aprovação (Gate 3):** Ver na tela a tabela comparativa e a curva de crescimento do capital descontando todas as taxas da Binance. Só avançamos para o robô ao vivo com a configuração vencedora.
+
+### Estágio 4: O Cérebro de Risco, Alocação A+ e Modo Fantasma (`src/risk/`)
+
+* **O que vamos codificar:** O `position_sizer.py` (que calcula o lote de 40% na Nota B ou 95% na Nota A+ respeitando os $5,50 mínimos da Binance) e o `shadow_manager.py` (que muda o bot para o Modo Fantasma após 2 *stops* seguidos).
+* **Teste de Aprovação (Gate 4):** Simular artificialmente no teste 2 derrotas seguidas e verificar se o sistema bloqueia ordens reais e passa a gravar na tabela virtual exatamente como planejado.
+
+### Estágio 5: Execução Blindada, Ordem OCO e Reconciliador na Testnet (`src/execution/`)
+
+* **O que vamos codificar:** O conector que envia ordens para a **Binance Spot Testnet** (dinheiro fictício oficial da Binance), o gerenciador de OCO, o movimento do *Stop* para o empate em $+1,2R$ e o `state_reconciler.py`.
+* **Teste de Aprovação ("Teste do Puxão de Tomada" — Gate 5):** Vamos mandar o robô comprar na Testnet e **desligar o robô à força** antes de ele criar o *Stop Loss*. Depois vamos ligá-lo de novo: ele terá que perceber sozinho que a moeda está sem *Stop* e criar a ordem OCO automaticamente no primeiro segundo!
+
+### Estágio 6: Alertas no Telegram, Cofre de Lucros e Deploy em Produção
+
+* **O que vamos codificar:** As mensagens explicativas no seu Telegram (dizendo qual é o clima atual, por que entrou no trade, qual a nota da IA e se está no Modo Real ou Fantasma) e o `profit_splitter.py`.
+* **Teste de Aprovação (Gate 6):** Deixar rodando 7 dias na Testnet sem nenhum erro no log e, em seguida, virar a chave para a Carteira Tática real em USDT.
+
+---
+
+### Mapa de Diagnóstico Rápido (Onde Olhar Quando Algo Der Errado)
+
+Graças a essa separação em blocos, se o robô apresentar qualquer comportamento estranho no futuro, você nunca precisará adivinhar onde está o problema:
+
+| Sintoma / O que Aconteceu | Qual Arquivo é o Único Culpado | Como Diagnosticar e Corrigir |
+| --- | --- | --- |
+| **"A Binance recusou a minha ordem dizendo `LOT_SIZE` ou `MIN_NOTIONAL`"** | `src/risk/position_sizer.py` | A função de arredondamento da quantidade de moedas ou o piso de 5,50 USDT falhou. Basta olhar o log de `PositionSizer`. |
+| **"O robô comprou uma moeda que estava despencando"** | `src/regimes/regime_detector.py` | O sensor de clima classificou o mercado errado ou leu a vela aberta (`-1`) em vez da fechada (`-2`). |
+| **"O servidor reiniciou e o robô perdeu a conta de qual trade estava aberto"** | `src/core/state_reconciler.py` | A leitura do `clientOrderId` no banco `SQLite` não bateu com a Binance. Rodar `python -m src.core.state_reconciler --check`. |
+| **"O robô tomou 3 stops seguidos na conta real e não entrou no Modo Fantasma"** | `src/risk/shadow_manager.py` | O contador de derrotas consecutivas não foi atualizado quando a ordem OCO fechou no prejuízo. |
+| **"O robô está há 5 dias sem fazer nenhuma operação real"** | `src/risk/shadow_manager.py` ou `src/features/ml_model.py` | Olhe a mensagem diária do Telegram: ou o robô está treinando no **Modo Fantasma** esperando 2 acertos virtuais, ou o mercado está no **Clima 3 (Tempestade)** protegendo seu dólar. |
+
+---
+
+## 7. Estrutura Completa do Repositório e Configuração (`strategies.yaml`)
+
+### Árvore de Arquivos do Projeto
+
+```text
+quant-crypto-chameleon/
+├── config/
+│   └── strategies.yaml                     # Todas as regras, climas, pesos e Feature Flags
+├── notebooks/                              # Bloco 3: Executar no Google Colab
+│   ├── 01_download_multiasset_1h_4h.ipynb  # Baixa histórico de 1h e 4h das 8 moedas
+│   ├── 02_ablation_chameleon_sim.ipynb     # Compara Degraus A, B, C (Camaleão) e D (Com IA)
+│   └── 03_stress_and_shadow_test.ipynb     # Testa o efeito do Modo Fantasma nos meses ruins
+├── models/
+│   └── calibrated_meta_model.joblib        # Juiz de IA treinado e calibrado por quantis
+├── src/                                    # Motor Modular de Produção (Blocos 1, 2, 4, 5 e 6)
+│   ├── core/                               # [BLOCO 1 & 5] Fundação e Banco
+│   │   ├── config.py                       # Leitor seguro do .env e strategies.yaml
+│   │   ├── database.py                     # SQLite (Tabelas: candles, trades, shadow_trades, hodl_bucket)
+│   │   ├── binance_client.py               # Conexão oficial com filtros LOT_SIZE e Rate Limit
+│   │   └── state_reconciler.py             # Cura automática de posições sem Stop no boot
+│   ├── data/                               # [BLOCO 1] Coleta de Dados
+│   │   └── candle_collector.py             # Sincronizador de velas fechadas 1h e 4h
+│   ├── features/                           # [BLOCO 2] Indicadores e IA
+│   │   ├── indicators.py                   # EMA, ATR, RSI, Bollinger, ADX e CHOP (testados)
+│   │   └── ml_judge.py                     # Calcula as 5 features e dá a Nota (C, B ou A+)
+│   ├── regimes/                            # [BLOCO 2] O Sensor de Clima
+│   │   └── regime_detector.py              # Classifica o mercado em BULL, SIDEWAYS ou BEAR
+│   ├── strategies/                         # [BLOCO 3] As Armas para cada Clima
+│   │   ├── base_strategy.py                # Molde padrão de resposta (Entrada, Stop, Alvo)
+│   │   ├── bull_trend_pullback.py          # Clima 1: Recuo na EMA 20 a favor da tendência
+│   │   ├── sideways_pingpong.py            # Clima 2: Compra no fundo da banda + RSI baixo
+│   │   ├── bear_capitulation_snap.py       # Clima 3: Caça ao pânico extremo (Elástico)
+│   │   └── dormant_strategies.py           # Estratégias futuras guardadas em Feature Flag
+│   ├── risk/                               # [BLOCO 4 & 6] Cérebro de Capital e Proteção
+│   │   ├── position_sizer.py               # Calcula lote Spot (40% na Nota B / até 95% na Nota A+)
+│   │   ├── shadow_manager.py               # Máquina de estados do Modo Fantasma (2 stops = congela)
+│   │   └── profit_splitter.py              # Separa 30% do lucro e compra Hold ao somar 10 USDT
+│   ├── execution/                          # [BLOCO 5] Disparo e Gerenciamento de Ordens
+│   │   └── oco_order_manager.py            # Cria OCO, move Stop para o Zero em +1.2R e Time Stop
+│   ├── notifications/                      # [BLOCO 6] Transparência Total
+│   │   └── telegram_reporter.py            # Explica cada decisão e estado no seu celular
+│   └── main.py                             # Maestro que roda a cada fechamento de vela de 1h
+├── tests/                                  # Testes automatizados de cada Bloco (pytest)
+│   ├── test_block1_data.py
+│   ├── test_block2_indicators_regime.py
+│   ├── test_block4_sizer_and_shadow.py
+│   └── test_block5_reconciler.py
+├── .env.example                            # Modelo para suas chaves da Testnet e Produção
+├── Dockerfile                              # Container leve para rodar na VPS gratuita
+├── docker-compose.yml                      # Mantém o robô vivo 24/7 com reinício automático
+├── requirements.txt                        # Bibliotecas Python com versões travadas
+└── README.md                               # Esta documentação completa
+
+```
+
+### Arquivo Central de Configuração (`config/strategies.yaml`)
+
+```yaml
+portfolio:
+  core_hold_asset: "XRP"
+  core_hold_amount: 150.0                   # 150 XRP intocados fora do robô (Hold de longo prazo)
+  tactical_quote_asset: "USDT"              # 150 XRP convertidos em USDT para o giro do robô
+  max_concurrent_positions: 1               # Modo Sniper: foca em 1 única moeda por vez
+  min_notional_usdt: 5.50                   # Piso mínimo da Binance Spot
+  oco_stop_limit_buffer_pct: 0.012          # 1.2% abaixo do stopPrice contra gaps de baixa
+
+conviction_sizing:                          # Inteligência de saber quando arriscar (Spot sem alavancagem)
+  grade_b_risk_pct: 0.010                   # Sinal Nota B: arrisca 1.0% da banca no Stop (~40% do caixa)
+  grade_b_max_cash_pct: 0.50                # Teto de caixa para Sinal Nota B = 50%
+  grade_a_plus_risk_pct: 0.022              # Sinal Nota A+: arrisca até 2.2% no Stop para usar mão cheia
+  grade_a_plus_max_cash_pct: 0.95           # Teto de caixa para Sinal Nota A+ = 95% do USDT livre
+  breakeven_trigger_r: 1.2                  # Bateu +1.2R de lucro? Move o Stop para o Zero (Empate)
+
+shadow_mode_protection:                     # "Modo Fantasma" contra meses ruins
+  enabled: true
+  max_consecutive_live_losses: 2            # Tomou 2 stops reais seguidos? Entra no Modo Fantasma
+  max_weekly_drawdown_pct: 0.04             # Caiu 4% na semana? Entra no Modo Fantasma
+  virtual_wins_to_reactivate: 2             # Precisa acertar 2 trades simulados para religar dinheiro real
+
+profit_splitter:                            # Alimentador automático da carteira Hold
+  enabled: true
+  reinvest_bot_pct: 0.70                    # 70% do lucro fica no bot para juros compostos
+  send_to_hodl_pct: 0.30                    # 30% vai para o cofrinho de Hold
+  min_bucket_to_buy_hodl_usdt: 10.0         # Só compra XRP/BTC para o Hold quando acumular >= 10 USDT
+
+universe:
+  tie_breaker_metric: "rs_vol_adjusted_12h" # (Close[t] - Close[t-12]) / ATR_14[t]
+  symbols:
+    - "BTCUSDT"
+    - "ETHUSDT"
+    - "SOLUSDT"
+    - "BNBUSDT"
+    - "XRPUSDT"
+    - "ADAUSDT"
+    - "LINKUSDT"
+    - "AVAXUSDT"
+
+regimes_and_strategies:
+  macro_Compass_timeframe: "4h"             # Bússola do clima lida no gráfico de 4h
+  execution_timeframe: "1h"                 # Gatilho rápido operado no gráfico de 1h
+
+  bull_trend_pullback:                      # CLIMA 1: Sol Aberto (Tendência de Alta)
+    enabled: true
+    ema_fast: 20
+    ema_slow: 100
+    stop_atr_mult: 2.0                      # Stop inicial em 2.0 ATR (-1.0R)
+    target_atr_mult: 5.0                    # Alvo cheio em 5.0 ATR (+2.5R)
+    time_barrier_candles_1h: 24             # Tempo máximo = 24 horas
+
+  sideways_pingpong:                        # CLIMA 2: Pista Ensaboada (Mercado Lateral)
+    enabled: true
+    bollinger_period: 20
+    bollinger_std: 2.0
+    rsi_period: 14
+    rsi_oversold_entry: 32                  # Compra quando toca fundo da banda com RSI < 32
+    stop_atr_mult: 1.5                      # Stop curto abaixo do caixote
+    target_band: "middle_bollinger"         # Realiza lucro rápido no meio do canal (Média 20)
+    time_barrier_candles_1h: 12             # Operação rápida: máximo 12 horas
+
+  bear_capitulation_snap:                   # CLIMA 3: Tempestade (Defesa em Dólar + Elástico)
+    enabled: true
+    rsi_fast_period: 2
+    rsi_panic_threshold: 5                  # Exige pânico extremo (RSI de 2 períodos abaixo de 5)
+    relative_volume_min: 3.0                # Exige volume de capitulação 3x maior que a média
+    stop_atr_mult: 1.8
+    target_atr_mult: 3.6                    # Alvo rápido de repique (+2.0R)
+    time_barrier_candles_1h: 8              # Tiro curto: máximo 8 horas
+
+ml_judge:
+  use_ml_filter: false                      # Começa desligado; liga após vencer no Colab (Bloco 3)
+  reject_bottom_quantile: 0.33              # Terço inferior = Nota C (Ignora)
+  grade_a_plus_top_quantile: 0.70           # Top 30% melhores probabilidades = Nota A+ (Até 95% caixa)
+
+```
