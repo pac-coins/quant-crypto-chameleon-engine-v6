@@ -1,4 +1,4 @@
-# Quadro Geral de Triagem
+# Quadro geral de triagem
 
 | Categoria | Item Validado | Quem Apontou | Onde Entra | Impacto Prático |
 | --- | --- | --- | --- | --- |
@@ -18,4 +18,3 @@
 | **3 — Cosmético** | Reclamar que a Fase 1 é "simples demais / MVP" | DeepSeek | Nenhum | Contradição: simplificar a Fase 1 era a meta! |
 | **3 — Cosmético** | Decidir se o Cofre em `FUNDING` guarda USDT ou XRP | DeepSeek | Operação manual | Guardar USDT já protege o lucro sem taxa extra |
 | **3 — Cosmético** | Testar se `SIDEWAYS` deve vir antes de `BEAR` | DeepSeek | Nenhum | Ficar em dólar na queda (`BEAR` 1º) é mais seguro |
-

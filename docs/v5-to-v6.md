@@ -1,4 +1,7 @@
-A tabela abaixo resume todas as diferenças estruturais, matemáticas e operacionais entre a versão original (**v5.0**) e a versão auditada (**v6.0**).
+# Migração da v5 para a v6
+
+A tabela abaixo resume todas as diferenças estruturais, matemáticas e
+operacionais entre a versão original (**v5.0**) e a versão auditada (**v6.0**).
 
 | Área | Componente | Versão v5.0 | Versão v6.0 | Impacto no Bolso |
 | --- | --- | --- | --- | --- |

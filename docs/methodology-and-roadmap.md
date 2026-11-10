@@ -1,4 +1,4 @@
-# Metodologia de Engenharia, Governança Científica e Cronograma de Etapas — QuantCrypto Chameleon Engine (v6.0)
+# Metodologia de engenharia, governança científica e roadmap
 
 Este documento define o protocolo determinístico de construção, validação estatística, transição entre fases operacionais e resposta a incidentes do **QuantCrypto Chameleon Engine (v6.0)**. Nenhuma linha de código avança de bloco e nenhum centavo adicional é arriscado sem o cumprimento binário (`PASS` / `FAIL`) dos critérios aqui estabelecidos.
 

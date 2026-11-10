@@ -1,0 +1,48 @@
+site_name: QuantCrypto Chameleon Engine v6
+site_description: Arquitetura, metodologia e roadmap do QuantCrypto Chameleon Engine
+site_url: https://pac-coins.github.io/quant-crypto-chameleon-engine-v6/
+repo_url: https://github.com/pac-coins/quant-crypto-chameleon-engine-v6
+repo_name: pac-coins/quant-crypto-chameleon-engine-v6
+
+theme:
+  name: material
+  language: pt
+  features:
+    - navigation.sections
+    - navigation.top
+    - content.code.copy
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      toggle:
+        icon: material/brightness-7
+        name: Usar modo escuro
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      toggle:
+        icon: material/brightness-4
+        name: Usar modo claro
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - pymdownx.details
+  - pymdownx.highlight
+  - pymdownx.inlinehilite
+  - pymdownx.keys
+  - pymdownx.superfences
+  - pymdownx.tabbed
+  - pymdownx.arithmatex:
+      generic: true
+  - toc:
+      permalink: true
+
+extra_javascript:
+  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
+
+nav:
+  - Início: index.md
+  - Arquitetura: architecture.md
+  - Metodologia e roadmap: methodology-and-roadmap.md
+  - Migração v5 → v6: v5-to-v6.md
+  - TODO: todo.md
