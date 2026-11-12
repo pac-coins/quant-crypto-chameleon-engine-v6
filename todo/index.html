@@ -1,0 +1,744 @@
+
+<!doctype html>
+<html lang="pt" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Arquitetura, metodologia e roadmap do QuantCrypto Chameleon Engine">
+      
+      
+      
+        <link rel="canonical" href="https://pac-coins.github.io/quant-crypto-chameleon-engine-v6/todo/">
+      
+      
+        <link rel="prev" href="../v5/">
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.1">
+    
+    
+      
+        <title>TODO - QuantCrypto Chameleon Engine v6</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.57a0d79d.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.fb2fffe2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#quadro-geral-de-triagem" class="md-skip">
+          Ir para o conteúdo
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Cabeçalho">
+    <a href=".." title="QuantCrypto Chameleon Engine v6" class="md-header__button md-logo" aria-label="QuantCrypto Chameleon Engine v6" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            QuantCrypto Chameleon Engine v6
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              TODO
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Usar modo escuro"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Usar modo escuro" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Usar modo claro"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Usar modo claro" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Buscar" placeholder="Buscar" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Pesquisar">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Limpar" aria-label="Limpar" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Inicializando a pesquisa
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/pac-coins/quant-crypto-chameleon-engine-v6" title="Ir ao repositório" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    pac-coins/quant-crypto-chameleon-engine-v6
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navegação" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="QuantCrypto Chameleon Engine v6" class="md-nav__button md-logo" aria-label="QuantCrypto Chameleon Engine v6" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    QuantCrypto Chameleon Engine v6
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/pac-coins/quant-crypto-chameleon-engine-v6" title="Ir ao repositório" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    pac-coins/quant-crypto-chameleon-engine-v6
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Início
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Arquitetura
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../methodology-and-roadmap/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Metodologia e roadmap
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../v5-to-v6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Migração v5 → v6
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../v5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    v5
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    TODO
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Índice">
+  
+  
+  
+    
+  
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="quadro-geral-de-triagem">Quadro geral de triagem<a class="headerlink" href="#quadro-geral-de-triagem" title="Permanent link">&para;</a></h1>
+<table>
+<thead>
+<tr>
+<th>Categoria</th>
+<th>Item Validado</th>
+<th>Quem Apontou</th>
+<th>Onde Entra</th>
+<th>Impacto Prático</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>1 — Catastrófico</strong></td>
+<td>Filtro exato do erro <code>-2010</code> e Stop Pendurado</td>
+<td>ChatGPT e DeepSeek</td>
+<td>Bloco 5 (<code>oco_order_manager</code>)</td>
+<td>Evita vender errado ou ficar sem stop</td>
+</tr>
+<tr>
+<td><strong>1 — Catastrófico</strong></td>
+<td>Arredondamento <code>close_time</code> (+1ms) no <code>merge_asof</code></td>
+<td>DeepSeek</td>
+<td>Bloco 1 (<code>candle_collector</code>)</td>
+<td>Evita perder a vela de 4h recém-fechada</td>
+</tr>
+<tr>
+<td><strong>1 — Catastrófico</strong></td>
+<td>Tratamento de <code>NaN</code> e divisão por zero no <code>CHOP</code></td>
+<td>ChatGPT</td>
+<td>Bloco 2 (<code>indicators.py</code>)</td>
+<td>Impede que o robô trave em moeda parada</td>
+</tr>
+<tr>
+<td><strong>1 — Catastrófico</strong></td>
+<td>Backup SQLite via <code>sqlite3.backup()</code> nativo</td>
+<td>ChatGPT</td>
+<td>Bloco 1 (<code>database.py</code>)</td>
+<td>Evita arquivo de backup corrompido</td>
+</tr>
+<tr>
+<td><strong>1 — Catastrófico</strong></td>
+<td>Cálculo empírico de <span class="arithmatex">\(\mathbb{E}[R]\)</span> com Time-Stop no Gate 3</td>
+<td>ChatGPT e DeepSeek</td>
+<td>Bloco 3 (Colab)</td>
+<td>Mede o lucro real de quem sai por tempo</td>
+</tr>
+<tr>
+<td><strong>1 — Catastrófico</strong></td>
+<td>Trava de 20 trials (<code>trials_registry.csv</code>) e Holdout 6m</td>
+<td>Gemini e DeepSeek</td>
+<td>Bloco 3 (Colab)</td>
+<td>Impede falso lucro por tentativa e erro</td>
+</tr>
+<tr>
+<td><strong>1 — Catastrófico</strong></td>
+<td>Kill-Switches (-12% DD, BNB min $2 e Manutenção API)</td>
+<td>Gemini e DeepSeek</td>
+<td>Bloco 6 (<code>main.py</code>)</td>
+<td>Trava novas compras em pane ou crise</td>
+</tr>
+<tr>
+<td><strong>2 — Refinamento</strong></td>
+<td>Mock de <code>/sapi/*</code> na Testnet e Permissão <code>Universal Transfer</code></td>
+<td>ChatGPT e DeepSeek</td>
+<td>Bloco 5 e <code>.env</code></td>
+<td>Testnet não aceita <code>/sapi/*</code> (evita erro 404)</td>
+</tr>
+<tr>
+<td><strong>2 — Refinamento</strong></td>
+<td><em>High-Water Mark</em> (Topo Histórico) no Cofre de Lucros</td>
+<td>ChatGPT</td>
+<td>Bloco 6 (<code>profit_splitter</code>)</td>
+<td>Só tira 30% quando recuperar prejuízos</td>
+</tr>
+<tr>
+<td><strong>2 — Refinamento</strong></td>
+<td>Teto de ordem em % da banca (<code>55%</code>) e BNB em Dólar (<code>$5</code>)</td>
+<td>ChatGPT e DeepSeek</td>
+<td>Bloco 4 (<code>strategies.yaml</code>)</td>
+<td>Protege bancas pequenas desde o dia 1</td>
+</tr>
+<tr>
+<td><strong>2 — Refinamento</strong></td>
+<td>Direção de arredondamento do <code>tickSize</code> na OCO</td>
+<td>ChatGPT</td>
+<td>Bloco 5 (<code>binance_client</code>)</td>
+<td>Evita que <code>stopPrice</code> cole no <code>stopLimit</code></td>
+</tr>
+<tr>
+<td><strong>2 — Refinamento</strong></td>
+<td>Trocar <em>Isotonic</em> por <em>Platt Scaling</em> para menos de 2.000 trades</td>
+<td>DeepSeek</td>
+<td>Bloco 3 (<code>ml_judge.py</code>)</td>
+<td>Evita que a IA decore dados pequenos</td>
+</tr>
+<tr>
+<td><strong>2 — Refinamento</strong></td>
+<td>Mínimo de 150 trades, Profit Factor maior que 1,20 e Holdout</td>
+<td>ChatGPT</td>
+<td>Bloco 3 (Colab)</td>
+<td>Mais segurança estatística antes do ao vivo</td>
+</tr>
+<tr>
+<td><strong>2 — Refinamento</strong></td>
+<td>Salvar Colunas 8 (<code>trades</code>) e 9 (<code>taker_buy_vol</code>) da vela</td>
+<td>Gemini (Trader Ref)</td>
+<td>Bloco 1 (<code>candle_collector</code>)</td>
+<td>Captura Order Flow grátis da Binance</td>
+</tr>
+<tr>
+<td><strong>2 — Refinamento</strong></td>
+<td>Calcular <em>Order Flow Delta</em> e <em>Liquidity Sweep</em> em 1h</td>
+<td>Gemini (Trader Ref)</td>
+<td>Bloco 2 (<code>indicators.py</code>)</td>
+<td>Mede agressão compradora e absorção</td>
+</tr>
+<tr>
+<td><strong>2 — Refinamento</strong></td>
+<td>Testar ablação Com vs. Sem <em>Order Flow</em> no Colab</td>
+<td>Gemini (Trader Ref)</td>
+<td>Bloco 3 (Colab)</td>
+<td>Só ativa Order Flow se subir o <span class="arithmatex">\(\mathbb{E}[R]\)</span></td>
+</tr>
+<tr>
+<td><strong>2 — Refinamento</strong></td>
+<td>IA em <em>Modo Observador Silencioso</em> na Fase 1 (60 trades)</td>
+<td>Gemini</td>
+<td>Bloco 6 (<code>ml_judge.py</code>)</td>
+<td>Prova que a IA acerta ao vivo antes da Fase 2</td>
+</tr>
+<tr>
+<td><strong>3 — Cosmético</strong></td>
+<td>Trocar o texto "Sobrevivência Determinística" no README</td>
+<td>ChatGPT</td>
+<td>Texto do README</td>
+<td>Muda zero linhas de código</td>
+</tr>
+<tr>
+<td><strong>3 — Cosmético</strong></td>
+<td>Renomear <code>CPPI_DRAWDOWN_CONTROL</code> para <code>DRAWDOWN_SCALING</code></td>
+<td>ChatGPT</td>
+<td>Nome no YAML</td>
+<td>Muda zero linhas de matemática</td>
+</tr>
+<tr>
+<td><strong>3 — Cosmético</strong></td>
+<td>Reclamar que a Fase 1 é "simples demais / MVP"</td>
+<td>DeepSeek</td>
+<td>Nenhum</td>
+<td>Contradição: simplificar a Fase 1 era a meta!</td>
+</tr>
+<tr>
+<td><strong>3 — Cosmético</strong></td>
+<td>Decidir se o Cofre em <code>FUNDING</code> guarda USDT ou XRP</td>
+<td>DeepSeek</td>
+<td>Operação manual</td>
+<td>Guardar USDT já protege o lucro sem taxa extra</td>
+</tr>
+<tr>
+<td><strong>3 — Cosmético</strong></td>
+<td>Testar se <code>SIDEWAYS</code> deve vir antes de <code>BEAR</code></td>
+<td>DeepSeek</td>
+<td>Nenhum</td>
+<td>Ficar em dólar na queda (<code>BEAR</code> 1º) é mais seguro</td>
+</tr>
+<tr>
+<td><strong>3 — Cosmético</strong></td>
+<td>Ler <em>Order Book Level 2</em> (Livro de Ofertas) ao vivo</td>
+<td>Gemini (Descartado)</td>
+<td>Nenhum</td>
+<td>Sem backtest grátis, sofre spoofing e pesa na VPS</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 id="checklist-de-execucao-por-bloco-ordem-estrita-de-construcao">Checklist de Execução por Bloco (Ordem Estrita de Construção)<a class="headerlink" href="#checklist-de-execucao-por-bloco-ordem-estrita-de-construcao" title="Permanent link">&para;</a></h1>
+<h2 id="bloco-1-fundacao-banco-sqlite-wal-relogio-e-coletor-causal">Bloco 1: Fundação, Banco SQLite WAL, Relógio e Coletor Causal<a class="headerlink" href="#bloco-1-fundacao-banco-sqlite-wal-relogio-e-coletor-causal" title="Permanent link">&para;</a></h2>
+<ul>
+<li>[ ] Criar <code>config/strategies.yaml</code> (v6.0) e validador em <code>src/core/config.py</code>.</li>
+<li>[ ] Implementar <code>src/core/database.py</code> com <code>PRAGMA journal_mode=WAL</code>, <code>synchronous=FULL</code>, rotina nativa <code>sqlite3.backup()</code> e colunas <code>taker_buy_base_volume</code> e <code>number_of_trades</code> na tabela <code>candles</code>.</li>
+<li>[ ] Implementar <code>src/core/binance_client.py</code> com assinatura Ed25519, sincronização monotônica (<code>RTT/2</code>), cache dinâmico de <code>/api/v3/exchangeInfo</code>, arredondamento <code>Decimal</code> direcional (<code>tickSize</code> / <code>stepSize</code>) e mock automático para endpoints <code>/sapi/*</code> na Testnet.</li>
+<li>[ ] Implementar <code>src/data/candle_collector.py</code> normalizando <code>close_time</code> para o segundo exato seguinte (<code>+1ms</code>) e fazendo junção 4h/1h via <code>merge_asof(..., direction='backward', allow_exact_matches=True)</code>.</li>
+<li>[ ] Passar 100% no <strong>Gate 1</strong> (<code>pytest tests/test_block1_causal_and_decimal.py</code>).</li>
+</ul>
+<h2 id="bloco-2-indicadores-canonicos-ta-lib-order-flow-e-clima-mece">Bloco 2: Indicadores Canônicos (TA-Lib), Order Flow e Clima MECE<a class="headerlink" href="#bloco-2-indicadores-canonicos-ta-lib-order-flow-e-clima-mece" title="Permanent link">&para;</a></h2>
+<ul>
+<li>[ ] Implementar <code>src/features/indicators.py</code> com <code>EMA</code>, <code>ATR</code> (Wilder), <code>RSI</code> (Wilder), <code>Bollinger</code>, <code>ADX</code> (Wilder), <code>CHOP</code> (base 10 com proteção contra divisão por zero) e variáveis de fluxo (<code>order_flow_delta</code>, <code>taker_buy_ratio</code>, <code>liquidity_sweep_bull</code>).</li>
+<li>[ ] Implementar <code>src/regimes/regime_detector.py</code> com partição MECE de 4 estados (<code>BEAR</code> -&gt; <code>BULL</code> -&gt; <code>SIDEWAYS</code> -&gt; <code>TRANSITION</code>) e fallback automático para <code>TRANSITION</code> em caso de <code>NaN</code> ou histórico menor que 120 velas.</li>
+<li>[ ] Passar 100% no <strong>Gate 2</strong> (<code>pytest tests/test_block2_talib_and_mece.py</code>).</li>
+</ul>
+<h2 id="bloco-3-simulador-causal-single-slot-e-ablacao-no-google-colab">Bloco 3: Simulador Causal Single-Slot e Ablação no Google Colab<a class="headerlink" href="#bloco-3-simulador-causal-single-slot-e-ablacao-no-google-colab" title="Permanent link">&para;</a></h2>
+<ul>
+<li>[ ] Criar <code>notebooks/01_download_causal_1h_4h_1m.ipynb</code> baixando dados desde <code>2022-01-01</code> das 7 moedas (<code>BTC</code>, <code>ETH</code>, <code>SOL</code>, <code>XRP</code>, <code>ADA</code>, <code>LINK</code>, <code>AVAX</code>) incluindo volume de agressão compradora.</li>
+<li>[ ] Criar <code>notebooks/02_ablation_and_dsr_sim.ipynb</code> com partição <code>60% Treino / 25% Validação / 15% Holdout (6 meses)</code>, cálculo empírico de <span class="arithmatex">\(\mathbb{E}[R]\)</span> (incluindo saídas por tempo de 24h), comparação com e sem filtro de <em>Order Flow Delta</em> e registro automático em <code>trials_registry.csv</code>.</li>
+<li>[ ] Passar no <strong>Gate 3</strong>: mínimo de 150 trades fora da amostra, <span class="arithmatex">\(\bar{R}\)</span> maior que <span class="arithmatex">\(+0,10R\)</span> (IC 95% positivo via <em>Block Bootstrap</em>), <em>Profit Factor</em> maior ou igual a <span class="arithmatex">\(1,20\)</span> no custo Base e maior que <span class="arithmatex">\(1,05\)</span> no custo Pessimista, e <span class="arithmatex">\(\text{DSR}\)</span> maior ou igual a <span class="arithmatex">\(0,95\)</span>.</li>
+</ul>
+<h2 id="bloco-4-dimensionamento-de-teto-duplo-drawdown-scaling-e-cofre">Bloco 4: Dimensionamento de Teto Duplo, Drawdown Scaling e Cofre<a class="headerlink" href="#bloco-4-dimensionamento-de-teto-duplo-drawdown-scaling-e-cofre" title="Permanent link">&para;</a></h2>
+<ul>
+<li>[ ] Implementar <code>src/risk/position_sizer.py</code> com teto duplo (risco de 1% e máximo de 50% do caixa operável), trava proporcional <span class="arithmatex">\(\min(500\text{ USDT}, 55\%\text{ da banca})\)</span>, desconto de <code>pending_hodl_bucket_usdt</code> e aborto se menor que <span class="arithmatex">\(1,05 \times \text{minNotional}\)</span>.</li>
+<li>[ ] Implementar <code>src/risk/shadow_manager.py</code> com corte de risco pela metade em drawdown de 4% e gatilhos de <em>Auto-Downgrade</em> e <em>Hard Stop</em> (-12%).</li>
+<li>[ ] Implementar <code>src/risk/profit_splitter.py</code> com regra de <em>High-Water Mark</em> e transferência <code>MAIN_FUNDING</code>.</li>
+<li>[ ] Passar 100% no <strong>Gate 4</strong> (<code>pytest tests/test_block4_dual_cap_and_cppi.py</code>).</li>
+</ul>
+<h2 id="bloco-5-execucao-oco-watchdog-de-stop-e-reconciliador-de-boot">Bloco 5: Execução OCO, Watchdog de Stop e Reconciliador de Boot<a class="headerlink" href="#bloco-5-execucao-oco-watchdog-de-stop-e-reconciliador-de-boot" title="Permanent link">&para;</a></h2>
+<ul>
+<li>[ ] Implementar <code>src/execution/oco_order_manager.py</code> descontando comissão no ativo base, tratando erro <code>-2010</code> com verificação de preço/mensagem para fallback <code>MARKET</code>, <em>watchdog</em> de stop pendurado e fechamento de 4 passos no Time-Stop.</li>
+<li>[ ] Implementar <code>src/core/state_reconciler.py</code> resolvendo <code>PENDING_ENTRY</code> via <code>origClientOrderId</code> (sem duplicar compra em caso de timeout <code>-1007</code>) e curando execuções parciais de OCO.</li>
+<li>[ ] Passar 100% no <strong>Gate 5</strong> (<code>pytest tests/test_block5_reconciler_and_oco.py</code> + 4 Testes de Tortura na Testnet).</li>
+</ul>
+<h2 id="bloco-6-observabilidade-voo-assistido-e-graduacao-de-fases">Bloco 6: Observabilidade, Voo Assistido e Graduação de Fases<a class="headerlink" href="#bloco-6-observabilidade-voo-assistido-e-graduacao-de-fases" title="Permanent link">&para;</a></h2>
+<ul>
+<li>[ ] Implementar <code>src/notifications/telegram_reporter.py</code> e <code>src/main.py</code> (com checagem de manutenção <code>/sapi/v1/system/status</code> e reserva de BNB).</li>
+<li>[ ] Aprovar <strong>Gate 6A</strong> (7 dias na Testnet + teste de restauração do backup SQLite) e <strong>Gate 6B</strong> (30 dias ou 25 trades em <em>Shadow Live</em> com dados reais).</li>
+<li>[ ] Iniciar <strong>Fase 1</strong> com capital real (apenas <code>BULL</code>, risco fixo de 1%, IA anotando notas em modo silencioso) até completar 60 trades reais para avaliar subida à <strong>Fase 2</strong>.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Voltar ao topo
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.sections", "navigation.top", "content.code.copy"], "search": "../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copiado para \u00e1rea de transfer\u00eancia", "clipboard.copy": "Copiar para \u00e1rea de transfer\u00eancia", "search.result.more.one": "Mais 1 nesta p\u00e1gina", "search.result.more.other": "Mais # nesta p\u00e1gina", "search.result.none": "Nenhum resultado encontrado", "search.result.one": "1 resultado encontrado", "search.result.other": "# resultados encontrados", "search.result.placeholder": "Digite para iniciar a busca", "search.result.term.missing": "Ausente", "select.version": "Selecione a vers\u00e3o"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.a5f9d56c.min.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

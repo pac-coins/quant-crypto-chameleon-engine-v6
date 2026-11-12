@@ -1,0 +1,1449 @@
+
+<!doctype html>
+<html lang="pt" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Arquitetura, metodologia e roadmap do QuantCrypto Chameleon Engine">
+      
+      
+      
+        <link rel="canonical" href="https://pac-coins.github.io/quant-crypto-chameleon-engine-v6/architecture/">
+      
+      
+        <link rel="prev" href="..">
+      
+      
+        <link rel="next" href="../methodology-and-roadmap/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.1">
+    
+    
+      
+        <title>Arquitetura - QuantCrypto Chameleon Engine v6</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.57a0d79d.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.fb2fffe2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#arquitetura-sistematica-validacao-estatistica-e-execucao-blindada" class="md-skip">
+          Ir para o conteúdo
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Cabeçalho">
+    <a href=".." title="QuantCrypto Chameleon Engine v6" class="md-header__button md-logo" aria-label="QuantCrypto Chameleon Engine v6" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            QuantCrypto Chameleon Engine v6
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Arquitetura
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Usar modo escuro"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Usar modo escuro" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Usar modo claro"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Usar modo claro" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Buscar" placeholder="Buscar" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Pesquisar">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Limpar" aria-label="Limpar" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Inicializando a pesquisa
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/pac-coins/quant-crypto-chameleon-engine-v6" title="Ir ao repositório" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    pac-coins/quant-crypto-chameleon-engine-v6
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navegação" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="QuantCrypto Chameleon Engine v6" class="md-nav__button md-logo" aria-label="QuantCrypto Chameleon Engine v6" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    QuantCrypto Chameleon Engine v6
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/pac-coins/quant-crypto-chameleon-engine-v6" title="Ir ao repositório" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    pac-coins/quant-crypto-chameleon-engine-v6
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Início
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Arquitetura
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Arquitetura
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Índice">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Índice
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-arquitetura-patrimonial-core-satellite-reserva-de-bnb-e-segregacao-via-carteira-funding" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Arquitetura Patrimonial: Core-Satellite, Reserva de BNB e Segregação via Carteira Funding
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-o-cerebro-camaleao-particao-mece-de-4-estados-e-causalidade-temporal-estrita" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. O Cérebro "Camaleão": Partição MECE de 4 Estados e Causalidade Temporal Estrita
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. O Cérebro &#34;Camaleão&#34;: Partição MECE de 4 Estados e Causalidade Temporal Estrita">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-lei-da-causalidade-temporal-estrita-zero-look-ahead-bias" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1. Lei da Causalidade Temporal Estrita (Zero Look-Ahead Bias)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-definicoes-matematicas-canonicas-dos-indicadores-de-regime" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2. Definições Matemáticas Canônicas dos Indicadores de Regime
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-particao-mece-dos-4-climas-de-mercado-ordem-de-precedencia-estrita" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3. Partição MECE dos 4 Climas de Mercado (Ordem de Precedência Estrita)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24-cesta-de-7-ativos-liquidos-mitigacao-de-survivorship-bias-e-fila-single-slot" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4. Cesta de 7 Ativos Líquidos (Mitigação de Survivorship Bias) e Fila "Single-Slot"
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-gestao-quantitativa-de-risco-dimensionamento-de-lote-e-controle-de-drawdown" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Gestão Quantitativa de Risco, Dimensionamento de Lote e Controle de Drawdown
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Gestão Quantitativa de Risco, Dimensionamento de Lote e Controle de Drawdown">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-dimensionamento-fracionario-fixo-com-teto-duplo-e-trava-de-expectancia-substituindo-o-falso-kelly" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1. Dimensionamento Fracionário Fixo com Teto Duplo e Trava de Expectância (Substituindo o Falso "Kelly")
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-politica-sobre-o-breakeven-em-12r-por-que-comeca-desligado-na-fase-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2. Política sobre o Breakeven em \(+1.2R\) (Por Que Começa Desligado na Fase 1)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-controle-de-drawdown-cppi-e-reforma-do-modo-fantasma-shadow_managerpy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3. Controle de Drawdown (CPPI) e Reforma do "Modo Fantasma" (shadow_manager.py)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-ciencia-de-dados-calibracao-de-probabilidades-e-validacao-estatistica-bloco-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Ciência de Dados, Calibração de Probabilidades e Validação Estatística (Bloco 3)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-engenharia-de-resiliencia-e-integracao-com-a-binance-spot-api-blocos-1-5-e-6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Engenharia de Resiliência e Integração com a Binance Spot API (Blocos 1, 5 e 6)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-metodologia-de-construcao-incremental-os-6-estagios-e-seus-gates-de-aprovacao" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Metodologia de Construção Incremental (Os 6 Estágios e Seus Gates de Aprovação)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-mapa-de-diagnostico-rapido-onde-olhar-quando-algo-der-errado" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Mapa de Diagnóstico Rápido (Onde Olhar Quando Algo Der Errado)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-arvore-de-arquivos-do-projeto-v60" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Árvore de Arquivos do Projeto (v6.0)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-arquivo-central-de-configuracao-configstrategiesyaml-v60" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Arquivo Central de Configuração (config/strategies.yaml — v6.0)
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../methodology-and-roadmap/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Metodologia e roadmap
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../v5-to-v6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Migração v5 → v6
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../v5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    v5
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../todo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    TODO
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Índice">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Índice
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-arquitetura-patrimonial-core-satellite-reserva-de-bnb-e-segregacao-via-carteira-funding" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Arquitetura Patrimonial: Core-Satellite, Reserva de BNB e Segregação via Carteira Funding
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-o-cerebro-camaleao-particao-mece-de-4-estados-e-causalidade-temporal-estrita" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. O Cérebro "Camaleão": Partição MECE de 4 Estados e Causalidade Temporal Estrita
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. O Cérebro &#34;Camaleão&#34;: Partição MECE de 4 Estados e Causalidade Temporal Estrita">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-lei-da-causalidade-temporal-estrita-zero-look-ahead-bias" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1. Lei da Causalidade Temporal Estrita (Zero Look-Ahead Bias)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-definicoes-matematicas-canonicas-dos-indicadores-de-regime" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2. Definições Matemáticas Canônicas dos Indicadores de Regime
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-particao-mece-dos-4-climas-de-mercado-ordem-de-precedencia-estrita" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3. Partição MECE dos 4 Climas de Mercado (Ordem de Precedência Estrita)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24-cesta-de-7-ativos-liquidos-mitigacao-de-survivorship-bias-e-fila-single-slot" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4. Cesta de 7 Ativos Líquidos (Mitigação de Survivorship Bias) e Fila "Single-Slot"
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-gestao-quantitativa-de-risco-dimensionamento-de-lote-e-controle-de-drawdown" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Gestão Quantitativa de Risco, Dimensionamento de Lote e Controle de Drawdown
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Gestão Quantitativa de Risco, Dimensionamento de Lote e Controle de Drawdown">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-dimensionamento-fracionario-fixo-com-teto-duplo-e-trava-de-expectancia-substituindo-o-falso-kelly" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1. Dimensionamento Fracionário Fixo com Teto Duplo e Trava de Expectância (Substituindo o Falso "Kelly")
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-politica-sobre-o-breakeven-em-12r-por-que-comeca-desligado-na-fase-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2. Política sobre o Breakeven em \(+1.2R\) (Por Que Começa Desligado na Fase 1)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-controle-de-drawdown-cppi-e-reforma-do-modo-fantasma-shadow_managerpy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3. Controle de Drawdown (CPPI) e Reforma do "Modo Fantasma" (shadow_manager.py)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-ciencia-de-dados-calibracao-de-probabilidades-e-validacao-estatistica-bloco-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Ciência de Dados, Calibração de Probabilidades e Validação Estatística (Bloco 3)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-engenharia-de-resiliencia-e-integracao-com-a-binance-spot-api-blocos-1-5-e-6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Engenharia de Resiliência e Integração com a Binance Spot API (Blocos 1, 5 e 6)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-metodologia-de-construcao-incremental-os-6-estagios-e-seus-gates-de-aprovacao" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Metodologia de Construção Incremental (Os 6 Estágios e Seus Gates de Aprovação)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-mapa-de-diagnostico-rapido-onde-olhar-quando-algo-der-errado" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Mapa de Diagnóstico Rápido (Onde Olhar Quando Algo Der Errado)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-arvore-de-arquivos-do-projeto-v60" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Árvore de Arquivos do Projeto (v6.0)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-arquivo-central-de-configuracao-configstrategiesyaml-v60" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Arquivo Central de Configuração (config/strategies.yaml — v6.0)
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="arquitetura-sistematica-validacao-estatistica-e-execucao-blindada">Arquitetura sistemática, validação estatística e execução blindada<a class="headerlink" href="#arquitetura-sistematica-validacao-estatistica-e-execucao-blindada" title="Permanent link">&para;</a></h1>
+<p>Este repositório contém a arquitetura de engenharia de software, o pipeline de validação econométrica e a metodologia de construção incremental em seis estágios para um robô de <strong>Trading Sistemático Adaptativo (1h/4h)</strong> na <strong>Binance Spot</strong>.</p>
+<p>O sistema foi projetado para administrar um capital inicial de <strong>300 XRP</strong> sem uso de alavancagem, sob duas premissas inegociáveis:</p>
+<ol>
+<li><strong>Rigor Epistemológico:</strong> Nenhuma estratégia operacional, filtro de regime ou modelo de Inteligência Artificial é presumido como lucrativo a priori. Toda regra de decisão é tratada como uma <strong>hipótese estatística</strong> que permanece desativada (<em>Feature Flag OFF</em>) até superar os testes fora da amostra (<em>Out-of-Sample</em>) com custos reais, estresse de cauda e correção para múltiplos testes no Estágio 3.</li>
+<li><strong>Sobrevivência Operacional Determinística:</strong> Quedas de energia, perda de pacotes de rede (<em>Timeouts</em>), variações de relógio da máquina virtual, cobrança de taxas no ativo base ou saltos de preço (<em>Flash-Crashes</em>) jamais podem deixar uma posição aberta sem proteção de Stop Loss ou liquidar acidentalmente o patrimônio de longo prazo.</li>
+</ol>
+<hr />
+<h2 id="1-arquitetura-patrimonial-core-satellite-reserva-de-bnb-e-segregacao-via-carteira-funding">1. Arquitetura Patrimonial: Core-Satellite, Reserva de BNB e Segregação via Carteira Funding<a class="headerlink" href="#1-arquitetura-patrimonial-core-satellite-reserva-de-bnb-e-segregacao-via-carteira-funding" title="Permanent link">&para;</a></h2>
+<p>Para separar o investimento passivo de longo prazo do giro tático do robô sem criar conflitos contábeis na corretora, o patrimônio inicial de <strong>300 XRP</strong> é dividido em três camadas fisicamente isoladas:</p>
+<ul>
+<li><strong>Carteira Core (50% — 150 XRP em Hold Direcional Intocável):</strong> Mantida em carteira externa (ou subconta isolada fora do escopo da API Spot).</li>
+<li>
+<p><em>Nota de Transparência de Risco:</em> A Carteira Core possui <strong>risco operacional zero</strong> (o robô não consegue tocá-la), mas permanece <strong>100% exposta ao risco direcional de mercado do XRP</strong>. Em ciclos históricos de baixa (<em>bear markets</em> cripto), um ativo único pode sofrer quedas temporárias (<em>drawdowns</em>) de 70% a 90%. Portanto, a Carteira Core é uma alocação direcional consciente de longo prazo, enquanto a preservação ativa em dólar ocorre exclusivamente na Carteira Tática. O risco global é monitorado pelo <em>Value at Risk</em> (VaR) e <em>Conditional VaR</em> (CVaR a 99%) do portfólio combinado.</p>
+</li>
+<li>
+<p><strong>Carteira Tática Camaleão (48,5% — Equivalente a 145,5 XRP convertidos em USDT):</strong> Constitui o caixa operacional do robô (<span class="arithmatex">\(C_{\text{usdt, total}}\)</span>) na carteira <code>SPOT</code> (<code>MAIN</code>). Permite operar os pares mais líquidos do mercado e permanecer 100% protegido em dólar (<code>USDT</code>) durante períodos de queda ou indefinição.</p>
+</li>
+<li><strong>Reserva Técnica Intocável de Taxas (1,5% — Equivalente a 4,5 XRP convertidos em BNB):</strong> Mantida na carteira <code>SPOT</code> com a opção <em>Use BNB to pay fees</em> ativada na Binance (garantindo 25% de desconto nas taxas).</li>
+<li>
+<p><em>Por que o BNB é isolado?</em> Na versão anterior (v5), se você não tivesse BNB livre — ou se o robô operasse o par <code>BNBUSDT</code> e vendesse todo o seu BNB —, a Binance descontaria a taxa de compra da própria moeda comprada (ex.: você compraria 10 SOL e receberia 9,99 SOL). Ao tentar criar a ordem de Stop Loss (OCO) para os 10 SOL inteiros, a Binance recusaria a ordem por saldo insuficiente (<code>Erro -2010</code>) e sua posição ficaria <strong>desprotegida</strong>. Na v6.0, o par <code>BNBUSDT</code> é <strong>proibido</strong> na cesta de trading para nunca consumir a reserva de taxas, e o módulo de ordens calcula o Stop Loss sobre o saldo líquido real.</p>
+</li>
+<li>
+<p><strong>Cofre Divisor de Lucros com Isolamento Físico (<code>profit_splitter.py</code>):</strong></p>
+</li>
+<li>Começa <strong>desligado na Fase 1</strong> (<code>enabled: false</code>) até que o robô comprove vantagem estatística real.</li>
+<li>Quando ativado na Fase 2, separa contabilmente 70% do lucro líquido de cada operação vencedora para reinvestimento no robô e 30% em uma variável do banco SQLite (<code>pending_hodl_bucket_usdt</code>).</li>
+<li><strong>Proteção de Caixa Livre:</strong> O dimensionador de lotes (<code>position_sizer.py</code>) desconta obrigatoriamente o saldo do cofrinho antes de calcular qualquer compra:</li>
+</ul>
+<div class="arithmatex">\[C_{\text{usdt, operável}} = \max\left(0, \; \text{USDT}_{\text{free}} - \text{pending\_hodl\_bucket\_usdt}\right)\]</div>
+<p>Isso impede que o robô gaste o dinheiro do cofrinho em novas operações enquanto ele ainda não atingiu 10,00 USDT.
+* <strong>Segregação Automática na Carteira <code>FUNDING</code>:</strong> Assim que <code>pending_hodl_bucket_usdt</code> atinge pelo menos <strong>10,00 USDT</strong>, o robô não deixa moedas compradas paradas na carteira Spot (onde o reconciliador de boot acharia que é uma posição órfã sem Stop Loss e a venderia!). Em vez disso, o sistema transfere os 10,00 USDT **diretamente da carteira <code>SPOT</code> para a carteira <code>FUNDING**</code> da própria Binance via endpoint oficial <code>POST /sapi/v1/asset/transfer</code> (<code>type="MAIN_FUNDING"</code>). A carteira <code>FUNDING</code> é 100% invisível e intocável pelas ordens de trade Spot, eliminando qualquer condição de corrida sem precisar habilitar permissão de saque externo na chave de API.</p>
+<hr />
+<h2 id="2-o-cerebro-camaleao-particao-mece-de-4-estados-e-causalidade-temporal-estrita">2. O Cérebro "Camaleão": Partição MECE de 4 Estados e Causalidade Temporal Estrita<a class="headerlink" href="#2-o-cerebro-camaleao-particao-mece-de-4-estados-e-causalidade-temporal-estrita" title="Permanent link">&para;</a></h2>
+<p>Imagine que o robô é um piloto de corrida que olha o boletim meteorológico de 4 em 4 horas (<code>4h</code>) para escolher o pneu certo antes de acelerar de hora em hora (<code>1h</code>). Na versão anterior (v5), havia dois defeitos graves nesse sensor:</p>
+<ol>
+<li><strong>Horários que olhavam o futuro (<em>Look-Ahead Bias</em>):</strong> Às 13h, a vela de 4h que abriu às 12h só vai fechar às 16h. Se o computador ler a vela das 12h durante o teste histórico, ele estará lendo às 13h o que aconteceu até as 16h!</li>
+<li><strong>Regras com buracos (<em>Não-MECE</em>):</strong> Se o índice de bagunça do mercado (<code>CHOP</code>) ficasse em 52 (entre 50 e 55), nenhuma regra funcionava e o sensor ficava cego.</li>
+</ol>
+<h3 id="21-lei-da-causalidade-temporal-estrita-zero-look-ahead-bias">2.1. Lei da Causalidade Temporal Estrita (Zero Look-Ahead Bias)<a class="headerlink" href="#21-lei-da-causalidade-temporal-estrita-zero-look-ahead-bias" title="Permanent link">&para;</a></h3>
+<p>Tanto no coletor ao vivo (<code>candle_collector.py</code>) quanto nos notebooks do Google Colab, nenhuma série é alinhada pelo horário de abertura (<code>open_time</code>). Todas as velas de 1h, 4h e do Bitcoin são indexadas pelo seu horário efetivo de fechamento (<code>close_time_utc</code>). No instante de decisão <span class="arithmatex">\(t\)</span> (fechamento de uma vela de 1h), o estado macro de 4h só pode utilizar a última vela de 4h cujo fechamento <span class="arithmatex">\(T_{\text{close}, 4h}\)</span> satisfaça:</p>
+<div class="arithmatex">\[T_{\text{close}, 4h} \le t\]</div>
+<p>No código, essa junção é executada exclusivamente via <code>pandas.merge_asof(df_1h, df_4h, on='close_time_utc', direction='backward', allow_exact_matches=True)</code>. Assim, às 01h, 02h e 03h UTC, o robô enxerga apenas a vela de 4h que fechou à 00h00 UTC; às 04h00 UTC, enxerga a vela de 4h que acabou de fechar às 04h00 UTC.</p>
+<h3 id="22-definicoes-matematicas-canonicas-dos-indicadores-de-regime">2.2. Definições Matemáticas Canônicas dos Indicadores de Regime<a class="headerlink" href="#22-definicoes-matematicas-canonicas-dos-indicadores-de-regime" title="Permanent link">&para;</a></h3>
+<p>Para evitar distorções numéricas que invalidem os limiares da literatura:</p>
+<ul>
+<li><strong>True Range (<span class="arithmatex">\(\text{TR}_t\)</span>):</strong> <span class="arithmatex">\(\text{TR}_t = \max\left(H_t - L_t, \; \vert{}H_t - C_{t-1}\vert{}, \; \vert{}L_t - C_{t-1}\vert{}\right)\)</span>.</li>
+<li><strong>ATR de 14 períodos (<span class="arithmatex">\(\text{ATR}_{14}\)</span>):</strong> Calculado com a suavização exponencial de Wilder (RMA com <span class="arithmatex">\(\alpha = 1/14\)</span>).</li>
+<li><strong>ADX de 14 períodos (<span class="arithmatex">\(\text{ADX}_{14}\)</span>):</strong> Calculado estritamente com a suavização RMA de Wilder sobre <span class="arithmatex">\(+\text{DM}\)</span>, <span class="arithmatex">\(-\text{DM}\)</span> e <span class="arithmatex">\(\text{TR}\)</span> (validado contra a biblioteca <code>TA-Lib</code> com erro máximo inferior a <span class="arithmatex">\(10^{-10}\)</span>).</li>
+<li><strong>Choppiness Index (<span class="arithmatex">\(\text{CHOP}_{14}\)</span>):</strong> Calculado obrigatoriamente na base logarítmica 10 (Dreiss, 1993):</li>
+</ul>
+<div class="arithmatex">\[\text{CHOP}_{14, t} = 100 \cdot \frac{\log_{10}\left( \frac{\sum_{j=t-13}^{t} \text{TR}_j}{\max_{j \in [t-13, t]} H_j - \min_{j \in [t-13, t]} L_j} \right)}{\log_{10}(14)}\]</div>
+<h3 id="23-particao-mece-dos-4-climas-de-mercado-ordem-de-precedencia-estrita">2.3. Partição MECE dos 4 Climas de Mercado (Ordem de Precedência Estrita)<a class="headerlink" href="#23-particao-mece-dos-4-climas-de-mercado-ordem-de-precedencia-estrita" title="Permanent link">&para;</a></h3>
+<p>A função <code>detect_market_regime()</code> avalia os indicadores da última vela fechada de 4h seguindo uma árvore de decisão <strong>Mutuamente Exclusiva e Coletivamente Exaustiva (MECE)</strong> onde a defesa do capital tem prioridade máxima:</p>
+<table>
+<thead>
+<tr>
+<th>Ordem</th>
+<th>Regime Detectado</th>
+<th>Regra Matemática Exata no 4h</th>
+<th>Estratégia em 1h</th>
+<th>Status na Fase 1</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>1º</strong></td>
+<td><strong>BEAR (Tempestade)</strong></td>
+<td><span class="arithmatex">\(\text{Close}_{4h} \lt \text{EMA}_{100, 4h}\)</span> e <span class="arithmatex">\(\Delta \text{EMA}_{100, 4h} \lt 0\)</span></td>
+<td>Defesa em USDT (<code>bear_capitulation_snap</code> em quarentena)</td>
+<td><strong>Ativo (Defesa 100% USDT)</strong></td>
+</tr>
+<tr>
+<td><strong>2º</strong></td>
+<td><strong>BULL (Sol Aberto)</strong></td>
+<td><span class="arithmatex">\(\text{Close}_{4h} \gt \text{EMA}_{100, 4h}\)</span> e <span class="arithmatex">\(\Delta \text{EMA}_{100, 4h} \gt 0\)</span> e <span class="arithmatex">\(\text{CHOP}_{14, 4h} \lt 50\)</span></td>
+<td><code>bull_trend_pullback</code> (Recuo na <span class="arithmatex">\(\text{EMA}_{20, 1h}\)</span>)</td>
+<td><strong>Ativo (Fase 1)</strong></td>
+</tr>
+<tr>
+<td><strong>3º</strong></td>
+<td><strong>SIDEWAYS (Lateral)</strong></td>
+<td>Não é <code>BEAR</code>, <span class="arithmatex">\(\text{CHOP}_{14, 4h} \ge 55\)</span> e <span class="arithmatex">\(\text{ADX}_{14, 4h} \lt 22\)</span></td>
+<td><code>sideways_pingpong</code> (Banda Inf. + <span class="arithmatex">\(\text{RSI}_{14} \lt 32\)</span> + <span class="arithmatex">\(\text{RR} \ge 1.5\)</span>)</td>
+<td><strong>Desligado (Fase 2)</strong></td>
+</tr>
+<tr>
+<td><strong>4º</strong></td>
+<td><strong>TRANSITION (Neblina)</strong></td>
+<td>Qualquer estado intermediário não capturado acima</td>
+<td>Nenhuma (<code>NO_TRADE</code> — 100% em USDT)</td>
+<td><strong>Ativo (Proteção)</strong></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>Por que <code>sideways_pingpong</code> exige a trava <span class="arithmatex">\(\text{RR} \ge 1.5\)</span>?</strong> Como o alvo no mercado lateral é a média central da Banda de Bollinger (<span class="arithmatex">\(\text{SMA}_{20}\)</span>) e o stop é <span class="arithmatex">\(1.5 \times \text{ATR}_{14}\)</span>, quando as bandas se estreitam o alvo pode ficar mais curto que o próprio risco! O robô bloqueia a entrada se <span class="arithmatex">\(\frac{\text{SMA}_{20, t} - P_{\text{entry}}}{1.5 \cdot \text{ATR}_{14, t}} \lt 1.5\)</span>.</li>
+<li><strong>Por que <code>bear_capitulation_snap</code> começa desligado em quarentena?</strong> Na literatura quantitativa (Connors), comprar <span class="arithmatex">\(\text{RSI}_2\)</span> abaixo de 5 funciona quando o ativo está <em>acima</em> da média longa de 200 períodos. Comprar <span class="arithmatex">\(\text{RSI}_2\)</span> abaixo de 5 em tendência de baixa (<span class="arithmatex">\(\text{Close}_{4h} \lt \text{EMA}_{100, 4h}\)</span>) no mercado cripto expõe a conta ao risco de comprar colapsos estruturais (como ocorreu com LUNA e FTT). Essa estratégia só pode ser ligada se provar expectância líquida positiva no teste de estresse com filtro adicional de rejeição de pavio inferior.</li>
+</ul>
+<h3 id="24-cesta-de-7-ativos-liquidos-mitigacao-de-survivorship-bias-e-fila-single-slot">2.4. Cesta de 7 Ativos Líquidos (Mitigação de Survivorship Bias) e Fila "Single-Slot"<a class="headerlink" href="#24-cesta-de-7-ativos-liquidos-mitigacao-de-survivorship-bias-e-fila-single-slot" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Cesta Congelada de 7 Pares:</strong> <code>BTCUSDT</code>, <code>ETHUSDT</code>, <code>SOLUSDT</code>, <code>XRPUSDT</code>, <code>ADAUSDT</code>, <code>LINKUSDT</code> e <code>AVAXUSDT</code> (<code>BNBUSDT</code> excluído para proteger a reserva de taxas).</li>
+<li><strong>Controle de Viés de Sobrevivência (<em>Survivorship Bias</em>):</strong> Como ativos como <code>SOL</code> e <code>AVAX</code> não possuíam liquidez consolidada em 2019–2020, o backtest multi-ativo padrão é restrito ao período a partir de <code>2022-01-01</code> (quando todos os 7 pares já integravam o topo de liquidez da Binance), além de exigir um teste separado de estresse incluindo ativos deslistados/colapsados da época se estratégias de reversão à média forem avaliadas.</li>
+<li><strong>Desempate Coerente na Fila Single-Slot (<code>MAX_OPEN_POSITIONS = 1</code>):</strong></li>
+<li>Na <strong>Fase 1</strong> (onde apenas <code>bull_trend_pullback</code> opera), se duas moedas derem sinal na mesma hora, o desempate utiliza a Força Relativa Ajustada por Volatilidade nas últimas 12 horas:</li>
+</ul>
+<div class="arithmatex">\[\text{RS}_{\text{score}, i} = \frac{\text{Close}_{i, t} - \text{Close}_{i, t-12}}{\text{ATR}_{14, i, t}}\]</div>
+<ul>
+<li>Na <strong>Fase 2+</strong> (se mais de um regime estiver habilitado com IA calibrada), é proibido comparar <span class="arithmatex">\(\text{RS}_{\text{score}}\)</span> bruto entre estratégias de tendência e estratégias de reversão. O desempate passa a escolher o ativo com maior <strong>Valor Esperado Líquido em unidades de risco (<span class="arithmatex">\(\widehat{\mathbb{E}}[R_i]\)</span>)</strong>.</li>
+</ul>
+<hr />
+<h2 id="3-gestao-quantitativa-de-risco-dimensionamento-de-lote-e-controle-de-drawdown">3. Gestão Quantitativa de Risco, Dimensionamento de Lote e Controle de Drawdown<a class="headerlink" href="#3-gestao-quantitativa-de-risco-dimensionamento-de-lote-e-controle-de-drawdown" title="Permanent link">&para;</a></h2>
+<h3 id="31-dimensionamento-fracionario-fixo-com-teto-duplo-e-trava-de-expectancia-substituindo-o-falso-kelly">3.1. Dimensionamento Fracionário Fixo com Teto Duplo e Trava de Expectância (Substituindo o Falso "Kelly")<a class="headerlink" href="#31-dimensionamento-fracionario-fixo-com-teto-duplo-e-trava-de-expectancia-substituindo-o-falso-kelly" title="Permanent link">&para;</a></h3>
+<p>Na versão anterior (v5), chamava-se de "Kelly Fracionado" uma regra que alocava até 95% do caixa nos 30% melhores sinais da IA, sem verificar se esses sinais tinham lucro esperado positivo e sem notar que um stop de <span class="arithmatex">\(5\%\)</span> com <span class="arithmatex">\(95\%\)</span> do caixa geraria uma perda de quase <span class="arithmatex">\(6\%\)</span> da carteira (violando o limite de <span class="arithmatex">\(2,2\%\)</span>).</p>
+<p>Na <strong>v6.0</strong>, o módulo <code>position_sizer.py</code> implementa uma arquitetura honesta em duas etapas:</p>
+<ol>
+<li><strong>Fase 1 (Operação Base Sem IA):</strong> Risco fracionário fixo de <strong>1,0% da carteira tática por operação</strong> (<code>risk_per_trade_pct = 0.010</code>), limitado ao teto máximo de <strong>50% do caixa operável em USDT</strong> (<code>max_cash_allocation_pct = 0.50</code>).</li>
+<li><strong>Fase 2 (Com Juiz de IA Calibrado Validado no Bloco 3):</strong></li>
+<li><strong>Trava Obrigatória de Expectância Positiva:</strong> Seja <span class="arithmatex">\(R_{\text{eff}, i}\)</span> o múltiplo R:R efetivo da estratégia e <span class="arithmatex">\(C_{R, i} = \frac{f_{\text{ida+volta}} + s_{\text{stress}}}{d_{\text{stop}, i}}\)</span> o custo friccional em unidades de risco. A probabilidade mínima de empate (<em>limiar de indiferença</em>) é:</li>
+</ol>
+<div class="arithmatex">\[\underline{p}_i = \frac{1 + C_{R, i}}{R_{\text{eff}, i} + 1}\]</div>
+<p>Se a probabilidade calibrada prevista pelo modelo <span class="arithmatex">\(\hat{p}_{\text{cal}, i}\)</span> não superar <span class="arithmatex">\(\underline{p}_i\)</span> com margem de segurança (<span class="arithmatex">\(\hat{p}_{\text{cal}, i} \le \underline{p}_i + 0.03\)</span>), o sinal recebe <strong>Nota C (Alocação = 0%)</strong>, mesmo que esteja no topo do ranking de quantis!
+* <strong>Equação de Teto Duplo (Proteção Contra Volatilidade e Caudas):</strong> O volume financeiro <span class="arithmatex">\(V_{\text{pos}}\)</span> em USDT jamais pode violar o risco máximo parametrizado da carteira (<span class="arithmatex">\(r_{\text{max}} = 1.0\%\)</span> na Nota B ou <span class="arithmatex">\(r_{\text{max}} = 2.0\%\)</span> na Nota A+ sob limite de CVaR):</p>
+<div class="arithmatex">\[V_{\text{pos}} = \min\left( w_{\text{max}} \cdot C_{\text{usdt, operável}}, \; \frac{r_{\text{max}} \cdot C_{\text{usdt, total}}}{d_{\text{stop}, i} + f_{\text{ida+volta}} + s_{\text{stress}}} \right)\]</div>
+<ul>
+<li><strong>Piso Dinâmico da Binance (<code>NOTIONAL</code>):</strong> O sistema lê o filtro <code>minNotional</code> (ou <code>notional</code>) real de cada moeda via <code>/api/v3/exchangeInfo</code>. Se <span class="arithmatex">\(V_{\text{pos}}\)</span> for menor que <span class="arithmatex">\(\text{minNotional}_{\text{moeda}} \times 1.05\)</span>, a operação é <strong>abortada</strong> (jamais arredondada para cima, para não inflar o risco).</li>
+</ul>
+<h3 id="32-politica-sobre-o-breakeven-em-12r-por-que-comeca-desligado-na-fase-1">3.2. Política sobre o Breakeven em <span class="arithmatex">\(+1.2R\)</span> (Por Que Começa Desligado na Fase 1)<a class="headerlink" href="#32-politica-sobre-o-breakeven-em-12r-por-que-comeca-desligado-na-fase-1" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>A Matemática:</strong> Pelo Teorema da Parada Opcional de Doob, em um processo com deriva positiva (<span class="arithmatex">\(\mu \gt 0\)</span>, que é exatamente o que ocorre quando acertamos uma tendência de alta!), encurtar o Stop Loss de <span class="arithmatex">\(-1.0R\)</span> para <span class="arithmatex">\(0.0R\)</span> quando o preço atinge <span class="arithmatex">\(+1.2R\)</span> reduz drasticamente o tempo médio de permanência na tendência (<span class="arithmatex">\(\mathbb{E}[\tau_{\text{BE}}] \lt \mathbb{E}[\tau_{\text{orig}}]\)</span>), cortando a chance de atingir <span class="arithmatex">\(+2.5R\)</span> e aumentando as saídas prematuras por ruído (<em>whipsaws</em>) com pagamento de taxas e slippage. Além disso, mover o stop dentro da hora exige manter um <strong>WebSocket assíncrono em tempo real</strong> e cancelar/recriar a ordem OCO na Binance (criando uma janela de corrida se o preço cair rápido).</li>
+<li><strong>Decisão de Engenharia v6.0:</strong> Na Fase 1, <code>breakeven_enabled: false</code> (a ordem OCO original vai até o alvo ou até o stop sem interferência). No Bloco 3 (Colab), o breakeven é testado como o <strong>Degrau E</strong> do estudo de ablação usando <strong>velas de 1 minuto (1m)</strong> para eliminar a ambiguidade intra-vela de 1h. Só será ligado na Fase 2 se aumentar comprovadamente o <em>Calmar Ratio</em> e a expectância líquida.</li>
+</ul>
+<h3 id="33-controle-de-drawdown-cppi-e-reforma-do-modo-fantasma-shadow_managerpy">3.3. Controle de Drawdown (CPPI) e Reforma do "Modo Fantasma" (<code>shadow_manager.py</code>)<a class="headerlink" href="#33-controle-de-drawdown-cppi-e-reforma-do-modo-fantasma-shadow_managerpy" title="Permanent link">&para;</a></h3>
+<p>Na v5, o "Modo Fantasma" tinha dois defeitos: (a) religava o dinheiro real ao "acertar 2 trades ou somar +2,0R", mas como 1 único trade de alta paga <span class="arithmatex">\(+2.5R\)</span>, ele religava com <strong>1 única vitória</strong>; e (b) 2 vitórias seguidas acontecem por pura sorte até em moedas viciadas perdedoras (<span class="arithmatex">\(p^2 = 12,25\%\)</span> quando <span class="arithmatex">\(p = 0,35\)</span>), gerando falsos alarmes constantes.</p>
+<p>Na <strong>v6.0</strong>, a defesa contra meses adversos possui dois modos configuráveis (testados no Notebook 03):</p>
+<ol>
+<li><strong>Modo Padrão Recomendado — Controle Contínuo de Drawdown (<code>CPPI_DRAWDOWN_CONTROL</code>):</strong> Em vez de desligar o robô completamente após 2 stops (e correr o risco de ficar de fora justamente do trade de recuperação da tendência!), sempre que o drawdown acumulado da Carteira Tática atingir <span class="arithmatex">\(4,0\%\)</span>, o robô reduz o risco por operação pela metade (<span class="arithmatex">\(r_{\text{max}} \rightarrow 0,5 \times r_{\text{max}}\)</span>, ou seja, <span class="arithmatex">\(0,5\%\)</span> por trade) até que a carteira recupere a máxima histórica (<em>High-Water Mark</em>).</li>
+<li><strong>Modo Alternativo de Parada Sequencial (<code>CUSUM_SHADOW_MODE</code>, desligado na Fase 1):</strong> Se ativado após validação empírica de agrupamento de volatilidade (<em>clustering</em> GARCH), substitui a regra arbitrária de "2 derrotas / 2 vitórias" por um filtro estatístico <strong>CUSUM tabular</strong> sobre os retornos em <span class="arithmatex">\(R\)</span>, exigindo no mínimo 4 operações virtuais com média acumulada positiva e sem permitir atalho por um único trade isolado.</li>
+</ol>
+<hr />
+<h2 id="4-ciencia-de-dados-calibracao-de-probabilidades-e-validacao-estatistica-bloco-3">4. Ciência de Dados, Calibração de Probabilidades e Validação Estatística (Bloco 3)<a class="headerlink" href="#4-ciencia-de-dados-calibracao-de-probabilidades-e-validacao-estatistica-bloco-3" title="Permanent link">&para;</a></h2>
+<p>Nenhuma peça é ligada no escuro. O simulador no Google Colab (<code>notebooks/</code>) aplica sete travas científicas contra ilusões de backtest:</p>
+<ol>
+<li><strong>Pesos Exatos de Unicidade Amostral de López de Prado (AFML Snippet 4.2):</strong>
+Duas operações em criptomoedas que abrem às 10h e às 11h e ficam abertas por 20 horas compartilham o mesmo movimento do mercado. Em vez de olhar apenas o segundo da entrada, o peso de cada evento <span class="arithmatex">\(i\)</span> (ativo entre as barras <span class="arithmatex">\(t_{i,0}\)</span> e <span class="arithmatex">\(t_{i,1}\)</span>) é a <strong>média da sua unicidade ao longo de toda a sua duração</strong>:</li>
+</ol>
+<div class="arithmatex">\[\bar{u}_i = \frac{1}{t_{i,1} - t_{i,0} + 1} \sum_{t=t_{i,0}}^{t_{i,1}} \frac{1}{c_t}, \quad \text{onde } c_t = \sum_{j=1}^{N} \mathbb{I}\left(t \in [t_{j,0}, t_{j,1}]\right)\]</div>
+<p>Na validação cruzada temporal (<em>Purged Walk-Forward</em>), aplica-se <strong>Purging</strong> de 24 horas (horizonte máximo da barreira de tempo) e <strong>Embargo</strong> de 2% entre cada bloco de treino e teste.
+2. <strong>Alinhamento Cruzado Causal das 5 Features Estacionárias:</strong>
+Calculadas apenas sobre velas 100% fechadas:
+* <code>atr_pct</code>: <span class="arithmatex">\(\text{ATR}_{14, t} / \text{Close}_t\)</span>.
+* <code>dist_ema100_atr</code>: <span class="arithmatex">\((\text{Close}_t - \text{EMA}_{100, t}) / \text{ATR}_{14, t}\)</span>.
+* <code>rvol_20</code>: <span class="arithmatex">\(\text{Volume}_t / \text{Mediana}(\text{Volume}_{t-19 \dots t})\)</span>.
+* <code>chop_14</code>: <span class="arithmatex">\(\text{CHOP}_{14, t}\)</span> (base <span class="arithmatex">\(\log_{10}\)</span>).
+* <code>btc_regime_ret</code>: Retorno logarítmico de 12h do <code>BTCUSDT</code>, alinhado estritamente com <code>close_time_btc &lt;= close_time_asset</code> (zero vazamento cruzado).</p>
+<ol>
+<li><strong>Meta-Labeling Segregado por Regime e Calibração Real de Probabilidade (<code>ECE</code>):</strong></li>
+<li>É proibido misturar sinais de <code>BULL</code> (alvo <span class="arithmatex">\(+2.5R\)</span>) com sinais de <code>SIDEWAYS</code> (alvo curto na média) dentro de um mesmo ranking de probabilidade bruta <span class="arithmatex">\(P_{\text{win}}\)</span>. Cada estratégia possui seu próprio modelo secundário.</li>
+<li>
+<p>As probabilidades brutas do classificador passam por <strong>Calibração Isotônica / Platt Scaling</strong> em conjunto de validação fora da amostra, exigindo <strong>Expected Calibration Error (<span class="arithmatex">\(\text{ECE}\)</span>) menor que <span class="arithmatex">\(0,05\)</span></strong> nos <em>Reliability Diagrams</em> antes de liberar o uso dos quantis.</p>
+</li>
+<li>
+<p><strong>Três Cenários de Custos e Estresse de Gaps:</strong>
+Todo backtest é reportado sob três matrizes de atrito:</p>
+</li>
+<li><em>Cenário Otimista:</em> Saída no Alvo como <code>LIMIT_MAKER</code> (0,075% com BNB) e Stop como Taker (0,075% com BNB) + 0,03% de slippage.</li>
+<li><em>Cenário Base (Padrão de Aprovação):</em> Taxa Taker de 0,15% ida e volta (com BNB) + 0,06% de slippage base + modelo de slippage proporcional à volatilidade da vela.</li>
+<li>
+<p><em>Cenário Pessimista (Estresse de Cauda):</em> Taxa sem BNB (0,20% ida e volta) + 0,12% de slippage + choques de <em>gap</em> adverso no Stop Loss calibrados na distribuição histórica de caudas (medindo o CVaR a 99%).</p>
+</li>
+<li>
+<p><strong>Estudo de Ablação em 5 Degraus + Deflated Sharpe Ratio (<span class="arithmatex">\(\text{DSR}\)</span>):</strong>
+Comparamos fora da amostra:</p>
+</li>
+<li><strong>Degrau A:</strong> Benchmark passivo (50% XRP + 50% USDT e Buy &amp; Hold BTC).</li>
+<li><strong>Degrau B:</strong> Apenas <code>bull_trend_pullback</code> sem filtro de clima 4h (risco fixo 1%).</li>
+<li><strong>Degrau C (Candidato da Fase 1):</strong> Cérebro Camaleão MECE (Clima <code>BULL</code> operando com risco fixo 1% + <code>BEAR</code> e <code>TRANSITION</code> 100% em USDT).</li>
+<li><strong>Degrau D:</strong> Degrau C + Juiz de IA calibrado filtrando Nota C e modulando Nota B / A+.</li>
+<li><strong>Degrau E:</strong> Teste de impacto de ativar ou não o Breakeven em <span class="arithmatex">\(+1.2R\)</span> (resolvido com velas de 1 minuto) e o controle de drawdown CPPI.</li>
+<li><em>Critério Estatístico de Aprovação:</em> Registro obrigatório do número total de configurações testadas (<span class="arithmatex">\(K\)</span>) para cálculo do <strong>Deflated Sharpe Ratio (<span class="arithmatex">\(\text{DSR} \gt 0,95\)</span>)</strong> e do <strong>Minimum Track Record Length (<span class="arithmatex">\(\text{MinTRL}\)</span>)</strong> de Bailey &amp; López de Prado.</li>
+</ol>
+<hr />
+<h2 id="5-engenharia-de-resiliencia-e-integracao-com-a-binance-spot-api-blocos-1-5-e-6">5. Engenharia de Resiliência e Integração com a Binance Spot API (Blocos 1, 5 e 6)<a class="headerlink" href="#5-engenharia-de-resiliencia-e-integracao-com-a-binance-spot-api-blocos-1-5-e-6" title="Permanent link">&para;</a></h2>
+<p>Para garantir que nenhuma falha de hardware, rede ou corretora deixe posições órfãs:</p>
+<ol>
+<li><strong>Aritmética Exata com <code>decimal.Decimal</code> e Cache Dinâmico do <code>exchangeInfo</code>:</strong></li>
+<li>O uso de <code>float</code> binário para preços e quantidades é proibido no envio de ordens. O módulo <code>binance_client.py</code> baixa e atualiza a cada 1 hora os filtros <code>PRICE_FILTER</code> (<code>tickSize</code>), <code>LOT_SIZE</code> (<code>stepSize</code>, <code>minQty</code>) e <code>NOTIONAL</code> (<code>minNotional</code>) de <code>/api/v3/exchangeInfo</code>.</li>
+<li>
+<p>Preços são truncados/arredondados para múltiplos exatos de <code>tickSize</code> e quantidades são sempre arredondadas para baixo (<code>ROUND_DOWN</code>) para múltiplos exatos de <code>stepSize</code> usando <code>decimal.Decimal</code> serializado como <code>str</code>.</p>
+</li>
+<li>
+<p><strong>Sincronização Monotônica de Relógio (Algoritmo de Cristian) e Buffer de Virada de Vela:</strong></p>
+</li>
+<li>Máquinas virtuais gratuitas sofrem deriva de relógio que causa o erro <code>-1021 (Timestamp ahead/behind server)</code>. O cliente calcula o offset em relação ao relógio monotônico local descontando metade da latência de ida e volta (<span class="arithmatex">\(\text{RTT}/2\)</span>) via <code>GET /api/v3/time</code>:</li>
+</ol>
+<div class="arithmatex">\[\text{Offset}_{\text{mono}} = T_{\text{binance}} - \left(T_{\text{mono\_req}} + \frac{T_{\text{mono\_resp}} - T_{\text{mono\_req}}}{2}\right), \quad T_{\text{assinatura}}(t) = \lfloor T_{\text{mono}}(t) + \text{Offset}_{\text{mono}} - 200\text{ ms} \rfloor\]</div>
+<ul>
+<li>
+<p>Na virada de cada hora, o coletor aguarda <strong>3 segundos de segurança (<code>XX:00:03 UTC</code>)</strong> e confere se o <code>close_time</code> da vela <code>[-2]</code> corresponde exatamente à hora que acabou de fechar (fazendo até 5 retentativas de 1 segundo se o agregador da Binance atrasar).</p>
+</li>
+<li>
+<p><strong>Protocolo Idempotente contra Timeouts HTTP (<code>Erro -1007</code>):</strong></p>
+</li>
+<li>Antes de enviar uma compra, o robô grava no SQLite (configurado com <code>PRAGMA journal_mode=WAL;</code> e <code>PRAGMA synchronous=FULL;</code>) o estado <code>PENDING_ENTRY</code> com <code>client_order_id = f"CHM_{symbol}_{epoch_ms}"</code>.</li>
+<li>
+<p>Se a requisição <code>POST /api/v3/order</code> sofrer <em>Timeout</em> ou queda de conexão, <strong>o robô é proibido de reenviar o POST cegamente</strong> (pois na Binance, repetir um <code>newClientOrderId</code> após a primeira ordem já ter sido executada gera uma segunda compra!). O sistema consulta obrigatoriamente <code>GET /api/v3/order?symbol=...&amp;origClientOrderId=...</code> para descobrir se a ordem executou antes de dar o próximo passo.</p>
+</li>
+<li>
+<p><strong>Ordem OCO Moderna (<code>POST /api/v3/orderList/oco</code>) com Quantidade Líquida e Fallback a Mercado:</strong></p>
+</li>
+<li>A quantidade enviada para a ordem OCO desconta qualquer comissão eventualmente cobrada no ativo base e limita-se ao saldo livre real:</li>
+</ul>
+<div class="arithmatex">\[Q_{\text{oco}} = \text{floor\_step}\left( \min\left( Q_{\text{executed}} - \sum_{k \text{ where asset}=A} \text{commission}_k, \; \text{FreeBalance}(A) \right), \; \text{stepSize}_A \right)\]</div>
+<ul>
+<li>Utiliza o endpoint atual <code>/api/v3/orderList/oco</code> (com <code>aboveType="LIMIT_MAKER"</code> para o Take Profit e <code>belowType="STOP_LOSS_LIMIT"</code> com buffer de <strong>2,5%</strong> abaixo do <code>stopPrice</code>, ou <code>belowType="STOP_LOSS"</code> a mercado conforme parametrizado).</li>
+<li>
+<p><strong>Fallback Salva-Vidas contra <code>Erro -2010</code> ("Stop price would trigger immediately"):</strong> Se durante o envio da OCO (ou durante a recuperação de uma queda de energia no <code>state_reconciler.py</code>) o preço atual da moeda já tiver despencado para igual ou abaixo do <code>stopPrice</code>, a Binance recusará a criação da OCO. Nesse exato milissegundo, o <code>oco_order_manager.py</code> captura a condição (<span class="arithmatex">\(P_{\text{bid}} \le P_{\text{stop}} \times 1.0005\)</span> ou erro <code>-2010</code>) e dispara imediatamente uma <strong>venda total a mercado (<code>MARKET</code>)</strong>, zerando a posição desprotegida.</p>
+</li>
+<li>
+<p><strong>Reconciliação de Execuções Parciais e Fechamento Atômico no Time Stop:</strong></p>
+</li>
+<li>No boot e a cada ciclo, o <code>state_reconciler.py</code> soma o saldo <code>free + locked</code> de cada um dos 7 ativos operáveis e compara com a quantidade coberta por uma <code>orderList</code> OCO ativa. Se uma OCO tiver executado parcialmente e deixado resíduo desprotegido acima de <code>minNotional</code>, ele protege ou liquida o resíduo.</li>
+<li>
+<p>Quando uma operação atinge o limite de tempo (<code>time_barrier_candles_1h</code>), o robô executa uma sequência atômica de 4 passos: (1) Cancela a <code>orderList</code> OCO (<code>DELETE /api/v3/orderList</code>); (2) Lê as quantidades já executadas nas pernas da OCO cancelada; (3) Consulta o saldo <code>free</code> atualizado; (4) Envia a venda <code>MARKET</code> exclusivamente para a quantidade residual não executada.</p>
+</li>
+<li>
+<p><strong>Backup Automático do SQLite e Disjuntor de Segurança:</strong></p>
+</li>
+<li>Como discos de VPS gratuitas podem ser reciclados pelo provedor, um <em>cronjob</em> diário envia cópia criptografada do arquivo SQLite (<code>.db</code> + <code>.wal</code>) para armazenamento externo (Object Storage / Telegram privado).</li>
+<li>O cliente possui travas rígidas no código (<code>max_single_order_usdt</code>, <code>max_daily_trades</code>) e verificação de manutenção programada da corretora (<code>/sapi/v1/system/status</code>) para bloquear novas entradas antes de janelas de manutenção.</li>
+</ul>
+<hr />
+<h2 id="6-metodologia-de-construcao-incremental-os-6-estagios-e-seus-gates-de-aprovacao">6. Metodologia de Construção Incremental (Os 6 Estágios e Seus Gates de Aprovação)<a class="headerlink" href="#6-metodologia-de-construcao-incremental-os-6-estagios-e-seus-gates-de-aprovacao" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>[Bloco 1: Dados, Relógio e SQLite WAL] ──► [Bloco 2: Indicadores TA-Lib e Clima MECE] ──► [Bloco 3: Backtest Causal e Ablação no Colab]
+                                                                                                                  │
+[Bloco 6: Produção + Cofre FUNDING]   ◄── [Bloco 5: Binance Testnet, OCO e Fallback] ◄── [Bloco 4: Sizing Teto Duplo + CPPI Drawdown]
+</code></pre></div>
+<ul>
+<li><strong>Estágio 1 — Fundação, Relógio Monotônico, SQLite WAL e Coletor Causal (<code>src/core/</code> e <code>src/data/</code>):</strong></li>
+<li><em>Escopo:</em> Banco SQLite com WAL ativo, leitor de <code>strategies.yaml</code>, cliente Binance com aritmética <code>Decimal</code>, cache de <code>exchangeInfo</code>, sincronização monotônica de relógio (<code>RTT/2</code>) e coletor de velas fechadas de 1h e 4h das 7 moedas + BTC.</li>
+<li>
+<p><em>Gate 1 (Teste de Aprovação):</em> Truncar dados históricos às <code>02:00 UTC</code> e provar que o alinhamento <code>merge_asof</code> por <code>close_time_utc</code> gera vetores 100% idênticos aos gerados com a tabela completa (zero vazamento de futuro), além de validar que toda quantidade gerada em 10.000 simulações respeita <code>stepSize</code> e <code>tickSize</code> exatos via <code>Decimal</code>.</p>
+</li>
+<li>
+<p><strong>Estágio 2 — Indicadores Canônicos e Sensor MECE de 4 Estados (<code>src/features/</code> e <code>src/regimes/</code>):</strong></p>
+</li>
+<li><em>Escopo:</em> Cálculo de EMA, ATR (Wilder), RSI (Wilder), Bollinger, ADX (Wilder) e CHOP (<span class="arithmatex">\(\log_{10}\)</span>), mais a árvore <code>detect_market_regime()</code> retornando <code>BEAR</code>, <code>BULL</code>, <code>SIDEWAYS</code> ou <code>TRANSITION</code>.</li>
+<li>
+<p><em>Gate 2 (Teste de Aprovação):</em> Testes <code>pytest</code> comparando ADX, ATR e RSI contra <code>TA-Lib</code> (erro máximo menor que <span class="arithmatex">\(10^{-10}\)</span>) e teste de fronteira provando que 100% do espaço de estados cai em exatamente 1 único regime MECE.</p>
+</li>
+<li>
+<p><strong>Estágio 3 — Simulador Causal de Fila Única e Estudo de Ablação no Google Colab (<code>notebooks/</code>):</strong></p>
+</li>
+<li><em>Escopo:</em> Execução dos Degraus A, B, C, D e E (incluindo resolução intra-vela de 1 minuto para testar o breakeven), pesos de unicidade <span class="arithmatex">\(\bar{u}_i\)</span>, 3 cenários de custo e cálculo de DSR e CVaR 99%.</li>
+<li>
+<p><em>Gate 3 (Teste de Aprovação):</em> Aprovação estatística da Fase 1 (Degrau C superando custos base e pessimistas com <span class="arithmatex">\(\mathbb{E}[R] \gt 0\)</span> e <span class="arithmatex">\(\text{DSR} \gt 0.95\)</span>). Qualquer módulo (IA, Breakeven, Sideways) que não agregar valor estatístico líquido permanece desligado em produção.</p>
+</li>
+<li>
+<p><strong>Estágio 4 — Dimensionador de Teto Duplo e Controle de Drawdown CPPI (<code>src/risk/</code>):</strong></p>
+</li>
+<li><em>Escopo:</em> <code>position_sizer.py</code> (descontando <code>pending_hodl_bucket_usdt</code>, aplicando a equação de teto duplo e abortando se menor que <code>minNotional</code>) e <code>shadow_manager.py</code> (redução CPPI de 50% do risco em drawdown de 4% e máquina de estados virtual).</li>
+<li>
+<p><em>Gate 4 (Teste de Aprovação):</em> Provar em testes unitários que um stop largo de 6% jamais aloca 95% do caixa (sendo travado pelo teto de risco da carteira) e que um sinal com probabilidade abaixo do limiar de indiferença <span class="arithmatex">\(\underline{p}_i\)</span> recebe lote zero.</p>
+</li>
+<li>
+<p><strong>Estágio 5 — Execução Blindada, OCO Líquida e Reconciliador na Testnet (<code>src/execution/</code>):</strong></p>
+</li>
+<li><em>Escopo:</em> Envio de ordens com <code>origClientOrderId</code>, criação de <code>/api/v3/orderList/oco</code> descontando comissão no ativo base, fechamento atômico de 4 passos no Time Stop e <code>state_reconciler.py</code>.</li>
+<li>
+<p><em>Gate 5 ("Teste do Puxão de Tomada e Preço Violado"):</em> Simular na Testnet (e via mocks de falha): (1) Timeout <code>-1007</code> na compra — provar que o bot consulta <code>origClientOrderId</code> e não compra duplicado; (2) Desligar o bot após a compra, esperar o preço cair <em>abaixo</em> do <code>stopPrice</code> e religar — provar que o reconciliador recebe o erro <code>-2010</code> da OCO e vende imediatamente a <code>MARKET</code> no primeiro segundo!</p>
+</li>
+<li>
+<p><strong>Estágio 6 — Alertas no Telegram, Segregação <code>MAIN_FUNDING</code> e Deploy (<code>src/notifications/</code>):</strong></p>
+</li>
+<li><em>Escopo:</em> Relatórios transparentes no Telegram, transferência automática do cofre para a carteira <code>FUNDING</code> e container Docker com backup diário do SQLite.</li>
+<li><em>Gate 6 (Teste de Aprovação):</em> Operar 7 dias contínuos na Binance Spot Testnet com zero erros não tratados e reconciliação limpa em reinicializações forçadas.</li>
+</ul>
+<hr />
+<h2 id="7-mapa-de-diagnostico-rapido-onde-olhar-quando-algo-der-errado">7. Mapa de Diagnóstico Rápido (Onde Olhar Quando Algo Der Errado)<a class="headerlink" href="#7-mapa-de-diagnostico-rapido-onde-olhar-quando-algo-der-errado" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Sintoma Observado</th>
+<th>Arquivo Responsável</th>
+<th>Causa Técnica e Diagnóstico Imediato</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Rejeição <code>PRICE_FILTER</code>, <code>LOT_SIZE</code> ou <code>NOTIONAL</code></td>
+<td><code>src/core/binance_client.py</code> ou <code>src/risk/position_sizer.py</code></td>
+<td>Cache do <code>/api/v3/exchangeInfo</code> expirado ou conversão fora do wrapper <code>Decimal</code>. Rodar <code>pytest tests/test_block1_data.py</code>.</td>
+</tr>
+<tr>
+<td>Erro <code>-2010</code> ao criar ordem OCO logo após a compra</td>
+<td><code>src/execution/oco_order_manager.py</code></td>
+<td>Ou o preço caiu abaixo do <code>stopPrice</code> (deve acionar fallback <code>MARKET</code>), ou a reserva de BNB acabou (a comissão comeu o ativo base).</td>
+</tr>
+<tr>
+<td>Servidor reiniciou após queda de internet na compra</td>
+<td><code>src/core/state_reconciler.py</code></td>
+<td>Verificar status <code>PENDING_ENTRY</code> resolvido via <code>GET /api/v3/order?origClientOrderId=...</code>.</td>
+</tr>
+<tr>
+<td>Erro <code>-1021 Timestamp for this request was ahead/behind</code></td>
+<td><code>src/core/binance_client.py</code></td>
+<td>Deriva de clock na VPS. Verificar log de <code>sync_monotonic_clock()</code> e latência RTT com a Binance.</td>
+</tr>
+<tr>
+<td>Robô não abriu operações durante várias horas seguidas</td>
+<td><code>src/regimes/regime_detector.py</code></td>
+<td>Verificar no Telegram se os ativos estão em regime <code>BEAR</code> ou na zona de proteção <code>TRANSITION</code> (50 a 55 de CHOP).</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="8-arvore-de-arquivos-do-projeto-v60">8. Árvore de Arquivos do Projeto (v6.0)<a class="headerlink" href="#8-arvore-de-arquivos-do-projeto-v60" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>quant-crypto-chameleon/
+├── config/
+│   └── strategies.yaml                     # Regras MECE, tetos de risco, custos e Feature Flags (Fase 1 vs Fase 2)
+├── notebooks/                              # Bloco 3: Validação Científica no Google Colab
+│   ├── 01_download_causal_1h_4h_1m.ipynb   # Baixa histórico alinhado por close_time_utc (1h, 4h e 1m)
+│   ├── 02_ablation_and_dsr_sim.ipynb       # Compara Degraus A, B, C, D e E + Deflated Sharpe Ratio e 3 Custos
+│   └── 03_tail_stress_cppi_cusum.ipynb     # Testa gaps (CVaR 99%), CPPI Drawdown Control e CUSUM Shadow Mode
+├── models/
+│   └── calibrated_bull_meta_model.joblib   # Modelo segregado por regime com calibração Isotônica (ECE &lt;= 0.05)
+├── src/                                    # Motor Modular de Produção
+│   ├── core/
+│   │   ├── config.py                       # Validador de schema (Pydantic) para .env e strategies.yaml
+│   │   ├── database.py                     # SQLite em modo WAL + synchronous=FULL + rotina de backup externo
+│   │   ├── binance_client.py               # Ed25519, Clock Monotônico (RTT/2), cache exchangeInfo e Decimal
+│   │   └── state_reconciler.py             # Cura no boot: origClientOrderId, OCO parcial e fallback MARKET
+│   ├── data/
+│   │   └── candle_collector.py             # Coleta em XX:00:03 UTC e merge_asof estrito por close_time_utc
+│   ├── features/
+│   │   ├── indicators.py                   # EMA, ATR (Wilder), RSI (Wilder), Bollinger, ADX (Wilder), CHOP (log10)
+│   │   └── ml_judge.py                     # Calcula features causais, ECE e Valor Esperado Líquido E[R]
+│   ├── regimes/
+│   │   └── regime_detector.py              # Partição MECE em 4 estados: BEAR, BULL, SIDEWAYS, TRANSITION
+│   ├── strategies/
+│   │   ├── base_strategy.py                # Interface padrão (Entrada, Stop, Alvo, R:R Efetivo)
+│   │   ├── bull_trend_pullback.py          # Clima BULL (Ativo na Fase 1): Recuo na EMA 20
+│   │   ├── sideways_pingpong.py            # Clima SIDEWAYS (Fase 2): Banda Inf. + RSI &lt; 32 + filtro RR &gt;= 1.5
+│   │   └── bear_capitulation_snap.py       # Clima BEAR (Quarentena): Exige filtro de rejeição + validação OOS
+│   ├── risk/
+│   │   ├── position_sizer.py               # Teto Duplo, trava de expectância p &gt; p_min e desconto do hodl_bucket
+│   │   ├── shadow_manager.py               # CPPI Drawdown Control (reduz lote em 50%) e CUSUM Shadow Mode
+│   │   └── profit_splitter.py              # Acumula 10 USDT e transfere direto para carteira FUNDING (MAIN_FUNDING)
+│   ├── execution/
+│   │   └── oco_order_manager.py            # POST /api/v3/orderList/oco, quantidade líquida e Time-Stop atômico
+│   ├── notifications/
+│   │   └── telegram_reporter.py            # Transparência de regime, tamanho do lote, offset de clock e saúde
+│   └── main.py                             # Maestro de ciclo horário + verificador de manutenção da corretora
+├── tests/
+│   ├── test_block1_causal_and_decimal.py
+│   ├── test_block2_talib_and_mece.py
+│   ├── test_block4_dual_cap_and_cppi.py
+│   └── test_block5_reconciler_and_oco.py
+├── .env.example
+├── Dockerfile
+├── docker-compose.yml
+├── requirements.txt
+└── README.md
+</code></pre></div>
+<hr />
+<h2 id="9-arquivo-central-de-configuracao-configstrategiesyaml-v60">9. Arquivo Central de Configuração (<code>config/strategies.yaml</code> — v6.0)<a class="headerlink" href="#9-arquivo-central-de-configuracao-configstrategiesyaml-v60" title="Permanent link">&para;</a></h2>
+<p>Copie o conteúdo abaixo para <code>config/strategies.yaml</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># ==============================================================================</span>
+<span class="c1"># QUANTCRYPTO CHAMELEON ENGINE (v6.0) - CONFIGURAÇÃO CENTRAL AUDITADA</span>
+<span class="c1"># ==============================================================================</span>
+
+<span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="s">"6.0.0"</span>
+<span class="nt">rollout_phase</span><span class="p">:</span><span class="w"> </span><span class="s">"PHASE_1_CORE_VALIDATION"</span><span class="w">    </span><span class="c1"># Fase 1: Apenas 1 estratégia validada, risco fixo 1%, sem complexidade prematura</span>
+
+<span class="nt">portfolio</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">core_hold_asset</span><span class="p">:</span><span class="w"> </span><span class="s">"XRP"</span>
+<span class="w">  </span><span class="nt">core_hold_amount</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">150.0</span><span class="w">                   </span><span class="c1"># 150 XRP fora da chave Spot (Risco operacional zero; exposto ao risco de mercado do XRP)</span>
+<span class="w">  </span><span class="nt">tactical_quote_asset</span><span class="p">:</span><span class="w"> </span><span class="s">"USDT"</span><span class="w">              </span><span class="c1"># ~145.5 XRP convertidos em USDT para giro tático na carteira Spot (MAIN)</span>
+<span class="w">  </span><span class="nt">fee_reserve_asset</span><span class="p">:</span><span class="w"> </span><span class="s">"BNB"</span>
+<span class="w">  </span><span class="nt">min_bnb_fee_reserve_usdt_equiv</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5.00</span><span class="w">      </span><span class="c1"># Reserva intocável de BNB (~4.5 XRP) para garantir taxa de 0.075% e evitar erro -2010 na OCO</span>
+<span class="w">  </span><span class="nt">max_concurrent_positions</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span><span class="w">               </span><span class="c1"># Modo Sniper Single-Slot: 1 posição aberta por vez</span>
+<span class="w">  </span><span class="nt">min_notional_safety_buffer</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.05</span><span class="w">          </span><span class="c1"># Exige lote &gt;= 1.05 * minNotional dinâmico lido de /api/v3/exchangeInfo (aborta se menor)</span>
+<span class="w">  </span><span class="nt">max_single_order_usdt_cap</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">500.00</span><span class="w">         </span><span class="c1"># Disjuntor de segurança máximo por ordem individual</span>
+<span class="w">  </span><span class="nt">max_daily_trades_cap</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">6</span><span class="w">                   </span><span class="c1"># Disjuntor contra loop infinito de ordens em caso de anomalia</span>
+
+<span class="nt">execution_and_resilience</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">clock_sync_interval_minutes</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">15</span><span class="w">           </span><span class="c1"># Ressincroniza offset monotônico (Cristian RTT/2) a cada 15 min</span>
+<span class="w">  </span><span class="nt">clock_safety_margin_ms</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">200</span><span class="w">               </span><span class="c1"># Subtrai 200ms para evitar erro -1021 (Timestamp ahead of server)</span>
+<span class="w">  </span><span class="nt">recv_window_ms</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5000</span><span class="w">                      </span><span class="c1"># Janela de validade de assinatura Ed25519</span>
+<span class="w">  </span><span class="nt">candle_close_fetch_delay_seconds</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span><span class="w">       </span><span class="c1"># Aguarda XX:00:03 UTC para garantir fechamento completo da vela no agregador Binance</span>
+<span class="w">  </span><span class="nt">candle_fetch_max_retries</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5</span><span class="w">               </span><span class="c1"># Retentativas de 1s caso close_time da vela [-2] ainda não tenha virado</span>
+<span class="w">  </span><span class="nt">oco_endpoint</span><span class="p">:</span><span class="w"> </span><span class="s">"/api/v3/orderList/oco"</span><span class="w">     </span><span class="c1"># Endpoint oficial atual da Binance Spot</span>
+<span class="w">  </span><span class="nt">oco_below_type</span><span class="p">:</span><span class="w"> </span><span class="s">"STOP_LOSS_LIMIT"</span><span class="w">         </span><span class="c1"># Opções: "STOP_LOSS_LIMIT" (com buffer) ou "STOP_LOSS" (stop a mercado puro)</span>
+<span class="w">  </span><span class="nt">oco_stop_limit_buffer_pct</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.025</span><span class="w">          </span><span class="c1"># 2.5% abaixo do stopPrice para mitigar salto de livro em flash-crashes</span>
+<span class="w">  </span><span class="nt">fallback_to_market_on_stop_breach</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w">   </span><span class="c1"># Vende a MARKET no mesmo segundo se preço atual &lt;= stopPrice (-2010)</span>
+<span class="w">  </span><span class="nt">sqlite_wal_mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w">                     </span><span class="c1"># PRAGMA journal_mode=WAL; PRAGMA synchronous=FULL;</span>
+<span class="w">  </span><span class="nt">daily_sqlite_backup_enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w">         </span><span class="c1"># Backup criptografado diário contra perda de disco em VPS efêmera</span>
+
+<span class="nt">position_sizing</span><span class="p">:</span><span class="w">                            </span><span class="c1"># Dimensionamento Fracionário Fixo com Teto Duplo e Trava de Expectância</span>
+<span class="w">  </span><span class="nt">mode</span><span class="p">:</span><span class="w"> </span><span class="s">"FIXED_FRACTIONAL_DUAL_CAP"</span><span class="w">         </span><span class="c1"># Substitui o antigo rótulo impreciso de "Kelly"</span>
+<span class="w">  </span><span class="nt">default_grade_b_risk_pct</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.010</span><span class="w">           </span><span class="c1"># Fase 1 / Sinal Nota B: Arrisca estritamente 1.0% da Carteira Tática no Stop</span>
+<span class="w">  </span><span class="nt">default_grade_b_max_cash_pct</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.50</span><span class="w">        </span><span class="c1"># Teto máximo de alocação de caixa para Sinal Nota B = 50% do USDT operável</span>
+<span class="w">  </span><span class="nt">conviction_sizing_enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span><span class="w">          </span><span class="c1"># Começa DESLIGADO na Fase 1; só liga na Fase 2 se Degrau D vencer com DSR &gt; 0.95</span>
+<span class="w">  </span><span class="nt">grade_a_plus_risk_pct</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.020</span><span class="w">              </span><span class="c1"># Fase 2 (Sinal Nota A+): Arrisca no máximo 2.0% da Carteira Tática (sujeito a CVaR 99% &lt;= 5%)</span>
+<span class="w">  </span><span class="nt">grade_a_plus_max_cash_pct</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.85</span><span class="w">           </span><span class="c1"># Reduzido de 95% para 85% para absorver gaps de cauda e preservar margem</span>
+<span class="w">  </span><span class="nt">min_expectancy_margin_over_breakeven</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.03</span><span class="w"> </span><span class="c1"># Exige P_calibrada &gt; p_indiferenca + 3% para aprovar qualquer operação</span>
+<span class="w">  </span><span class="nt">roundtrip_fee_assumption_pct</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.0015</span><span class="w">      </span><span class="c1"># 0.15% ida e volta (Taker/Taker com BNB)</span>
+<span class="w">  </span><span class="nt">stress_slippage_assumption_pct</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.0006</span><span class="w">    </span><span class="c1"># 0.06% de slippage base embutido no cálculo da distância efetiva do stop</span>
+
+<span class="nt">mid_trade_management</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">breakeven_enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span><span class="w">                  </span><span class="c1"># DESLIGADO na Fase 1 (evita violino sob deriva positiva e race condition sem WebSocket)</span>
+<span class="w">  </span><span class="nt">breakeven_trigger_r</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.2</span><span class="w">                  </span><span class="c1"># Avaliado exclusivamente como Degrau E no Bloco 3 com velas de 1 minuto (1m)</span>
+<span class="w">  </span><span class="nt">require_realtime_websocket_for_be</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w">   </span><span class="c1"># Proíbe ligar breakeven se o loop assíncrono de bookTicker não estiver ativo</span>
+
+<span class="nt">drawdown_and_shadow_protection</span><span class="p">:</span><span class="w">             </span><span class="c1"># Defesa contra meses adversos (substitui a regra frágil de 2 vitórias / +2.0R)</span>
+<span class="w">  </span><span class="nt">protection_mode</span><span class="p">:</span><span class="w"> </span><span class="s">"CPPI_DRAWDOWN_CONTROL"</span><span class="w">  </span><span class="c1"># Opções: "CPPI_DRAWDOWN_CONTROL", "CUSUM_SHADOW_MODE", "DISABLED"</span>
+<span class="w">  </span><span class="nt">cppi_drawdown_threshold_pct</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.04</span><span class="w">         </span><span class="c1"># Se a Carteira Tática cair 4.0% abaixo do topo (High-Water Mark)...</span>
+<span class="w">  </span><span class="nt">cppi_risk_reduction_factor</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.50</span><span class="w">          </span><span class="c1"># ...corta o risco por operação pela metade (de 1.0% para 0.5%) até recuperar o topo</span>
+<span class="w">  </span><span class="nt">shadow_mode_enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span><span class="w">                </span><span class="c1"># Modo Fantasma binário desligado na Fase 1 (testado via CUSUM no Notebook 03)</span>
+<span class="w">  </span><span class="nt">shadow_max_consecutive_live_losses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span><span class="w">     </span><span class="c1"># Se modo fantasma for usado no futuro, exige 3 stops ou gatilho CUSUM</span>
+<span class="w">  </span><span class="nt">shadow_virtual_wins_to_reactivate</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">4</span><span class="w">      </span><span class="c1"># Unificado: exige 4 trades virtuais com E[R] &gt; 0 (removido o atalho de +2.0R em 1 trade)</span>
+
+<span class="nt">profit_splitter</span><span class="p">:</span><span class="w">                            </span><span class="c1"># Alimentador blindado da carteira de longo prazo</span>
+<span class="w">  </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span><span class="w">                            </span><span class="c1"># Começa DESLIGADO na Fase 1 até comprovar lucro real fora da amostra</span>
+<span class="w">  </span><span class="nt">reinvest_bot_pct</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.70</span><span class="w">                    </span><span class="c1"># 70% do lucro líquido permanece no caixa tático (juros compostos)</span>
+<span class="w">  </span><span class="nt">send_to_hodl_pct</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.30</span><span class="w">                    </span><span class="c1"># 30% acumula em pending_hodl_bucket_usdt (descontado do caixa operável do robô!)</span>
+<span class="w">  </span><span class="nt">min_bucket_to_transfer_usdt</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10.00</span><span class="w">        </span><span class="c1"># Ao somar &gt;= 10 USDT, transfere direto para a carteira FUNDING</span>
+<span class="w">  </span><span class="nt">transfer_method</span><span class="p">:</span><span class="w"> </span><span class="s">"MAIN_TO_FUNDING_USDT"</span><span class="w">   </span><span class="c1"># Usa POST /sapi/v1/asset/transfer (type="MAIN_FUNDING") — zero saldo órfão na Spot!</span>
+<span class="w">  </span><span class="nt">hodl_target_reference_asset</span><span class="p">:</span><span class="w"> </span><span class="s">"XRP"</span><span class="w">        </span><span class="c1"># Ativo de referência contábil para conversão posterior na carteira Funding</span>
+
+<span class="nt">universe</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">backtest_min_start_date</span><span class="p">:</span><span class="w"> </span><span class="s">"2022-01-01"</span><span class="w">     </span><span class="c1"># Mitiga survivorship bias garantindo liquidez consolidada nos 7 pares</span>
+<span class="w">  </span><span class="nt">phase_1_tie_breaker</span><span class="p">:</span><span class="w"> </span><span class="s">"rs_vol_adjusted_12h"</span><span class="w"> </span><span class="c1"># Fase 1 (apenas Bull ativo): (Close[t] - Close[t-12]) / ATR_14[t]</span>
+<span class="w">  </span><span class="nt">phase_2_tie_breaker</span><span class="p">:</span><span class="w"> </span><span class="s">"net_expected_r"</span><span class="w">     </span><span class="c1"># Fase 2 (múltiplos regimes): E[R_i] = P_cal * R_target - (1 - P_cal) - C_R</span>
+<span class="w">  </span><span class="nt">symbols</span><span class="p">:</span><span class="w">                                  </span><span class="c1"># BNBUSDT removido propositalmente para jamais liquidar a reserva de taxas em BNB</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">"BTCUSDT"</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">"ETHUSDT"</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">"SOLUSDT"</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">"XRPUSDT"</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">"ADAUSDT"</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">"LINKUSDT"</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">"AVAXUSDT"</span>
+
+<span class="nt">regimes_and_strategies</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">macro_compass_timeframe</span><span class="p">:</span><span class="w"> </span><span class="s">"4h"</span><span class="w">             </span><span class="c1"># Alinhado estritamente por close_time_utc (backward merge_asof)</span>
+<span class="w">  </span><span class="nt">execution_timeframe</span><span class="p">:</span><span class="w"> </span><span class="s">"1h"</span><span class="w">                 </span><span class="c1"># Operado no fechamento confirmado da vela de 1h</span>
+<span class="w">  </span><span class="nt">intracandle_sim_timeframe</span><span class="p">:</span><span class="w"> </span><span class="s">"1m"</span><span class="w">           </span><span class="c1"># Resolução obrigatória no Colab para eliminar viés de trajetória intra-vela</span>
+
+<span class="w">  </span><span class="nt">regime_thresholds_4h</span><span class="p">:</span><span class="w">                     </span><span class="c1"># Partição MECE de 4 Estados: BEAR (1º) -&gt; BULL (2º) -&gt; SIDEWAYS (3º) -&gt; TRANSITION (4º)</span>
+<span class="w">    </span><span class="nt">ema_macro_period</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100</span>
+<span class="w">    </span><span class="nt">chop_period</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">14</span><span class="w">                         </span><span class="c1"># Calculado na base log10 canônica</span>
+<span class="w">    </span><span class="nt">chop_bull_max</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">50.0</span><span class="w">                     </span><span class="c1"># Abaixo de 50 = tendência limpa</span>
+<span class="w">    </span><span class="nt">chop_sideways_min</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">55.0</span><span class="w">                 </span><span class="c1"># Acima ou igual a 55 = consolidação lateral (entre 50 e 55 cai em TRANSITION)</span>
+<span class="w">    </span><span class="nt">adx_period</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">14</span><span class="w">                          </span><span class="c1"># Calculado com suavização RMA de Wilder (TA-Lib)</span>
+<span class="w">    </span><span class="nt">adx_sideways_max</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">22.0</span><span class="w">                  </span><span class="c1"># Abaixo de 22 confirma ausência de força direcional</span>
+
+<span class="w">  </span><span class="nt">bull_trend_pullback</span><span class="p">:</span><span class="w">                      </span><span class="c1"># CLIMA BULL (Sol Aberto) — ÚNICA ESTRATÉGIA ATIVA NA FASE 1</span>
+<span class="w">    </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">ema_fast_1h</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">20</span>
+<span class="w">    </span><span class="nt">ema_slow_1h</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100</span>
+<span class="w">    </span><span class="nt">stop_atr_mult</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2.0</span><span class="w">                      </span><span class="c1"># Stop inicial em 2.0 * ATR_14 (-1.0R)</span>
+<span class="w">    </span><span class="nt">target_atr_mult</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5.0</span><span class="w">                    </span><span class="c1"># Alvo em 5.0 * ATR_14 (+2.5R bruto)</span>
+<span class="w">    </span><span class="nt">time_barrier_candles_1h</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">24</span><span class="w">             </span><span class="c1"># Saída atômica por tempo após 24 horas (validada contra decaimento de E[R])</span>
+
+<span class="w">  </span><span class="nt">sideways_pingpong</span><span class="p">:</span><span class="w">                        </span><span class="c1"># CLIMA SIDEWAYS (Pista Ensaboada) — DESLIGADO NA FASE 1</span>
+<span class="w">    </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">    </span><span class="nt">bollinger_period</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">20</span>
+<span class="w">    </span><span class="nt">bollinger_std</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2.0</span>
+<span class="w">    </span><span class="nt">rsi_period</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">14</span>
+<span class="w">    </span><span class="nt">rsi_oversold_entry</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">32.0</span>
+<span class="w">    </span><span class="nt">stop_atr_mult</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.5</span>
+<span class="w">    </span><span class="nt">target_band</span><span class="p">:</span><span class="w"> </span><span class="s">"middle_bollinger"</span><span class="w">         </span><span class="c1"># Alvo fixado no valor da SMA_20 no instante da entrada</span>
+<span class="w">    </span><span class="nt">min_initial_rr_ratio</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.50</span><span class="w">              </span><span class="c1"># TRAVA GEOMÉTRICA v6: Bloqueia entrada se (SMA_20 - Entry) / (1.5 * ATR_14) &lt; 1.5</span>
+<span class="w">    </span><span class="nt">time_barrier_candles_1h</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">12</span>
+
+<span class="w">  </span><span class="nt">bear_capitulation_snap</span><span class="p">:</span><span class="w">                   </span><span class="c1"># CLIMA BEAR (Tempestade) — EM QUARENTENA (Alto risco de continuação em Bear Market)</span>
+<span class="w">    </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span><span class="w">                          </span><span class="c1"># Mantém 100% em USDT durante Bear Market até provar alpha OOS com filtro de exaustão</span>
+<span class="w">    </span><span class="nt">rsi_fast_period</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
+<span class="w">    </span><span class="nt">rsi_panic_threshold</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5.0</span>
+<span class="w">    </span><span class="nt">relative_volume_min</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3.0</span>
+<span class="w">    </span><span class="nt">min_lower_wick_ratio</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.40</span><span class="w">              </span><span class="c1"># Exige pavio inferior &gt;= 40% da vela de 1h provando rejeição compradora real</span>
+<span class="w">    </span><span class="nt">stop_atr_mult</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.8</span>
+<span class="w">    </span><span class="nt">target_atr_mult</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3.6</span><span class="w">                    </span><span class="c1"># Alvo de repique (+2.0R)</span>
+<span class="w">    </span><span class="nt">time_barrier_candles_1h</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">8</span>
+
+<span class="nt">ml_judge_and_validation</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">use_ml_filter</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span><span class="w">                      </span><span class="c1"># Começa DESLIGADO na Fase 1; exige vencer Degrau C no Colab</span>
+<span class="w">  </span><span class="nt">segregate_models_by_regime</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w">          </span><span class="c1"># Proíbe misturar estratégias com razões R:R diferentes no mesmo modelo</span>
+<span class="w">  </span><span class="nt">sample_uniqueness_method</span><span class="p">:</span><span class="w"> </span><span class="s">"afml_mean_uniqueness"</span><span class="w"> </span><span class="c1"># Média de 1/c_t ao longo de toda a janela [t_entry, t_exit]</span>
+<span class="w">  </span><span class="nt">purge_window_hours</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">24</span><span class="w">                    </span><span class="c1"># Expurgo de 24h entre treino e validação/teste</span>
+<span class="w">  </span><span class="nt">embargo_pct</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.02</span><span class="w">                         </span><span class="c1"># Embargo de 2% após cada fold de teste</span>
+<span class="w">  </span><span class="nt">calibration_method</span><span class="p">:</span><span class="w"> </span><span class="s">"isotonic"</span><span class="w">            </span><span class="c1"># Calibração explícita de probabilidade (exige ECE &lt;= 0.05 fora da amostra)</span>
+<span class="w">  </span><span class="nt">max_allowed_ece</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.05</span>
+<span class="w">  </span><span class="nt">ranking_metric</span><span class="p">:</span><span class="w"> </span><span class="s">"net_expected_r"</span><span class="w">          </span><span class="c1"># Classifica tercis por E[R] líquido, nunca por P(win) bruto</span>
+<span class="w">  </span><span class="nt">reject_bottom_quantile</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.33</span><span class="w">              </span><span class="c1"># Tercil inferior (ou E[R] &lt;= 0) = Nota C (Ignora)</span>
+<span class="w">  </span><span class="nt">grade_a_plus_top_quantile</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.70</span><span class="w">           </span><span class="c1"># Top 30% de E[R] (com P_cal &gt; p_indiferenca + 0.03) = Nota A+</span>
+<span class="w">  </span><span class="nt">min_deflated_sharpe_ratio</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.95</span><span class="w">           </span><span class="c1"># Exige DSR &gt;= 0.95 descontando o número total de trials testados no Colab</span>
+</code></pre></div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Voltar ao topo
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.sections", "navigation.top", "content.code.copy"], "search": "../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copiado para \u00e1rea de transfer\u00eancia", "clipboard.copy": "Copiar para \u00e1rea de transfer\u00eancia", "search.result.more.one": "Mais 1 nesta p\u00e1gina", "search.result.more.other": "Mais # nesta p\u00e1gina", "search.result.none": "Nenhum resultado encontrado", "search.result.one": "1 resultado encontrado", "search.result.other": "# resultados encontrados", "search.result.placeholder": "Digite para iniciar a busca", "search.result.term.missing": "Ausente", "select.version": "Selecione a vers\u00e3o"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.a5f9d56c.min.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

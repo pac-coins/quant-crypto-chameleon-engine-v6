@@ -1,0 +1,1469 @@
+
+<!doctype html>
+<html lang="pt" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Arquitetura, metodologia e roadmap do QuantCrypto Chameleon Engine">
+      
+      
+      
+        <link rel="canonical" href="https://pac-coins.github.io/quant-crypto-chameleon-engine-v6/v5/">
+      
+      
+        <link rel="prev" href="../v5-to-v6/">
+      
+      
+        <link rel="next" href="../todo/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.1">
+    
+    
+      
+        <title>v5 - QuantCrypto Chameleon Engine v6</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.57a0d79d.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.fb2fffe2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#quantcrypto-chameleon-engine-v50-sistema-adaptativo-de-crescimento-e-preservacao" class="md-skip">
+          Ir para o conteúdo
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Cabeçalho">
+    <a href=".." title="QuantCrypto Chameleon Engine v6" class="md-header__button md-logo" aria-label="QuantCrypto Chameleon Engine v6" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            QuantCrypto Chameleon Engine v6
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              v5
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Usar modo escuro"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Usar modo escuro" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Usar modo claro"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Usar modo claro" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Buscar" placeholder="Buscar" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Pesquisar">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Limpar" aria-label="Limpar" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Inicializando a pesquisa
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/pac-coins/quant-crypto-chameleon-engine-v6" title="Ir ao repositório" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    pac-coins/quant-crypto-chameleon-engine-v6
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navegação" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="QuantCrypto Chameleon Engine v6" class="md-nav__button md-logo" aria-label="QuantCrypto Chameleon Engine v6" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    QuantCrypto Chameleon Engine v6
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/pac-coins/quant-crypto-chameleon-engine-v6" title="Ir ao repositório" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    pac-coins/quant-crypto-chameleon-engine-v6
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Início
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Arquitetura
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../methodology-and-roadmap/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Metodologia e roadmap
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../v5-to-v6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Migração v5 → v6
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    v5
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    v5
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Índice">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Índice
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-arquitetura-patrimonial-core-satellite-cofre-de-lucros" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Arquitetura Patrimonial: Core-Satellite + Cofre de Lucros
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-o-cerebro-camaleao-adaptacao-aos-3-climas-de-mercado" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. O Cérebro "Camaleão": Adaptação aos 3 Climas de Mercado
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. O Cérebro &#34;Camaleão&#34;: Adaptação aos 3 Climas de Mercado">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-giro-rapido-no-grafico-de-1-hora-e-fila-single-slot" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1. Giro Rápido no Gráfico de 1 Hora e Fila "Single-Slot"
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-inteligencia-de-alocacao-dinamica-e-modo-fantasma" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Inteligência de Alocação Dinâmica e "Modo Fantasma"
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Inteligência de Alocação Dinâmica e &#34;Modo Fantasma&#34;">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-o-semaforo-de-conviccao-kelly-fracionado-no-mercado-spot" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1. O Semáforo de Convicção (Kelly Fracionado no Mercado Spot)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-trava-de-risco-zero-no-meio-da-operacao-free-roll-no-12r" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2. Trava de "Risco Zero" no Meio da Operação (Free-Roll no +1,2R)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-o-modo-fantasma-shadow-mode-freio-contra-meses-ruins" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3. O "Modo Fantasma" (Shadow Mode / Freio Contra Meses Ruins)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-ciencia-de-dados-simetria-treino-producao-e-estudo-de-ablacao" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Ciência de Dados, Simetria Treino-Produção e Estudo de Ablação
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Ciência de Dados, Simetria Treino-Produção e Estudo de Ablação">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-regras-para-eliminar-ilusoes-no-backtest-zero-train-serve-skew" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1. Regras para Eliminar Ilusões no Backtest (Zero Train-Serve Skew)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-as-5-variaveis-estacionarias-features-da-ia" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2. As 5 Variáveis Estacionárias (Features da IA)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-calibracao-por-quantil-e-estudo-de-ablacao-a-b-c-d" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.3. Calibração por Quantil e Estudo de Ablação (A / B / C / D)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-engenharia-de-resiliencia-e-integracao-com-a-binance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Engenharia de Resiliência e Integração com a Binance
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-metodologia-de-construcao-incremental-como-construir-sem-se-perder" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Metodologia de Construção Incremental (Como Construir Sem Se Perder)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Metodologia de Construção Incremental (Como Construir Sem Se Perder)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#estagio-1-fundacao-banco-de-dados-e-coletor-srccore-e-srcdata" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Estágio 1: Fundação, Banco de Dados e Coletor (src/core/ e src/data/)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#estagio-2-matematica-dos-indicadores-e-sensor-dos-3-climas-srcfeatures-e-srcregimes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Estágio 2: Matemática dos Indicadores e Sensor dos 3 Climas (src/features/ e src/regimes/)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#estagio-3-o-simulador-de-fila-unica-no-google-colab-notebooks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Estágio 3: O Simulador de Fila Única no Google Colab (notebooks/)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#estagio-4-o-cerebro-de-risco-alocacao-a-e-modo-fantasma-srcrisk" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Estágio 4: O Cérebro de Risco, Alocação A+ e Modo Fantasma (src/risk/)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#estagio-5-execucao-blindada-ordem-oco-e-reconciliador-na-testnet-srcexecution" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Estágio 5: Execução Blindada, Ordem OCO e Reconciliador na Testnet (src/execution/)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#estagio-6-alertas-no-telegram-cofre-de-lucros-e-deploy-em-producao" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Estágio 6: Alertas no Telegram, Cofre de Lucros e Deploy em Produção
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mapa-de-diagnostico-rapido-onde-olhar-quando-algo-der-errado" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mapa de Diagnóstico Rápido (Onde Olhar Quando Algo Der Errado)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-estrutura-completa-do-repositorio-e-configuracao-strategiesyaml" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Estrutura Completa do Repositório e Configuração (strategies.yaml)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. Estrutura Completa do Repositório e Configuração (strategies.yaml)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#arvore-de-arquivos-do-projeto" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Árvore de Arquivos do Projeto
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#arquivo-central-de-configuracao-configstrategiesyaml" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Arquivo Central de Configuração (config/strategies.yaml)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../todo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    TODO
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Índice">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Índice
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-arquitetura-patrimonial-core-satellite-cofre-de-lucros" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Arquitetura Patrimonial: Core-Satellite + Cofre de Lucros
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-o-cerebro-camaleao-adaptacao-aos-3-climas-de-mercado" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. O Cérebro "Camaleão": Adaptação aos 3 Climas de Mercado
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. O Cérebro &#34;Camaleão&#34;: Adaptação aos 3 Climas de Mercado">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-giro-rapido-no-grafico-de-1-hora-e-fila-single-slot" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1. Giro Rápido no Gráfico de 1 Hora e Fila "Single-Slot"
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-inteligencia-de-alocacao-dinamica-e-modo-fantasma" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Inteligência de Alocação Dinâmica e "Modo Fantasma"
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Inteligência de Alocação Dinâmica e &#34;Modo Fantasma&#34;">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-o-semaforo-de-conviccao-kelly-fracionado-no-mercado-spot" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1. O Semáforo de Convicção (Kelly Fracionado no Mercado Spot)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-trava-de-risco-zero-no-meio-da-operacao-free-roll-no-12r" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2. Trava de "Risco Zero" no Meio da Operação (Free-Roll no +1,2R)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-o-modo-fantasma-shadow-mode-freio-contra-meses-ruins" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3. O "Modo Fantasma" (Shadow Mode / Freio Contra Meses Ruins)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-ciencia-de-dados-simetria-treino-producao-e-estudo-de-ablacao" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Ciência de Dados, Simetria Treino-Produção e Estudo de Ablação
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Ciência de Dados, Simetria Treino-Produção e Estudo de Ablação">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-regras-para-eliminar-ilusoes-no-backtest-zero-train-serve-skew" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1. Regras para Eliminar Ilusões no Backtest (Zero Train-Serve Skew)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-as-5-variaveis-estacionarias-features-da-ia" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2. As 5 Variáveis Estacionárias (Features da IA)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-calibracao-por-quantil-e-estudo-de-ablacao-a-b-c-d" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.3. Calibração por Quantil e Estudo de Ablação (A / B / C / D)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-engenharia-de-resiliencia-e-integracao-com-a-binance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Engenharia de Resiliência e Integração com a Binance
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-metodologia-de-construcao-incremental-como-construir-sem-se-perder" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Metodologia de Construção Incremental (Como Construir Sem Se Perder)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Metodologia de Construção Incremental (Como Construir Sem Se Perder)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#estagio-1-fundacao-banco-de-dados-e-coletor-srccore-e-srcdata" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Estágio 1: Fundação, Banco de Dados e Coletor (src/core/ e src/data/)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#estagio-2-matematica-dos-indicadores-e-sensor-dos-3-climas-srcfeatures-e-srcregimes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Estágio 2: Matemática dos Indicadores e Sensor dos 3 Climas (src/features/ e src/regimes/)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#estagio-3-o-simulador-de-fila-unica-no-google-colab-notebooks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Estágio 3: O Simulador de Fila Única no Google Colab (notebooks/)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#estagio-4-o-cerebro-de-risco-alocacao-a-e-modo-fantasma-srcrisk" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Estágio 4: O Cérebro de Risco, Alocação A+ e Modo Fantasma (src/risk/)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#estagio-5-execucao-blindada-ordem-oco-e-reconciliador-na-testnet-srcexecution" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Estágio 5: Execução Blindada, Ordem OCO e Reconciliador na Testnet (src/execution/)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#estagio-6-alertas-no-telegram-cofre-de-lucros-e-deploy-em-producao" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Estágio 6: Alertas no Telegram, Cofre de Lucros e Deploy em Produção
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mapa-de-diagnostico-rapido-onde-olhar-quando-algo-der-errado" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mapa de Diagnóstico Rápido (Onde Olhar Quando Algo Der Errado)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-estrutura-completa-do-repositorio-e-configuracao-strategiesyaml" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Estrutura Completa do Repositório e Configuração (strategies.yaml)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. Estrutura Completa do Repositório e Configuração (strategies.yaml)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#arvore-de-arquivos-do-projeto" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Árvore de Arquivos do Projeto
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#arquivo-central-de-configuracao-configstrategiesyaml" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Arquivo Central de Configuração (config/strategies.yaml)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="quantcrypto-chameleon-engine-v50-sistema-adaptativo-de-crescimento-e-preservacao">QuantCrypto Chameleon Engine (v5.0): Sistema Adaptativo de Crescimento e Preservação<a class="headerlink" href="#quantcrypto-chameleon-engine-v50-sistema-adaptativo-de-crescimento-e-preservacao" title="Permanent link">&para;</a></h1>
+<p>Este repositório contém a arquitetura de engenharia de software, os modelos de Ciência de Dados e a metodologia de construção incremental para um robô de <strong>Trading Sistemático Adaptativo (1h/4h)</strong> na Binance Spot. O sistema foi projetado para escalar um patrimônio inicial de <strong>300 XRP</strong> sem uso de alavancagem, combinando eficiência máxima de capital nos momentos de alta convicção com defesa automática em meses adversos.</p>
+<hr />
+<h2 id="1-arquitetura-patrimonial-core-satellite-cofre-de-lucros">1. Arquitetura Patrimonial: Core-Satellite + Cofre de Lucros<a class="headerlink" href="#1-arquitetura-patrimonial-core-satellite-cofre-de-lucros" title="Permanent link">&para;</a></h2>
+<p>Para que o seu patrimônio cresça tanto pela valorização natural do mercado cripto quanto pelo giro ativo do robô, o capital inicial de <strong>300 XRP</strong> é dividido em duas frentes complementares, somadas a um mecanismo automático de acumulação:</p>
+<ul>
+<li><strong>Carteira Core (50% — 150 XRP em Hold Intocável):</strong> Guardada fora do alcance da chave de API do robô. Garante que você aproveite 100% de grandes ciclos de valorização do XRP no longo prazo sem risco operacional.</li>
+<li><strong>Carteira Tática Camaleão (50% — Equivalente a 150 XRP convertidos em USDT):</strong> Constitui 100% do caixa operacional do robô (<span class="arithmatex">\(C_{\text{usdt}}\)</span>). Permite que o sistema opere qualquer uma das 8 moedas mais líquidas do mercado e fique 100% protegido em Dólar (<code>USDT</code>) durante quedas gerais.</li>
+<li><strong>Cofre Divisor de Lucros por Acúmulo (<code>profit_splitter.py</code>):</strong> A cada operação fechada no lucro, o sistema separa contabilmente <strong>70% do ganho líquido</strong> para reinvestir na banca do robô (juros compostos) e <strong>30% para comprar mais moedas para o Hold</strong>.</li>
+<li><em>Trava Inteligente Anti-Erro da Binance:</em> Como 30% do lucro de um único trade em uma banca inicial pode dar menos de 5 dólares (ex: $1,20), tentar comprar a moeda imediatamente causaria erro na corretora (<code>MIN_NOTIONAL</code>). O sistema acumula essa fatia de 30% em uma variável do banco de dados (<code>pending_hodl_bucket_usdt</code>) e <strong>só dispara a compra automática para o Hold quando o cofrinho acumula pelo menos 10,00 USDT</strong>.</li>
+</ul>
+<hr />
+<h2 id="2-o-cerebro-camaleao-adaptacao-aos-3-climas-de-mercado">2. O Cérebro "Camaleão": Adaptação aos 3 Climas de Mercado<a class="headerlink" href="#2-o-cerebro-camaleao-adaptacao-aos-3-climas-de-mercado" title="Permanent link">&para;</a></h2>
+<p>Um robô comum perde dinheiro nos meses ruins porque tenta usar uma única ferramenta (comprar rompimentos ou recuos de alta) quando o mercado está andando de lado ou despencando.</p>
+<p>Este motor funciona como um carro de Fórmula 1 com <strong>Sensor de Clima</strong>: a cada fechamento de vela de <strong>1 hora (1h)</strong>, ele olha primeiro para a estrutura macro de <strong>4 horas (4h)</strong> para identificar em qual dos <strong>3 Regimes de Mercado</strong> o ativo se encontra, trocando automaticamente a estratégia ativa:</p>
+<table>
+<thead>
+<tr>
+<th>Regime Detectado (Clima)</th>
+<th>Como o Robô Identifica (Regra Matemática)</th>
+<th>Estratégia Ativada no Gráfico de 1h</th>
+<th>Objetivo Operacional</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>1. Sol Aberto (Bull Trend)</strong></td>
+<td><span class="arithmatex">\(\text{Close}_{4h} &gt; \text{EMA}_{100, 4h}\)</span>, inclinação positiva e <span class="arithmatex">\(\text{CHOP}_{14} &lt; 50\)</span> (tendência limpa)</td>
+<td><code>trend_pullback_1h</code> (Compra recuos na <span class="arithmatex">\(\text{EMA}_{20}\)</span>)</td>
+<td>Acelerar a banca usando de 40% a 95% do caixa nos sinais A+</td>
+</tr>
+<tr>
+<td><strong>2. Pista Ensaboada (Lateral / Range)</strong></td>
+<td><span class="arithmatex">\(\text{CHOP}_{14} \ge 55\)</span> e <span class="arithmatex">\(\text{ADX}_{14} &lt; 22\)</span> (mercado preso em um caixote sem direção)</td>
+<td><code>range_pingpong_1h</code> (Compra no fundo da Banda de Bollinger + <span class="arithmatex">\(\text{RSI}_{14} &lt; 32\)</span>)</td>
+<td>Fazer ganhos curtos e rápidos comprando barato no "chão" e vendendo no meio do canal</td>
+</tr>
+<tr>
+<td><strong>3. Tempestade (Bear / Crash)</strong></td>
+<td><span class="arithmatex">\(\text{Close}_{4h} &lt; \text{EMA}_{100, 4h}\)</span> com médias apontando para baixo</td>
+<td><strong>Defesa em USDT</strong> + <code>capitulation_snap_1h</code> (Caça ao "Elástico Esticado")</td>
+<td>Manter 100% em dólar; só comprar se houver pânico extremo (<span class="arithmatex">\(\text{RSI}_2 &lt; 5\)</span> e Volume <span class="arithmatex">\(&gt; 3\times\)</span> a média) para pegar o repique rápido</td>
+</tr>
+</tbody>
+</table>
+<h3 id="21-giro-rapido-no-grafico-de-1-hora-e-fila-single-slot">2.1. Giro Rápido no Gráfico de 1 Hora e Fila "Single-Slot"<a class="headerlink" href="#21-giro-rapido-no-grafico-de-1-hora-e-fila-single-slot" title="Permanent link">&para;</a></h3>
+<p>Para não deixar o capital preso por vários dias esperando uma única operação terminar, o mapa é lido no gráfico de 4h, mas <strong>o gatilho de entrada e saída ocorre no gráfico de 1 hora (1h)</strong>, permitindo que o capital gire dentro do mesmo dia.</p>
+<ul>
+<li><strong>Cesta Congelada de 8 Ativos Líquidos (Sem Memecoins):</strong> <code>BTCUSDT</code>, <code>ETHUSDT</code>, <code>SOLUSDT</code>, <code>BNBUSDT</code>, <code>XRPUSDT</code>, <code>ADAUSDT</code>, <code>LINKUSDT</code> e <code>AVAXUSDT</code>.</li>
+<li><strong>Modo Sniper (1 Posição por Vez — <code>MAX_OPEN_POSITIONS = 1</code>):</strong> O robô concentra o poder de fogo em <strong>apenas 1 moeda por vez</strong>. Se duas moedas derem sinal na mesma hora, o desempate escolhe a moeda com maior <strong>Força Relativa Ajustada por Volatilidade</strong> nas últimas 12 horas:</li>
+</ul>
+<div class="arithmatex">\[\text{RS}_{\text{score}} = \frac{\text{Close}_t - \text{Close}_{t-12}}{\text{ATR}_{14, t}}\]</div>
+<hr />
+<h2 id="3-inteligencia-de-alocacao-dinamica-e-modo-fantasma">3. Inteligência de Alocação Dinâmica e "Modo Fantasma"<a class="headerlink" href="#3-inteligencia-de-alocacao-dinamica-e-modo-fantasma" title="Permanent link">&para;</a></h2>
+<p>Para superar o crescimento lento de sistemas engessados sem jamais usar alavancagem (mantendo <strong>risco zero de liquidação</strong> por operar apenas no mercado à vista Spot), o motor gerencia o tamanho da aposta e a própria curva de acertos usando três mecanismos:</p>
+<h3 id="31-o-semaforo-de-conviccao-kelly-fracionado-no-mercado-spot">3.1. O Semáforo de Convicção (Kelly Fracionado no Mercado Spot)<a class="headerlink" href="#31-o-semaforo-de-conviccao-kelly-fracionado-no-mercado-spot" title="Permanent link">&para;</a></h3>
+<p>Em vez de deixar 60% do seu dinheiro dormindo em todas as operações, o módulo <code>position_sizer.py</code> classifica a qualidade do sinal e ajusta o uso do caixa em USDT:</p>
+<ol>
+<li><strong>Sinal Nota C (Duvidoso ou Reprovado pela IA):</strong> Contexto ruim ou volume fraco. <strong>Alocação = 0% do caixa</strong> (o robô ignora o trade).</li>
+<li><strong>Sinal Nota B (Oportunidade Padrão):</strong> Regra técnica cumprida com probabilidade moderada. O robô arrisca <strong>1,0% da carteira tática</strong> no <em>Stop Loss</em>, alocando tipicamente entre <strong>35% e 50% do caixa em USDT</strong>.</li>
+<li><strong>Sinal Nota A+ (Alta Convicção / Alinhamento Total):</strong> Tendência de 4h limpa, recuo perfeito em 1h, volume acima de <span class="arithmatex">\(1,5\times\)</span> a média e probabilidade da IA no topo do ranking. O robô pisa no acelerador e aloca <strong>até 95% do caixa em USDT</strong> (mantendo 5% de margem para taxas e arredondamentos).</li>
+<li><em>Por que isso é seguro sem alavancagem?</em> Como o <em>Stop Loss</em> técnico no gráfico de 1h fica a cerca de <span class="arithmatex">\(2,0\%\)</span> a <span class="arithmatex">\(2,5\%\)</span> de distância, colocar 95% do caixa à vista significa que, se tudo der errado, você perde apenas <strong>2,0% a 2,4% da carteira tática</strong>. Porém, se a moeda subir <strong>6% ou 8%</strong> naquela pernada, <strong>toda a sua carteira tática cresce +6% a +7,5% em um único trade!</strong></li>
+</ol>
+<h3 id="32-trava-de-risco-zero-no-meio-da-operacao-free-roll-no-12r">3.2. Trava de "Risco Zero" no Meio da Operação (Free-Roll no +1,2R)<a class="headerlink" href="#32-trava-de-risco-zero-no-meio-da-operacao-free-roll-no-12r" title="Permanent link">&para;</a></h3>
+<p>Para evitar que uma operação vencedora volte tudo e vire prejuízo:</p>
+<ul>
+<li>Assim que o preço avança a seu favor e atinge <strong><span class="arithmatex">\(+1,2R\)</span></strong> (1,2 vezes o tamanho do risco inicial), o robô cancela o <em>Stop Loss</em> original na Binance e o reposiciona exatamente no <strong>preço de entrada acrescido das taxas (<span class="arithmatex">\(0,0R\)</span> — Empate / Breakeven)</strong>.</li>
+<li>A partir desse minuto, você tem uma operação com <strong>risco zero de perder dinheiro</strong> e potencial livre para buscar o alvo cheio de <strong><span class="arithmatex">\(+2,5R\)</span></strong>.</li>
+</ul>
+<h3 id="33-o-modo-fantasma-shadow-mode-freio-contra-meses-ruins">3.3. O "Modo Fantasma" (Shadow Mode / Freio Contra Meses Ruins)<a class="headerlink" href="#33-o-modo-fantasma-shadow-mode-freio-contra-meses-ruins" title="Permanent link">&para;</a></h3>
+<p>Mesmo com o Sensor de Clima, mudanças bruscas no mercado mundial podem fazer qualquer estratégia errar. Para impedir que o robô perca dinheiro em sequência num mês difícil, o sistema possui uma máquina de estados automática chamada <strong>Modo Fantasma</strong>:</p>
+<ol>
+<li><strong>Disparo da Proteção:</strong> Se o robô sofrer <strong>2 Stops seguidos</strong> operando dinheiro real (ou acumular <strong>-4% de queda na semana</strong>), ele muda imediatamente seu status no banco de dados de <code>LIVE_MODE</code> para <code>SHADOW_MODE</code> (Modo Fantasma).</li>
+<li><strong>Treino sem Gastar Dinheiro:</strong> Enquanto está no Modo Fantasma, o robô <strong>bloqueia o envio de ordens reais para a Binance</strong>, mas continua lendo as velas de 1h e registrando as operações "de mentirinha" (simuladas com taxas e <em>slippage</em>) dentro de uma tabela virtual no SQLite.</li>
+<li><strong>Religamento Automático por Mérito:</strong> O robô só é autorizado a voltar sozinho para o <code>LIVE_MODE</code> (dinheiro real) quando consegue <strong>acertar 2 operações virtuais no Modo Fantasma</strong> (ou acumular <span class="arithmatex">\(+2,0R\)</span> virtuais), provando matematicamente que o mercado voltou a respeitar os sinais.</li>
+</ol>
+<hr />
+<h2 id="4-ciencia-de-dados-simetria-treino-producao-e-estudo-de-ablacao">4. Ciência de Dados, Simetria Treino-Produção e Estudo de Ablação<a class="headerlink" href="#4-ciencia-de-dados-simetria-treino-producao-e-estudo-de-ablacao" title="Permanent link">&para;</a></h2>
+<p>A camada de Inteligência Artificial (<strong>Meta-Labeling</strong>) funciona como um juiz que dá a nota de probabilidade de cada sinal (<span class="arithmatex">\(P_{\text{win}}\)</span>) para definir se o trade é <strong>Nota C (Bloqueado)</strong>, <strong>Nota B (Mão Normal)</strong> ou <strong>Nota A+ (Mão Cheia Spot 95%)</strong>.</p>
+<h3 id="41-regras-para-eliminar-ilusoes-no-backtest-zero-train-serve-skew">4.1. Regras para Eliminar Ilusões no Backtest (Zero Train-Serve Skew)<a class="headerlink" href="#41-regras-para-eliminar-ilusoes-no-backtest-zero-train-serve-skew" title="Permanent link">&para;</a></h3>
+<p>No Google Colab, o simulador obedece exatamente às mesmas restrições físicas da conta real na Binance:</p>
+<ul>
+<li><strong>Base Multi-Ativo com Pesos de Unicidade:</strong> O modelo é treinado nos sinais dos 8 ativos agrupados (gerando mais de 3.000 eventos candidatos no gráfico de 1h em 3 anos), aplicando peso <span class="arithmatex">\(w_i = 1 / c_t\)</span> para sinais simultâneos e expurgo (<em>embargo</em>) entre treino e teste.</li>
+<li><strong>Simulação de Fila Single-Slot Cronológica:</strong> Na hora de medir o lucro do portfólio no teste fora da amostra, sinais que aparecem enquanto o robô já está posicionado em outra moeda são <strong>descartados</strong>, reproduzindo fielmente a sua conta real.</li>
+<li><strong>Ancoragem e Pior Caso Intra-Vela:</strong> A entrada é contada na abertura da vela seguinte com <em>slippage</em> (<span class="arithmatex">\(P_{\text{exec}}\)</span>). Se uma vela histórica tocar no <em>Stop</em> e no <em>Alvo</em> dentro da mesma hora, o simulador conta <strong>Stop Loss primeiro</strong>.</li>
+<li><strong>Custo Dinâmico em Unidades de <span class="arithmatex">\(R\)</span>:</strong> A taxa de corretagem (<span class="arithmatex">\(0,15\%\)</span> ida e volta com BNB) somada ao <em>slippage</em> (<span class="arithmatex">\(0,05\%\)</span>) é descontada proporcionalmente à distância do <em>stop</em> de cada operação:</li>
+</ul>
+<div class="arithmatex">\[C_{R, i} = \frac{f_{\text{ida+volta}} + s}{d_{\text{stop\_pct}, i}}\]</div>
+<h3 id="42-as-5-variaveis-estacionarias-features-da-ia">4.2. As 5 Variáveis Estacionárias (Features da IA)<a class="headerlink" href="#42-as-5-variaveis-estacionarias-features-da-ia" title="Permanent link">&para;</a></h3>
+<p>Calculadas estritamente na vela fechada (índice <code>-2</code>), sem qualquer vazamento do futuro:</p>
+<ol>
+<li><code>atr_pct</code>: Volatilidade atual em porcentagem do preço (<span class="arithmatex">\(\text{ATR}_{14} / \text{Close}_t\)</span>).</li>
+<li><code>dist_ema100_atr</code>: Distância até a média longa medida em unidades de <span class="arithmatex">\(\text{ATR}_{14}\)</span>.</li>
+<li><code>rvol_20</code>: Volume da vela dividido pela mediana das últimas 20 velas fechadas.</li>
+<li><code>chop_14</code>: Índice de bagunça/lateralização (<em>Choppiness Index</em> de 14 períodos).</li>
+<li><code>btc_regime_ret</code>: Retorno logarítmico do Bitcoin nas últimas 12 horas (alinhado por <code>close_time</code>).</li>
+</ol>
+<h3 id="43-calibracao-por-quantil-e-estudo-de-ablacao-a-b-c-d">4.3. Calibração por Quantil e Estudo de Ablação (A / B / C / D)<a class="headerlink" href="#43-calibracao-por-quantil-e-estudo-de-ablacao-a-b-c-d" title="Permanent link">&para;</a></h3>
+<p>Em vez de usar um corte fixo arbitrário (como 55%), o modelo calibrado divide os sinais em <strong>3 faixas (tercis)</strong> baseadas no histórico de treino:</p>
+<ul>
+<li><strong>Tercil Inferior (33% piores):</strong> Nota C <span class="arithmatex">\(\rightarrow\)</span> Operação bloqueada.</li>
+<li><strong>Tercil Médio (33% intermediários):</strong> Nota B <span class="arithmatex">\(\rightarrow\)</span> Operação aprovada com mão padrão (risco de 1%).</li>
+<li><strong>Tercil Superior (33% melhores):</strong> Nota A+ <span class="arithmatex">\(\rightarrow\)</span> Operação aprovada com mão máxima (até 95% do caixa Spot).</li>
+</ul>
+<p>No Google Colab (<code>02_ablation_chameleon_sim.ipynb</code>), nenhuma peça é ativada no escuro. Comparamos quatro degraus fora da amostra:</p>
+<ul>
+<li><strong>Degrau A:</strong> <em>Buy &amp; Hold</em> passivo.</li>
+<li><strong>Degrau B:</strong> Apenas 1 estratégia fixa (sem troca de clima e sem IA).</li>
+<li><strong>Degrau C:</strong> Cérebro Camaleão (3 Climas + Modo Fantasma, sem IA).</li>
+<li><strong>Degrau D:</strong> Cérebro Camaleão completo + IA calibrando lotes Nota B e Nota A+.</li>
+</ul>
+<hr />
+<h2 id="5-engenharia-de-resiliencia-e-integracao-com-a-binance">5. Engenharia de Resiliência e Integração com a Binance<a class="headerlink" href="#5-engenharia-de-resiliencia-e-integracao-com-a-binance" title="Permanent link">&para;</a></h2>
+<p>Para que quedas de internet ou reinicializações do servidor nunca deixem o seu dinheiro desprotegido:</p>
+<ol>
+<li><strong>Gravação Pré-Envio (<code>Write-Ahead State</code> no SQLite):</strong> Antes de enviar qualquer ordem de compra para a Binance, o robô grava a intenção no banco <code>SQLite</code> com status <code>PENDING_ENTRY</code> e um código único (<code>newClientOrderId = f"CHM_{symbol}_{timestamp}"</code>).</li>
+<li><strong>Ordem OCO Nativa com Margem Contra Flash-Crash:</strong> Assim que a compra executa, o robô registra o <em>Take Profit</em> e o <em>Stop Loss</em> diretamente nos servidores da Binance via ordem <strong>OCO</strong>. O preço limite de venda do stop (<code>stopLimitPrice</code>) é posicionado <strong>1,2% abaixo</strong> do gatilho (<code>stopPrice</code>), evitando que a ordem seja pulada em quedas violentas.</li>
+<li><strong>Reconciliador Automático no Boot (<code>state_reconciler.py</code>):</strong> Toda vez que o robô liga, ele confere os saldos e ordens abertas na Binance contra o banco <code>SQLite</code>. Se encontrar uma moeda comprada que ficou sem ordem OCO (porque a luz acabou no meio da compra), ele cria a ordem OCO de proteção no primeiro segundo antes de fazer qualquer outra coisa.</li>
+<li><strong>Infraestrutura Custo Zero e Segurança:</strong></li>
+<li><strong>Google Colab:</strong> Usado apenas para treinar e rodar o Estudo de Ablação.</li>
+<li><strong>VPS 24/7 (Oracle Cloud Always Free / AWS):</strong> Roda o motor em Docker consumindo menos de 100 MB de RAM.</li>
+<li><strong>Chaves de API Blindadas:</strong> Chaves <strong>Ed25519</strong> sem permissão de saque (<em>Withdrawals OFF</em>) e travadas no IP fixo da VPS (<em>IP Whitelist</em>).</li>
+</ol>
+<hr />
+<h2 id="6-metodologia-de-construcao-incremental-como-construir-sem-se-perder">6. Metodologia de Construção Incremental (Como Construir Sem Se Perder)<a class="headerlink" href="#6-metodologia-de-construcao-incremental-como-construir-sem-se-perder" title="Permanent link">&para;</a></h2>
+<p><strong>Regra de Ouro da Engenharia:</strong> Se você escrever os 15 arquivos do sistema de uma só vez e ligar o robô, ele vai apresentar erros silenciosos e você não saberá onde consertar.</p>
+<p>Por isso, o desenvolvimento segue a <strong>Arquitetura em Blocos de LEGO (6 Estágios Isolados)</strong>. Você só constrói o Bloco 2 depois que o Bloco 1 passar no teste automático dele.</p>
+<div class="highlight"><pre><span></span><code>[Bloco 1: Dados e Banco] ──► [Bloco 2: Indicadores e Clima] ──► [Bloco 3: Backtest no Colab]
+                                                                             │
+[Bloco 6: Produção + Cofre] ◄── [Bloco 5: Binance Testnet + OCO] ◄── [Bloco 4: Risco + Modo Fantasma]
+</code></pre></div>
+<h3 id="estagio-1-fundacao-banco-de-dados-e-coletor-srccore-e-srcdata">Estágio 1: Fundação, Banco de Dados e Coletor (<code>src/core/</code> e <code>src/data/</code>)<a class="headerlink" href="#estagio-1-fundacao-banco-de-dados-e-coletor-srccore-e-srcdata" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>O que vamos codificar:</strong> Apenas a criação das tabelas no <code>SQLite</code>, o leitor do arquivo <code>strategies.yaml</code> e o script que baixa as velas fechadas de 1h e 4h das 8 moedas na Binance.</li>
+<li><strong>Zero lógica de trade aqui:</strong> O robô ainda não sabe o que é comprar ou vender.</li>
+<li><strong>Teste de Aprovação (Gate 1):</strong> Rodar um comando simples que verifica se as 8 moedas foram salvas sem buracos de horário e se a última vela lida é sempre a vela <strong>100% fechada</strong> (índice <code>-2</code>).</li>
+</ul>
+<h3 id="estagio-2-matematica-dos-indicadores-e-sensor-dos-3-climas-srcfeatures-e-srcregimes">Estágio 2: Matemática dos Indicadores e Sensor dos 3 Climas (<code>src/features/</code> e <code>src/regimes/</code>)<a class="headerlink" href="#estagio-2-matematica-dos-indicadores-e-sensor-dos-3-climas-srcfeatures-e-srcregimes" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>O que vamos codificar:</strong> As funções puras que calculam <code>EMA</code>, <code>ATR</code>, <code>RSI</code>, <code>Bollinger</code>, <code>ADX</code> e <code>CHOP</code>, além da função <code>detect_market_regime()</code> que devolve apenas uma palavra: <code>BULL</code>, <code>SIDEWAYS</code> ou <code>BEAR</code>.</li>
+<li><strong>Teste de Aprovação (Gate 2):</strong> Rodar testes unitários (<code>pytest</code>) com uma tabela pequena de preços conhecidos para provar que a matemática não tem erro de divisão por zero nem olha dados do futuro.</li>
+</ul>
+<h3 id="estagio-3-o-simulador-de-fila-unica-no-google-colab-notebooks">Estágio 3: O Simulador de Fila Única no Google Colab (<code>notebooks/</code>)<a class="headerlink" href="#estagio-3-o-simulador-de-fila-unica-no-google-colab-notebooks" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>O que vamos codificar:</strong> O notebook que pega os blocos 1 e 2 e simula os últimos 3 a 4 anos no Google Colab, testando o Degrau B (1 estratégia), o Degrau C (3 climas + Modo Fantasma) e o Degrau D (com a IA separando trades Nota B e Nota A+).</li>
+<li><strong>Teste de Aprovação (Gate 3):</strong> Ver na tela a tabela comparativa e a curva de crescimento do capital descontando todas as taxas da Binance. Só avançamos para o robô ao vivo com a configuração vencedora.</li>
+</ul>
+<h3 id="estagio-4-o-cerebro-de-risco-alocacao-a-e-modo-fantasma-srcrisk">Estágio 4: O Cérebro de Risco, Alocação A+ e Modo Fantasma (<code>src/risk/</code>)<a class="headerlink" href="#estagio-4-o-cerebro-de-risco-alocacao-a-e-modo-fantasma-srcrisk" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>O que vamos codificar:</strong> O <code>position_sizer.py</code> (que calcula o lote de 40% na Nota B ou 95% na Nota A+ respeitando os $5,50 mínimos da Binance) e o <code>shadow_manager.py</code> (que muda o bot para o Modo Fantasma após 2 <em>stops</em> seguidos).</li>
+<li><strong>Teste de Aprovação (Gate 4):</strong> Simular artificialmente no teste 2 derrotas seguidas e verificar se o sistema bloqueia ordens reais e passa a gravar na tabela virtual exatamente como planejado.</li>
+</ul>
+<h3 id="estagio-5-execucao-blindada-ordem-oco-e-reconciliador-na-testnet-srcexecution">Estágio 5: Execução Blindada, Ordem OCO e Reconciliador na Testnet (<code>src/execution/</code>)<a class="headerlink" href="#estagio-5-execucao-blindada-ordem-oco-e-reconciliador-na-testnet-srcexecution" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>O que vamos codificar:</strong> O conector que envia ordens para a <strong>Binance Spot Testnet</strong> (dinheiro fictício oficial da Binance), o gerenciador de OCO, o movimento do <em>Stop</em> para o empate em <span class="arithmatex">\(+1,2R\)</span> e o <code>state_reconciler.py</code>.</li>
+<li><strong>Teste de Aprovação ("Teste do Puxão de Tomada" — Gate 5):</strong> Vamos mandar o robô comprar na Testnet e <strong>desligar o robô à força</strong> antes de ele criar o <em>Stop Loss</em>. Depois vamos ligá-lo de novo: ele terá que perceber sozinho que a moeda está sem <em>Stop</em> e criar a ordem OCO automaticamente no primeiro segundo!</li>
+</ul>
+<h3 id="estagio-6-alertas-no-telegram-cofre-de-lucros-e-deploy-em-producao">Estágio 6: Alertas no Telegram, Cofre de Lucros e Deploy em Produção<a class="headerlink" href="#estagio-6-alertas-no-telegram-cofre-de-lucros-e-deploy-em-producao" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>O que vamos codificar:</strong> As mensagens explicativas no seu Telegram (dizendo qual é o clima atual, por que entrou no trade, qual a nota da IA e se está no Modo Real ou Fantasma) e o <code>profit_splitter.py</code>.</li>
+<li><strong>Teste de Aprovação (Gate 6):</strong> Deixar rodando 7 dias na Testnet sem nenhum erro no log e, em seguida, virar a chave para a Carteira Tática real em USDT.</li>
+</ul>
+<hr />
+<h3 id="mapa-de-diagnostico-rapido-onde-olhar-quando-algo-der-errado">Mapa de Diagnóstico Rápido (Onde Olhar Quando Algo Der Errado)<a class="headerlink" href="#mapa-de-diagnostico-rapido-onde-olhar-quando-algo-der-errado" title="Permanent link">&para;</a></h3>
+<p>Graças a essa separação em blocos, se o robô apresentar qualquer comportamento estranho no futuro, você nunca precisará adivinhar onde está o problema:</p>
+<table>
+<thead>
+<tr>
+<th>Sintoma / O que Aconteceu</th>
+<th>Qual Arquivo é o Único Culpado</th>
+<th>Como Diagnosticar e Corrigir</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>"A Binance recusou a minha ordem dizendo <code>LOT_SIZE</code> ou <code>MIN_NOTIONAL</code>"</strong></td>
+<td><code>src/risk/position_sizer.py</code></td>
+<td>A função de arredondamento da quantidade de moedas ou o piso de 5,50 USDT falhou. Basta olhar o log de <code>PositionSizer</code>.</td>
+</tr>
+<tr>
+<td><strong>"O robô comprou uma moeda que estava despencando"</strong></td>
+<td><code>src/regimes/regime_detector.py</code></td>
+<td>O sensor de clima classificou o mercado errado ou leu a vela aberta (<code>-1</code>) em vez da fechada (<code>-2</code>).</td>
+</tr>
+<tr>
+<td><strong>"O servidor reiniciou e o robô perdeu a conta de qual trade estava aberto"</strong></td>
+<td><code>src/core/state_reconciler.py</code></td>
+<td>A leitura do <code>clientOrderId</code> no banco <code>SQLite</code> não bateu com a Binance. Rodar <code>python -m src.core.state_reconciler --check</code>.</td>
+</tr>
+<tr>
+<td><strong>"O robô tomou 3 stops seguidos na conta real e não entrou no Modo Fantasma"</strong></td>
+<td><code>src/risk/shadow_manager.py</code></td>
+<td>O contador de derrotas consecutivas não foi atualizado quando a ordem OCO fechou no prejuízo.</td>
+</tr>
+<tr>
+<td><strong>"O robô está há 5 dias sem fazer nenhuma operação real"</strong></td>
+<td><code>src/risk/shadow_manager.py</code> ou <code>src/features/ml_model.py</code></td>
+<td>Olhe a mensagem diária do Telegram: ou o robô está treinando no <strong>Modo Fantasma</strong> esperando 2 acertos virtuais, ou o mercado está no <strong>Clima 3 (Tempestade)</strong> protegendo seu dólar.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="7-estrutura-completa-do-repositorio-e-configuracao-strategiesyaml">7. Estrutura Completa do Repositório e Configuração (<code>strategies.yaml</code>)<a class="headerlink" href="#7-estrutura-completa-do-repositorio-e-configuracao-strategiesyaml" title="Permanent link">&para;</a></h2>
+<h3 id="arvore-de-arquivos-do-projeto">Árvore de Arquivos do Projeto<a class="headerlink" href="#arvore-de-arquivos-do-projeto" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>quant-crypto-chameleon/
+├── config/
+│   └── strategies.yaml                     # Todas as regras, climas, pesos e Feature Flags
+├── notebooks/                              # Bloco 3: Executar no Google Colab
+│   ├── 01_download_multiasset_1h_4h.ipynb  # Baixa histórico de 1h e 4h das 8 moedas
+│   ├── 02_ablation_chameleon_sim.ipynb     # Compara Degraus A, B, C (Camaleão) e D (Com IA)
+│   └── 03_stress_and_shadow_test.ipynb     # Testa o efeito do Modo Fantasma nos meses ruins
+├── models/
+│   └── calibrated_meta_model.joblib        # Juiz de IA treinado e calibrado por quantis
+├── src/                                    # Motor Modular de Produção (Blocos 1, 2, 4, 5 e 6)
+│   ├── core/                               # [BLOCO 1 &amp; 5] Fundação e Banco
+│   │   ├── config.py                       # Leitor seguro do .env e strategies.yaml
+│   │   ├── database.py                     # SQLite (Tabelas: candles, trades, shadow_trades, hodl_bucket)
+│   │   ├── binance_client.py               # Conexão oficial com filtros LOT_SIZE e Rate Limit
+│   │   └── state_reconciler.py             # Cura automática de posições sem Stop no boot
+│   ├── data/                               # [BLOCO 1] Coleta de Dados
+│   │   └── candle_collector.py             # Sincronizador de velas fechadas 1h e 4h
+│   ├── features/                           # [BLOCO 2] Indicadores e IA
+│   │   ├── indicators.py                   # EMA, ATR, RSI, Bollinger, ADX e CHOP (testados)
+│   │   └── ml_judge.py                     # Calcula as 5 features e dá a Nota (C, B ou A+)
+│   ├── regimes/                            # [BLOCO 2] O Sensor de Clima
+│   │   └── regime_detector.py              # Classifica o mercado em BULL, SIDEWAYS ou BEAR
+│   ├── strategies/                         # [BLOCO 3] As Armas para cada Clima
+│   │   ├── base_strategy.py                # Molde padrão de resposta (Entrada, Stop, Alvo)
+│   │   ├── bull_trend_pullback.py          # Clima 1: Recuo na EMA 20 a favor da tendência
+│   │   ├── sideways_pingpong.py            # Clima 2: Compra no fundo da banda + RSI baixo
+│   │   ├── bear_capitulation_snap.py       # Clima 3: Caça ao pânico extremo (Elástico)
+│   │   └── dormant_strategies.py           # Estratégias futuras guardadas em Feature Flag
+│   ├── risk/                               # [BLOCO 4 &amp; 6] Cérebro de Capital e Proteção
+│   │   ├── position_sizer.py               # Calcula lote Spot (40% na Nota B / até 95% na Nota A+)
+│   │   ├── shadow_manager.py               # Máquina de estados do Modo Fantasma (2 stops = congela)
+│   │   └── profit_splitter.py              # Separa 30% do lucro e compra Hold ao somar 10 USDT
+│   ├── execution/                          # [BLOCO 5] Disparo e Gerenciamento de Ordens
+│   │   └── oco_order_manager.py            # Cria OCO, move Stop para o Zero em +1.2R e Time Stop
+│   ├── notifications/                      # [BLOCO 6] Transparência Total
+│   │   └── telegram_reporter.py            # Explica cada decisão e estado no seu celular
+│   └── main.py                             # Maestro que roda a cada fechamento de vela de 1h
+├── tests/                                  # Testes automatizados de cada Bloco (pytest)
+│   ├── test_block1_data.py
+│   ├── test_block2_indicators_regime.py
+│   ├── test_block4_sizer_and_shadow.py
+│   └── test_block5_reconciler.py
+├── .env.example                            # Modelo para suas chaves da Testnet e Produção
+├── Dockerfile                              # Container leve para rodar na VPS gratuita
+├── docker-compose.yml                      # Mantém o robô vivo 24/7 com reinício automático
+├── requirements.txt                        # Bibliotecas Python com versões travadas
+└── README.md                               # Esta documentação completa
+</code></pre></div>
+<h3 id="arquivo-central-de-configuracao-configstrategiesyaml">Arquivo Central de Configuração (<code>config/strategies.yaml</code>)<a class="headerlink" href="#arquivo-central-de-configuracao-configstrategiesyaml" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="nt">portfolio</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">core_hold_asset</span><span class="p">:</span><span class="w"> </span><span class="s">"XRP"</span>
+<span class="w">  </span><span class="nt">core_hold_amount</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">150.0</span><span class="w">                   </span><span class="c1"># 150 XRP intocados fora do robô (Hold de longo prazo)</span>
+<span class="w">  </span><span class="nt">tactical_quote_asset</span><span class="p">:</span><span class="w"> </span><span class="s">"USDT"</span><span class="w">              </span><span class="c1"># 150 XRP convertidos em USDT para o giro do robô</span>
+<span class="w">  </span><span class="nt">max_concurrent_positions</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span><span class="w">               </span><span class="c1"># Modo Sniper: foca em 1 única moeda por vez</span>
+<span class="w">  </span><span class="nt">min_notional_usdt</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5.50</span><span class="w">                   </span><span class="c1"># Piso mínimo da Binance Spot</span>
+<span class="w">  </span><span class="nt">oco_stop_limit_buffer_pct</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.012</span><span class="w">          </span><span class="c1"># 1.2% abaixo do stopPrice contra gaps de baixa</span>
+
+<span class="nt">conviction_sizing</span><span class="p">:</span><span class="w">                          </span><span class="c1"># Inteligência de saber quando arriscar (Spot sem alavancagem)</span>
+<span class="w">  </span><span class="nt">grade_b_risk_pct</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.010</span><span class="w">                   </span><span class="c1"># Sinal Nota B: arrisca 1.0% da banca no Stop (~40% do caixa)</span>
+<span class="w">  </span><span class="nt">grade_b_max_cash_pct</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.50</span><span class="w">                </span><span class="c1"># Teto de caixa para Sinal Nota B = 50%</span>
+<span class="w">  </span><span class="nt">grade_a_plus_risk_pct</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.022</span><span class="w">              </span><span class="c1"># Sinal Nota A+: arrisca até 2.2% no Stop para usar mão cheia</span>
+<span class="w">  </span><span class="nt">grade_a_plus_max_cash_pct</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.95</span><span class="w">           </span><span class="c1"># Teto de caixa para Sinal Nota A+ = 95% do USDT livre</span>
+<span class="w">  </span><span class="nt">breakeven_trigger_r</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.2</span><span class="w">                  </span><span class="c1"># Bateu +1.2R de lucro? Move o Stop para o Zero (Empate)</span>
+
+<span class="nt">shadow_mode_protection</span><span class="p">:</span><span class="w">                     </span><span class="c1"># "Modo Fantasma" contra meses ruins</span>
+<span class="w">  </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">  </span><span class="nt">max_consecutive_live_losses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span><span class="w">            </span><span class="c1"># Tomou 2 stops reais seguidos? Entra no Modo Fantasma</span>
+<span class="w">  </span><span class="nt">max_weekly_drawdown_pct</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.04</span><span class="w">             </span><span class="c1"># Caiu 4% na semana? Entra no Modo Fantasma</span>
+<span class="w">  </span><span class="nt">virtual_wins_to_reactivate</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span><span class="w">             </span><span class="c1"># Precisa acertar 2 trades simulados para religar dinheiro real</span>
+
+<span class="nt">profit_splitter</span><span class="p">:</span><span class="w">                            </span><span class="c1"># Alimentador automático da carteira Hold</span>
+<span class="w">  </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">  </span><span class="nt">reinvest_bot_pct</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.70</span><span class="w">                    </span><span class="c1"># 70% do lucro fica no bot para juros compostos</span>
+<span class="w">  </span><span class="nt">send_to_hodl_pct</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.30</span><span class="w">                    </span><span class="c1"># 30% vai para o cofrinho de Hold</span>
+<span class="w">  </span><span class="nt">min_bucket_to_buy_hodl_usdt</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10.0</span><span class="w">         </span><span class="c1"># Só compra XRP/BTC para o Hold quando acumular &gt;= 10 USDT</span>
+
+<span class="nt">universe</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">tie_breaker_metric</span><span class="p">:</span><span class="w"> </span><span class="s">"rs_vol_adjusted_12h"</span><span class="w"> </span><span class="c1"># (Close[t] - Close[t-12]) / ATR_14[t]</span>
+<span class="w">  </span><span class="nt">symbols</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">"BTCUSDT"</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">"ETHUSDT"</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">"SOLUSDT"</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">"BNBUSDT"</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">"XRPUSDT"</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">"ADAUSDT"</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">"LINKUSDT"</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">"AVAXUSDT"</span>
+
+<span class="nt">regimes_and_strategies</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">macro_Compass_timeframe</span><span class="p">:</span><span class="w"> </span><span class="s">"4h"</span><span class="w">             </span><span class="c1"># Bússola do clima lida no gráfico de 4h</span>
+<span class="w">  </span><span class="nt">execution_timeframe</span><span class="p">:</span><span class="w"> </span><span class="s">"1h"</span><span class="w">                 </span><span class="c1"># Gatilho rápido operado no gráfico de 1h</span>
+
+<span class="w">  </span><span class="nt">bull_trend_pullback</span><span class="p">:</span><span class="w">                      </span><span class="c1"># CLIMA 1: Sol Aberto (Tendência de Alta)</span>
+<span class="w">    </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">ema_fast</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">20</span>
+<span class="w">    </span><span class="nt">ema_slow</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100</span>
+<span class="w">    </span><span class="nt">stop_atr_mult</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2.0</span><span class="w">                      </span><span class="c1"># Stop inicial em 2.0 ATR (-1.0R)</span>
+<span class="w">    </span><span class="nt">target_atr_mult</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5.0</span><span class="w">                    </span><span class="c1"># Alvo cheio em 5.0 ATR (+2.5R)</span>
+<span class="w">    </span><span class="nt">time_barrier_candles_1h</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">24</span><span class="w">             </span><span class="c1"># Tempo máximo = 24 horas</span>
+
+<span class="w">  </span><span class="nt">sideways_pingpong</span><span class="p">:</span><span class="w">                        </span><span class="c1"># CLIMA 2: Pista Ensaboada (Mercado Lateral)</span>
+<span class="w">    </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">bollinger_period</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">20</span>
+<span class="w">    </span><span class="nt">bollinger_std</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2.0</span>
+<span class="w">    </span><span class="nt">rsi_period</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">14</span>
+<span class="w">    </span><span class="nt">rsi_oversold_entry</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">32</span><span class="w">                  </span><span class="c1"># Compra quando toca fundo da banda com RSI &lt; 32</span>
+<span class="w">    </span><span class="nt">stop_atr_mult</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.5</span><span class="w">                      </span><span class="c1"># Stop curto abaixo do caixote</span>
+<span class="w">    </span><span class="nt">target_band</span><span class="p">:</span><span class="w"> </span><span class="s">"middle_bollinger"</span><span class="w">         </span><span class="c1"># Realiza lucro rápido no meio do canal (Média 20)</span>
+<span class="w">    </span><span class="nt">time_barrier_candles_1h</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">12</span><span class="w">             </span><span class="c1"># Operação rápida: máximo 12 horas</span>
+
+<span class="w">  </span><span class="nt">bear_capitulation_snap</span><span class="p">:</span><span class="w">                   </span><span class="c1"># CLIMA 3: Tempestade (Defesa em Dólar + Elástico)</span>
+<span class="w">    </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">rsi_fast_period</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
+<span class="w">    </span><span class="nt">rsi_panic_threshold</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5</span><span class="w">                  </span><span class="c1"># Exige pânico extremo (RSI de 2 períodos abaixo de 5)</span>
+<span class="w">    </span><span class="nt">relative_volume_min</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3.0</span><span class="w">                </span><span class="c1"># Exige volume de capitulação 3x maior que a média</span>
+<span class="w">    </span><span class="nt">stop_atr_mult</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.8</span>
+<span class="w">    </span><span class="nt">target_atr_mult</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3.6</span><span class="w">                    </span><span class="c1"># Alvo rápido de repique (+2.0R)</span>
+<span class="w">    </span><span class="nt">time_barrier_candles_1h</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">8</span><span class="w">              </span><span class="c1"># Tiro curto: máximo 8 horas</span>
+
+<span class="nt">ml_judge</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">use_ml_filter</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span><span class="w">                      </span><span class="c1"># Começa desligado; liga após vencer no Colab (Bloco 3)</span>
+<span class="w">  </span><span class="nt">reject_bottom_quantile</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.33</span><span class="w">              </span><span class="c1"># Terço inferior = Nota C (Ignora)</span>
+<span class="w">  </span><span class="nt">grade_a_plus_top_quantile</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.70</span><span class="w">           </span><span class="c1"># Top 30% melhores probabilidades = Nota A+ (Até 95% caixa)</span>
+</code></pre></div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Voltar ao topo
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.sections", "navigation.top", "content.code.copy"], "search": "../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copiado para \u00e1rea de transfer\u00eancia", "clipboard.copy": "Copiar para \u00e1rea de transfer\u00eancia", "search.result.more.one": "Mais 1 nesta p\u00e1gina", "search.result.more.other": "Mais # nesta p\u00e1gina", "search.result.none": "Nenhum resultado encontrado", "search.result.one": "1 resultado encontrado", "search.result.other": "# resultados encontrados", "search.result.placeholder": "Digite para iniciar a busca", "search.result.term.missing": "Ausente", "select.version": "Selecione a vers\u00e3o"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.a5f9d56c.min.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

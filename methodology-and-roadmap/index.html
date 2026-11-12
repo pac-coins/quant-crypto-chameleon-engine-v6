@@ -1,0 +1,1176 @@
+
+<!doctype html>
+<html lang="pt" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Arquitetura, metodologia e roadmap do QuantCrypto Chameleon Engine">
+      
+      
+      
+        <link rel="canonical" href="https://pac-coins.github.io/quant-crypto-chameleon-engine-v6/methodology-and-roadmap/">
+      
+      
+        <link rel="prev" href="../architecture/">
+      
+      
+        <link rel="next" href="../v5-to-v6/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.1">
+    
+    
+      
+        <title>Metodologia e roadmap - QuantCrypto Chameleon Engine v6</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.57a0d79d.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.fb2fffe2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#metodologia-de-engenharia-governanca-cientifica-e-roadmap" class="md-skip">
+          Ir para o conteúdo
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Cabeçalho">
+    <a href=".." title="QuantCrypto Chameleon Engine v6" class="md-header__button md-logo" aria-label="QuantCrypto Chameleon Engine v6" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            QuantCrypto Chameleon Engine v6
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Metodologia e roadmap
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Usar modo escuro"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Usar modo escuro" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Usar modo claro"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Usar modo claro" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Buscar" placeholder="Buscar" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Pesquisar">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Limpar" aria-label="Limpar" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Inicializando a pesquisa
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/pac-coins/quant-crypto-chameleon-engine-v6" title="Ir ao repositório" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    pac-coins/quant-crypto-chameleon-engine-v6
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navegação" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="QuantCrypto Chameleon Engine v6" class="md-nav__button md-logo" aria-label="QuantCrypto Chameleon Engine v6" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    QuantCrypto Chameleon Engine v6
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/pac-coins/quant-crypto-chameleon-engine-v6" title="Ir ao repositório" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    pac-coins/quant-crypto-chameleon-engine-v6
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Início
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Arquitetura
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Metodologia e roadmap
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Metodologia e roadmap
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Índice">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Índice
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-visao-geral-a-diferenca-entre-blocos-de-construcao-e-fases-de-operacao" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Visão Geral: A Diferença entre "Blocos de Construção" e "Fases de Operação"
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-governanca-cientifica-anti-ilusao-regras-do-bloco-3-contra-overfitting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Governança Científica Anti-Ilusão (Regras do Bloco 3 contra Overfitting)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Governança Científica Anti-Ilusão (Regras do Bloco 3 contra Overfitting)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-particao-rigida-do-historico-2022-01-01-ate-o-presente" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1. Partição Rígida do Histórico (2022-01-01 até o presente)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-orcamento-maximo-de-tentativas-trial-budget" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2. Orçamento Máximo de Tentativas (Trial Budget)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-criterio-de-abandono-o-que-fazer-se-a-estrategia-reprovar-no-bloco-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3. Critério de Abandono (O que fazer se a estratégia reprovar no Bloco 3?)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-cronograma-sequencial-de-construcao-blocos-1-a-6-e-seus-gates" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Cronograma Sequencial de Construção (Blocos 1 a 6 e Seus Gates)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-como-saber-exatamente-quando-mudar-de-fase-criterios-de-graduacao" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Como Saber Exatamente Quando Mudar de Fase (Critérios de Graduação)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Como Saber Exatamente Quando Mudar de Fase (Critérios de Graduação)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-transicao-0-rightarrow-fase-1-da-testnet-para-o-dinheiro-real-os-1455-xrp-em-usdt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1. Transição 0 \(\rightarrow\) Fase 1: Da Testnet para o Dinheiro Real (Os 145,5 XRP em USDT)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-o-que-roda-na-fase-1-configuracao-congelada-do-mvp-real" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2. O Que Roda na Fase 1 (Configuração Congelada do MVP Real)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-transicao-fase-1-rightarrow-fase-2-quando-ligar-o-cofre-de-lucros-e-o-juiz-de-ia" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.3. Transição Fase 1 \(\rightarrow\) Fase 2: Quando Ligar o Cofre de Lucros e o Juiz de IA?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#44-transicao-fase-2-rightarrow-fase-3-quando-ligar-o-clima-lateral-sideways_pingpong-ou-o-breakeven" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.4. Transição Fase 2 \(\rightarrow\) Fase 3: Quando Ligar o Clima Lateral (sideways_pingpong) ou o Breakeven?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-protocolo-de-regressao-automatica-downgrade-e-disjuntores-de-emergencia-kill-switches" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Protocolo de Regressão Automática (Downgrade) e Disjuntores de Emergência (Kill-Switches)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Protocolo de Regressão Automática (Downgrade) e Disjuntores de Emergência (Kill-Switches)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-tabela-de-rebaixamento-automatico-de-fase-auto-downgrade" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1. Tabela de Rebaixamento Automático de Fase (Auto-Downgrade)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-disjuntores-de-parada-total-hard-kill-switches-estado-emergency_halt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.2. Disjuntores de Parada Total (Hard Kill-Switches — Estado EMERGENCY_HALT)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53-regra-de-ouro-da-supervisao-humana-o-que-voce-deve-e-nao-deve-fazer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.3. Regra de Ouro da Supervisão Humana (O Que Você Deve e Não Deve Fazer)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../v5-to-v6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Migração v5 → v6
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../v5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    v5
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../todo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    TODO
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Índice">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Índice
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-visao-geral-a-diferenca-entre-blocos-de-construcao-e-fases-de-operacao" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Visão Geral: A Diferença entre "Blocos de Construção" e "Fases de Operação"
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-governanca-cientifica-anti-ilusao-regras-do-bloco-3-contra-overfitting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Governança Científica Anti-Ilusão (Regras do Bloco 3 contra Overfitting)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Governança Científica Anti-Ilusão (Regras do Bloco 3 contra Overfitting)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-particao-rigida-do-historico-2022-01-01-ate-o-presente" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1. Partição Rígida do Histórico (2022-01-01 até o presente)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-orcamento-maximo-de-tentativas-trial-budget" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2. Orçamento Máximo de Tentativas (Trial Budget)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-criterio-de-abandono-o-que-fazer-se-a-estrategia-reprovar-no-bloco-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3. Critério de Abandono (O que fazer se a estratégia reprovar no Bloco 3?)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-cronograma-sequencial-de-construcao-blocos-1-a-6-e-seus-gates" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Cronograma Sequencial de Construção (Blocos 1 a 6 e Seus Gates)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-como-saber-exatamente-quando-mudar-de-fase-criterios-de-graduacao" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Como Saber Exatamente Quando Mudar de Fase (Critérios de Graduação)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Como Saber Exatamente Quando Mudar de Fase (Critérios de Graduação)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-transicao-0-rightarrow-fase-1-da-testnet-para-o-dinheiro-real-os-1455-xrp-em-usdt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1. Transição 0 \(\rightarrow\) Fase 1: Da Testnet para o Dinheiro Real (Os 145,5 XRP em USDT)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-o-que-roda-na-fase-1-configuracao-congelada-do-mvp-real" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2. O Que Roda na Fase 1 (Configuração Congelada do MVP Real)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-transicao-fase-1-rightarrow-fase-2-quando-ligar-o-cofre-de-lucros-e-o-juiz-de-ia" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.3. Transição Fase 1 \(\rightarrow\) Fase 2: Quando Ligar o Cofre de Lucros e o Juiz de IA?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#44-transicao-fase-2-rightarrow-fase-3-quando-ligar-o-clima-lateral-sideways_pingpong-ou-o-breakeven" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.4. Transição Fase 2 \(\rightarrow\) Fase 3: Quando Ligar o Clima Lateral (sideways_pingpong) ou o Breakeven?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-protocolo-de-regressao-automatica-downgrade-e-disjuntores-de-emergencia-kill-switches" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Protocolo de Regressão Automática (Downgrade) e Disjuntores de Emergência (Kill-Switches)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Protocolo de Regressão Automática (Downgrade) e Disjuntores de Emergência (Kill-Switches)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-tabela-de-rebaixamento-automatico-de-fase-auto-downgrade" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1. Tabela de Rebaixamento Automático de Fase (Auto-Downgrade)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-disjuntores-de-parada-total-hard-kill-switches-estado-emergency_halt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.2. Disjuntores de Parada Total (Hard Kill-Switches — Estado EMERGENCY_HALT)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53-regra-de-ouro-da-supervisao-humana-o-que-voce-deve-e-nao-deve-fazer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.3. Regra de Ouro da Supervisão Humana (O Que Você Deve e Não Deve Fazer)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="metodologia-de-engenharia-governanca-cientifica-e-roadmap">Metodologia de engenharia, governança científica e roadmap<a class="headerlink" href="#metodologia-de-engenharia-governanca-cientifica-e-roadmap" title="Permanent link">&para;</a></h1>
+<p>Este documento define o protocolo determinístico de construção, validação estatística, transição entre fases operacionais e resposta a incidentes do <strong>QuantCrypto Chameleon Engine (v6.0)</strong>. Nenhuma linha de código avança de bloco e nenhum centavo adicional é arriscado sem o cumprimento binário (<code>PASS</code> / <code>FAIL</code>) dos critérios aqui estabelecidos.</p>
+<hr />
+<h2 id="1-visao-geral-a-diferenca-entre-blocos-de-construcao-e-fases-de-operacao">1. Visão Geral: A Diferença entre "Blocos de Construção" e "Fases de Operação"<a class="headerlink" href="#1-visao-geral-a-diferenca-entre-blocos-de-construcao-e-fases-de-operacao" title="Permanent link">&para;</a></h2>
+<p>Para que nunca haja confusão sobre onde o projeto está, separamos o ciclo de vida em duas réguas independentes:</p>
+<ul>
+<li><strong>Explicação Intuitiva (Como funciona na prática):</strong>
+Imagine que você está construindo um avião.</li>
+<li>Os <strong>6 Blocos de Construção (Estágios 1 a 6)</strong> são a <strong>fábrica no chão</strong>: você monta o motor (Bloco 1), coloca as asas (Bloco 2), testa no túnel de vento (Bloco 3), instala o paraquedas (Bloco 4), liga na tomada de teste da oficina (Bloco 5) e faz um voo de teste sem passageiros com controle remoto (Bloco 6). Você ainda não colocou dinheiro real em risco.</li>
+<li>As <strong>3 Fases de Operação (Fases 1, 2 e 3)</strong> começam <strong>depois que o avião já está pronto e aprovado para voar</strong>: na <strong>Fase 1</strong>, você só voa em dias de céu azul (<code>BULL</code>) e baixa altitude (risco fixo de 1%). Só depois de completar 60 voos reais com lucro comprovado é que você recebe a carteira de habilitação para a <strong>Fase 2</strong> (ligar o piloto automático de IA e o Cofre de Lucros). E só depois de 100 voos lucrativos você libera a <strong>Fase 3</strong> (voar em dias nublados / mercado lateral).</li>
+</ul>
+<div class="highlight"><pre><span></span><code>================================================================================
+ETAPA A: FÁBRICA E VALIDAÇÃO (ZERO DINHEIRO REAL EM RISCO)
+================================================================================
+[Bloco 1: Fundação] ➔ [Bloco 2: Clima MECE] ➔ [Bloco 3: Túnel de Vento (Colab)]
+                                                       │ (Se PASS no Gate 3)
+[Bloco 6: Shadow Live] ◄── [Bloco 5: Testnet OCO] ◄── [Bloco 4: Risco e Freios]
+       │
+       ▼ (Se PASS no Gate 6A e 6B)
+================================================================================
+ETAPA B: OPERAÇÃO COM CAPITAL REAL (EVOLUÇÃO POR MÉRITO COMPROVADO)
+================================================================================
+[FASE 1: MVP Tendência Pura] ──(Gate F1-&gt;F2)──► [FASE 2: +IA Silenciosa Validada + Cofre] ──(Gate F2-&gt;F3)──► [FASE 3: Multi-Clima]
+</code></pre></div>
+<hr />
+<h2 id="2-governanca-cientifica-anti-ilusao-regras-do-bloco-3-contra-overfitting">2. Governança Científica Anti-Ilusão (Regras do Bloco 3 contra <em>Overfitting</em>)<a class="headerlink" href="#2-governanca-cientifica-anti-ilusao-regras-do-bloco-3-contra-overfitting" title="Permanent link">&para;</a></h2>
+<p>O maior risco em trading algorítmico é testar dezenas de combinações no simulador até achar uma que deu lucro por pura sorte no passado (<em>p-hacking</em> / <em>Data Snooping</em>) e perder dinheiro no futuro. Para impedir isso, o Bloco 3 obedece a <strong>4 Leis Inegociáveis</strong>:</p>
+<h3 id="21-particao-rigida-do-historico-2022-01-01-ate-o-presente">2.1. Partição Rígida do Histórico (<code>2022-01-01</code> até o presente)<a class="headerlink" href="#21-particao-rigida-do-historico-2022-01-01-ate-o-presente" title="Permanent link">&para;</a></h3>
+<p>Os dados históricos das 7 moedas (<code>BTCUSDT</code>, <code>ETHUSDT</code>, <code>SOLUSDT</code>, <code>XRPUSDT</code>, <code>ADAUSDT</code>, <code>LINKUSDT</code>, <code>AVAXUSDT</code>) são divididos cronologicamente em três cofres:</p>
+<ol>
+<li><strong>In-Sample / Treino (Primeiros 60% do tempo):</strong> Único período onde é permitido explorar dados, treinar modelos e ajustar parâmetros.</li>
+<li><strong>Validation / Walk-Forward (25% seguintes do tempo):</strong> Usado para validação cruzada com expurgo (<em>Purging</em> de 24h e <em>Embargo</em> de 2%) e calibração de probabilidades (<em>Platt Scaling</em>).</li>
+<li><strong>Holdout Intocável (Últimos 15% do tempo — mínimo de 6 meses finais):</strong> Este período fica trancado. Ele só pode ser executado <strong>uma única vez</strong> quando o código e os parâmetros estiverem 100% congelados.</li>
+</ol>
+<h3 id="22-orcamento-maximo-de-tentativas-trial-budget">2.2. Orçamento Máximo de Tentativas (<em>Trial Budget</em>)<a class="headerlink" href="#22-orcamento-maximo-de-tentativas-trial-budget" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Toda vez que o notebook do Bloco 3 rodar uma simulação para testar uma ideia ou ajuste de parâmetro, o código grava automaticamente uma linha no arquivo <code>logs/backtest_trials_registry.csv</code> contendo: timestamp, hash dos parâmetros, Sharpe Ratio e retorno em <span class="arithmatex">\(R\)</span>.</li>
+<li><strong>Limite de Tentativas (<span class="arithmatex">\(K_{\max} = 20\)</span>):</strong> São permitidas no máximo 20 execuções exploratórias no conjunto de Validação. O número total <span class="arithmatex">\(K\)</span> registrado nesse arquivo é inserido obrigatoriamente na fórmula do <strong>Deflated Sharpe Ratio (<span class="arithmatex">\(\text{DSR}\)</span>)</strong> de Bailey &amp; López de Prado (2014).</li>
+</ul>
+<h3 id="23-criterio-de-abandono-o-que-fazer-se-a-estrategia-reprovar-no-bloco-3">2.3. Critério de Abandono (O que fazer se a estratégia reprovar no Bloco 3?)<a class="headerlink" href="#23-criterio-de-abandono-o-que-fazer-se-a-estrategia-reprovar-no-bloco-3" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Se a estratégia reprovar no conjunto de Validação:</strong> Você pode alterar a lógica da estratégia (ex.: exigir confirmação de volume ou mudar a regra de entrada) apenas dentro dos dados de Treino/Validação, desde que <span class="arithmatex">\(K \le 20\)</span>.</li>
+<li><strong>Se a estratégia reprovar no cofre final de Holdout (últimos 6 meses):</strong> É <strong>estritamente proibido</strong> voltar atrás, mudar um número no <code>strategies.yaml</code> (ex.: trocar a EMA de 20 para 25) e rodar o Holdout de novo! Se reprovar no Holdout, a estratégia atual está <strong>reprovada e descartada</strong>. Para testar uma nova estratégia do zero, será obrigatório aguardar novos dados ou mudar estruturalmente a família da estratégia, zerando o processo sob nova hipótese.</li>
+</ul>
+<hr />
+<h2 id="3-cronograma-sequencial-de-construcao-blocos-1-a-6-e-seus-gates">3. Cronograma Sequencial de Construção (Blocos 1 a 6 e Seus Gates)<a class="headerlink" href="#3-cronograma-sequencial-de-construcao-blocos-1-a-6-e-seus-gates" title="Permanent link">&para;</a></h2>
+<p>Você (e a IA programadora) só podem escrever a primeira linha de código do Bloco <span class="arithmatex">\(N+1\)</span> quando o comando de teste do <strong>Gate <span class="arithmatex">\(N\)</span></strong> retornar <code>100% PASS</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Bloco</th>
+<th>Arquivos Construídos</th>
+<th>Regras Obrigatórias Embutidas (Categorias 1 e 2)</th>
+<th>Gate de Aprovação (Critério Binário)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Bloco 1: Dados, Relógio e Banco</strong></td>
+<td><code>config.py</code>, <code>database.py</code>, <code>binance_client.py</code>, <code>candle_collector.py</code>, <code>test_block1.py</code></td>
+<td>1. SQLite com <code>WAL</code>, <code>synchronous=FULL</code> e rotina nativa <code>sqlite3.backup()</code>. 2. <code>Decimal</code> em preços (<code>tickSize</code> direcional) e lotes (<code>stepSize</code> <code>ROUND_DOWN</code>). 3. Sincronização monotônica (<code>RTT/2</code>). 4. Normalização do <code>close_time</code> para o segundo exato seguinte (<code>+1ms</code>) antes do <code>merge_asof</code>. 5. Mock automático para chamadas <code>/sapi/*</code> quando <code>TESTNET=True</code>.</td>
+<td><strong>Gate 1:</strong> <code>pytest tests/test_block1.py</code> aprova: (a) teste de truncamento às <code>02:00 UTC</code> com diferença zero no vetor alinhado; (b) 10.000 preços e lotes aleatórios múltiplos exatos de <code>tickSize</code>/<code>stepSize</code>; (c) restauração real de um arquivo gerado via <code>sqlite3.backup()</code>.</td>
+</tr>
+<tr>
+<td><strong>Bloco 2: Indicadores e Clima MECE</strong></td>
+<td><code>indicators.py</code>, <code>regime_detector.py</code>, <code>test_block2.py</code></td>
+<td>1. <code>ATR</code>, <code>RSI</code> e <code>ADX</code> com suavização RMA de Wilder. 2. <code>CHOP</code> na base <span class="arithmatex">\(\log_{10}\)</span> com proteção contra divisão por zero (<span class="arithmatex">\(\text{High} == \text{Low} \rightarrow \text{NaN}\)</span>). 3. Qualquer <code>NaN</code>, infinito ou histórico menor que 120 velas força retorno imediato para <code>TRANSITION</code> (100% em USDT). 4. Ordem MECE: <code>BEAR</code> <span class="arithmatex">\(\rightarrow\)</span> <code>BULL</code> <span class="arithmatex">\(\rightarrow\)</span> <code>SIDEWAYS</code> <span class="arithmatex">\(\rightarrow\)</span> <code>TRANSITION</code>.</td>
+<td><strong>Gate 2:</strong> <code>pytest tests/test_block2.py</code> aprova: (a) correlação maior que <span class="arithmatex">\(0,9999\)</span> com <code>TA-Lib</code> após período de aquecimento (<em>warm-up</em>); (b) série artificial de preços constantes (divisão por zero) retorna <code>TRANSITION</code> sem levantar exceção; (c) 100% de cobertura disjunta nos testes de fronteira.</td>
+</tr>
+<tr>
+<td><strong>Bloco 3: Simulador Causal e Ablação</strong></td>
+<td><code>01_download.ipynb</code>, <code>02_ablation_dsr.ipynb</code>, <code>03_stress.ipynb</code></td>
+<td>1. Simulação da fila Single-Slot descontando taxas assimétricas (<em>maker</em> no alvo, <em>taker</em> no stop/tempo). 2. Cálculo empírico de <span class="arithmatex">\(\mathbb{E}[R]\)</span> incluindo o resultado real das saídas por tempo (<code>24h</code>). 3. Resolução de 1 minuto (<code>1m</code>) para testar se o Breakeven (Degrau E) ajuda ou atrapalha. 4. Registro automático no <code>trials_registry.csv</code>.</td>
+<td><strong>Gate 3 (No Colab):</strong> Para aprovar a ida do Degrau C (<code>bull_trend_pullback</code> puro) para os próximos blocos: (a) Mínimo de <strong>150 trades</strong> fora da amostra; (b) Expectância líquida <span class="arithmatex">\(\bar{R} \gt +0,10R\)</span> com limite inferior do Intervalo de Confiança de 95% (<em>Block Bootstrap</em>) acima de <span class="arithmatex">\(0,0R\)</span>; (c) <em>Profit Factor</em> maior ou igual a <span class="arithmatex">\(1,20\)</span> no cenário de custo Base e maior que <span class="arithmatex">\(1,05\)</span> no cenário Pessimista (slippage dobrado); (d) Lucro positivo em pelo menos 3 de 4 subperíodos e no Holdout de 6 meses; (e) <span class="arithmatex">\(\text{DSR} \ge 0,95\)</span>.</td>
+</tr>
+<tr>
+<td><strong>Bloco 4: Cérebro de Risco e Lote</strong></td>
+<td><code>position_sizer.py</code>, <code>shadow_manager.py</code>, <code>profit_splitter.py</code>, <code>test_block4.py</code></td>
+<td>1. Teto duplo: risco de <span class="arithmatex">\(1,0\%\)</span> no stop e máximo de <span class="arithmatex">\(50\%\)</span> do caixa operável. 2. Disjuntor de ordem máxima proporcional: <span class="arithmatex">\(\min(500 \text{ USDT}, 55\% \text{ do caixa})\)</span>. 3. Reserva mínima de <code>$5,00 USDT</code> em BNB verificada via <code>/api/v3/account/commission</code>. 4. Desconto de <code>pending_hodl_bucket_usdt</code> do caixa livre. 5. Regra de <em>High-Water Mark</em> no Cofre (só separa 30% do lucro <em>acima</em> do topo histórico da carteira tática).</td>
+<td><strong>Gate 4:</strong> <code>pytest tests/test_block4.py</code> aprova: (a) stop largo de <span class="arithmatex">\(6\%\)</span> limita a compra a <span class="arithmatex">\(\sim 16\%\)</span> do caixa (jamais furando <span class="arithmatex">\(1\%\)</span> de perda); (b) lote menor que <code>1,05 * minNotional</code> retorna <code>0.0</code> (abortado); (c) lucro após um drawdown que ainda não recuperou o topo histórico gera transferência zero para o Cofre; (d) queda de <span class="arithmatex">\(4\%\)</span> reduz o lote seguinte exatamente pela metade (<span class="arithmatex">\(0,5\%\)</span>).</td>
+</tr>
+<tr>
+<td><strong>Bloco 5: Execução OCO e Cura no Boot</strong></td>
+<td><code>oco_order_manager.py</code>, <code>state_reconciler.py</code>, <code>test_block5.py</code></td>
+<td>1. Gravação <code>PENDING_ENTRY</code> antes do envio e consulta obrigatória por <code>origClientOrderId</code> em caso de Timeout (<code>-1007</code>). 2. Quantidade da OCO descontando comissão no ativo base. 3. Tratamento cirúrgico do <code>-2010</code>: vende a <code>MARKET</code> imediatamente se <span class="arithmatex">\(P_{\text{bid}} \le P_{\text{stop}} \times 1,0005\)</span> ou mensagem <code>"trigger immediately"</code>. 4. <em>Watchdog</em> de Stop Pendurado: se a perna de stop ativou mas o preço pulou o <code>stopLimitPrice</code>, cancela e vende a <code>MARKET</code>. 5. Fechamento serializado de 4 passos no Time-Stop e cura de OCO parcialmente executada.</td>
+<td><strong>Gate 5 (Simulação de Falhas):</strong> <code>pytest tests/test_block5.py</code> + Teste na Binance Spot Testnet aprovam os <strong>4 Testes de Tortura</strong>: (1) Timeout simulado na compra recupera a ordem via <code>origClientOrderId</code> sem comprar duplicado; (2) Compra sem BNB desconta a taxa do ativo e cria a OCO sem erro <code>-2010</code>; (3) Queda de energia simulada com preço abaixo do <code>stopPrice</code> dispara venda a <code>MARKET</code> no 1º segundo do boot; (4) Execução parcial de 40% da OCO faz o reconciliador proteger os 60% restantes.</td>
+</tr>
+<tr>
+<td><strong>Bloco 6: Observabilidade e Voo Assistido</strong></td>
+<td><code>telegram_reporter.py</code>, <code>main.py</code>, <code>Dockerfile</code>, <code>docker-compose.yml</code></td>
+<td>1. Alertas claros no Telegram (clima atual, distância da EMA, tamanho do lote, status do relógio e reserva de BNB). 2. Verificação de manutenção da Binance (<code>/sapi/v1/system/status</code>) bloqueando entradas 2h antes. 3. Container Docker com reinício automático e backup diário consistente.</td>
+<td><strong>Gate 6A (Engenharia — 7 dias na Testnet)</strong> e <strong>Gate 6B (Shadow Live — 30 dias/trades em dados reais)</strong> descritos na Seção 4 abaixo.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="4-como-saber-exatamente-quando-mudar-de-fase-criterios-de-graduacao">4. Como Saber Exatamente Quando Mudar de Fase (Critérios de Graduação)<a class="headerlink" href="#4-como-saber-exatamente-quando-mudar-de-fase-criterios-de-graduacao" title="Permanent link">&para;</a></h2>
+<p>Esta seção responde de forma matemática e sem subjetividade à pergunta: <strong>"Quando eu viro a chave de uma fase para a outra?"</strong></p>
+<h3 id="41-transicao-0-rightarrow-fase-1-da-testnet-para-o-dinheiro-real-os-1455-xrp-em-usdt">4.1. Transição 0 <span class="arithmatex">\(\rightarrow\)</span> Fase 1: Da Testnet para o Dinheiro Real (Os 145,5 XRP em USDT)<a class="headerlink" href="#41-transicao-0-rightarrow-fase-1-da-testnet-para-o-dinheiro-real-os-1455-xrp-em-usdt" title="Permanent link">&para;</a></h3>
+<p>Você <strong>não</strong> coloca dinheiro real logo após terminar de programar o Bloco 6. A passagem para a Fase 1 exige dois carimbos sequenciais:</p>
+<ol>
+<li><strong>Gate 6A — Estabilidade de Engenharia (7 Dias Contínuos na Binance Spot Testnet):</strong></li>
+<li>Zero exceções não tratadas (<code>Unhandled Exceptions</code>) nos logs do Docker em 168 ciclos horários consecutivos.</li>
+<li>Offset do relógio monotônico mantido sempre dentro de <span class="arithmatex">\(\pm 500\text{ ms}\)</span>.</li>
+<li>
+<p><strong>Teste de Restauração de Desastre:</strong> Ao final do 7º dia, você apaga o container, restaura o arquivo de backup do SQLite em uma pasta limpa e inicia o robô — ele deve reconhecer todo o histórico e estado sem erros.</p>
+</li>
+<li>
+<p><strong>Gate 6B — Estabilidade de Microestrutura em Produção (<em>Paper Trading / Shadow Live</em> por 30 Dias ou 25 Trades):</strong></p>
+</li>
+<li>O robô é ligado na VPS apontando para os <strong>dados reais da Binance Produção</strong>, mas com a chave <code>SHADOW_PAPER_ONLY=True</code> (ou operando o lote mínimo de $6 USDT por trade apenas para medir execução).</li>
+<li><strong>Critério de Aprovação:</strong> A diferença entre o preço de execução esperado pelo simulador e o preço real do livro de ofertas da Binance (<em>slippage</em> realizado) deve ser, na média, menor ou igual a <span class="arithmatex">\(0,08\%\)</span>, e a taxa de trades gerados por semana deve ser compatível com a distribuição histórica do Bloco 3.</li>
+</ol>
+<hr />
+<h3 id="42-o-que-roda-na-fase-1-configuracao-congelada-do-mvp-real">4.2. O Que Roda na Fase 1 (Configuração Congelada do MVP Real)<a class="headerlink" href="#42-o-que-roda-na-fase-1-configuracao-congelada-do-mvp-real" title="Permanent link">&para;</a></h3>
+<p>Quando o Gate 6B é aprovado, você vira a chave para a <strong>Fase 1</strong> com os seus ~145,5 XRP em USDT e ~4,5 XRP em BNB:</p>
+<ul>
+<li><strong>Ativo:</strong> Apenas o sensor de 4h (<code>BEAR</code>, <code>BULL</code>, <code>SIDEWAYS</code>, <code>TRANSITION</code>) e <strong>apenas 1 estratégia</strong> (<code>bull_trend_pullback</code> quando o clima é <code>BULL</code>). Nos outros 3 climas, o robô fica 100% protegido em USDT.</li>
+<li><strong>Lote:</strong> Risco fixo de <strong>1,0% da banca tática no Stop Loss</strong> (ou 0,5% se o drawdown passar de 4%), limitado a no máximo 50% do caixa.</li>
+<li><strong>Desligados para proteção:</strong> Breakeven (<span class="arithmatex">\(+1,2R\)</span>) desligado, Cofre de Lucros (<code>profit_splitter</code>) desligado, e Juiz de IA (<code>ml_judge</code>) rodando <strong>apenas em modo observador silencioso</strong> (ele calcula a probabilidade e grava a nota C, B ou A+ numa coluna do SQLite, mas <strong>não bloqueia nem altera o tamanho do lote</strong>).</li>
+</ul>
+<hr />
+<h3 id="43-transicao-fase-1-rightarrow-fase-2-quando-ligar-o-cofre-de-lucros-e-o-juiz-de-ia">4.3. Transição Fase 1 <span class="arithmatex">\(\rightarrow\)</span> Fase 2: Quando Ligar o Cofre de Lucros e o Juiz de IA?<a class="headerlink" href="#43-transicao-fase-1-rightarrow-fase-2-quando-ligar-o-cofre-de-lucros-e-o-juiz-de-ia" title="Permanent link">&para;</a></h3>
+<p><em>Explicação simples:</em> Enquanto o robô opera na Fase 1, o Juiz de IA fica sentado no banco do passageiro anotando num caderno: <em>"Nesse trade eu teria dado Nota C (bloqueado); naquele eu teria dado Nota A+"</em>. Quando você completar 60 trades reais, você abre o caderno do Juiz: se os trades que ele chamou de "Nota C" realmente deram prejuízo na vida real e os "Nota A+" deram lucro, o Juiz provou que sabe o que está fazendo no mercado ao vivo e ganha permissão para dirigir na Fase 2!</p>
+<p>Você <strong>só</strong> muda o <code>strategies.yaml</code> da Fase 1 para a Fase 2 quando <strong>TODOS os 5 requisitos abaixo</strong> forem verdadeiros ao mesmo tempo:</p>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Requisito para Subir para a Fase 2</th>
+<th>Métrica Exata Exigida (Lida do Banco SQLite)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>1</strong></td>
+<td><strong>Amostra Mínima Ao Vivo</strong></td>
+<td>Pelo menos <strong>60 operações reais fechadas</strong> na Fase 1 (e mínimo de 60 dias corridos de operação).</td>
+</tr>
+<tr>
+<td><strong>2</strong></td>
+<td><strong>Crescimento Patrimonial Real</strong></td>
+<td>A Carteira Tática em USDT está acima do seu valor inicial (lucro líquido acumulado positivo após todas as taxas de BNB) e com <em>Profit Factor</em> real <span class="arithmatex">\(\ge 1,15\)</span>.</td>
+</tr>
+<tr>
+<td><strong>3</strong></td>
+<td><strong>Expectância Real Positiva</strong></td>
+<td>Média realizada por operação <span class="arithmatex">\(\bar{R}_{\text{live}} \ge +0,10R\)</span>, com <em>Max Drawdown</em> real registrado menor que <span class="arithmatex">\(10\%\)</span>.</td>
+</tr>
+<tr>
+<td><strong>4</strong></td>
+<td><strong>Zero Falhas Graves de Execução</strong></td>
+<td>Zero casos de posições órfãs não recuperadas pelo reconciliador e slippage médio real dentro do limite de estresse (<span class="arithmatex">\(s_{\text{real}} \le 0,10\%\)</span>).</td>
+</tr>
+<tr>
+<td><strong>5</strong></td>
+<td><strong>Prova Ao Vivo da IA Silenciosa</strong></td>
+<td>Nos 60+ trades reais gravados no SQLite, o grupo que a IA marcou silenciosamente como <strong>Nota B/A+</strong> teve média <span class="arithmatex">\(\bar{R}\)</span> superior ao grupo marcado como <strong>Nota C</strong>, com erro de calibração <span class="arithmatex">\(\text{ECE} \le 0,05\)</span> (<em>Platt Scaling</em>).</td>
+</tr>
+</tbody>
+</table>
+<p><strong>O que muda na Fase 2 (Em duas subetapas de segurança):</strong></p>
+<ul>
+<li><strong>Fase 2A (Primeiros 30 trades da Fase 2):</strong> Liga o <strong>Cofre de Lucros (<code>profit_splitter.enabled: true</code>)</strong> com regra de <em>High-Water Mark</em> (transferindo 30% dos novos lucros acima do topo histórico para a carteira <code>FUNDING</code> via <code>MAIN_FUNDING</code> a cada 10 USDT) e liga o <strong>Filtro Defensivo da IA (<code>ml_judge.use_ml_filter: true</code>)</strong> apenas para <strong>bloquear os sinais Nota C</strong> (0% de lote), mantendo os sinais Nota B e Nota A+ ainda com risco conservador de <strong>1,0%</strong>.</li>
+<li><strong>Fase 2B (Após +30 trades mantendo <span class="arithmatex">\(\bar{R} \gt +0,15R\)</span> na Fase 2A):</strong> Libera o escalonamento de lote da <strong>Nota A+</strong> para arriscar <strong>1,5% da banca</strong> (e até <strong>2,0%</strong> após mais 30 trades, desde que o CVaR 99% empírico da carteira não ultrapasse 5,0% de perda em um único evento de cauda).</li>
+</ul>
+<hr />
+<h3 id="44-transicao-fase-2-rightarrow-fase-3-quando-ligar-o-clima-lateral-sideways_pingpong-ou-o-breakeven">4.4. Transição Fase 2 <span class="arithmatex">\(\rightarrow\)</span> Fase 3: Quando Ligar o Clima Lateral (<code>sideways_pingpong</code>) ou o Breakeven?<a class="headerlink" href="#44-transicao-fase-2-rightarrow-fase-3-quando-ligar-o-clima-lateral-sideways_pingpong-ou-o-breakeven" title="Permanent link">&para;</a></h3>
+<p>A Fase 3 adiciona novas armas ao robô. Cada peça extra tem seu próprio cadeado individual e <strong>só</strong> pode ser ligada se cumprir seu requisito:</p>
+<ol>
+<li><strong>Para ligar <code>sideways_pingpong</code> (Operar Mercado Lateral):</strong></li>
+<li>O robô já deve estar na Fase 2 com pelo menos <strong>100 trades reais acumulados</strong> no histórico total.</li>
+<li>A estratégia <code>sideways_pingpong</code> isolada deve ter passado por todos os critérios do <strong>Gate 3</strong> no Colab (mínimo de 150 trades OOS, filtro <span class="arithmatex">\(\text{RR} \ge 1,5\)</span> líquido de custos, <em>Profit Factor</em> <span class="arithmatex">\(\ge 1,20\)</span> e <span class="arithmatex">\(\text{DSR} \ge 0,95\)</span>).</li>
+<li>
+<p>A estratégia deve ter rodado por pelo menos <strong>30 operações virtuais em modo <em>Shadow Live</em> ao vivo</strong> durante períodos reais de lateralização, apresentando expectância líquida simulada <span class="arithmatex">\(\bar{R}_{\text{shadow}} \ge +0,10R\)</span>.</p>
+</li>
+<li>
+<p><strong>Para ligar o Breakeven em <span class="arithmatex">\(+1,2R\)</span> (<code>breakeven_enabled: true</code>):</strong></p>
+</li>
+<li>
+<p>Só pode ser ligado se o <strong>Degrau E</strong> do Bloco 3 (simulado com velas de 1 minuto) tiver provado matematicamente que ligar o breakeven aumenta o <em>Calmar Ratio</em> e o retorno líquido em comparação ao Degrau C/D sem breakeven, <strong>e</strong> o módulo WebSocket assíncrono (<code>bookTicker</code>) tiver rodado por 14 dias sem desconexões não tratadas.</p>
+</li>
+<li>
+<p><strong>Sobre <code>bear_capitulation_snap</code> (Tempestade):</strong></p>
+</li>
+<li>Permanece <strong>permanentemente desligada por padrão</strong> (defesa 100% em USDT no regime <code>BEAR</code>), a menos que um estudo dedicado futuro com dados ponto-no-tempo (incluindo moedas que sofreram colapso) comprove vantagem estatística líquida.</li>
+</ol>
+<hr />
+<h2 id="5-protocolo-de-regressao-automatica-downgrade-e-disjuntores-de-emergencia-kill-switches">5. Protocolo de Regressão Automática (Downgrade) e Disjuntores de Emergência (Kill-Switches)<a class="headerlink" href="#5-protocolo-de-regressao-automatica-downgrade-e-disjuntores-de-emergencia-kill-switches" title="Permanent link">&para;</a></h2>
+<p>Um sistema profissional não precisa apenas saber quando acelerar; ele precisa saber quando <strong>reduzir a marcha sozinho</strong> se o mercado mudar de comportamento, e quando <strong>puxar o freio de mão</strong> e chamar você no Telegram.</p>
+<h3 id="51-tabela-de-rebaixamento-automatico-de-fase-auto-downgrade">5.1. Tabela de Rebaixamento Automático de Fase (<em>Auto-Downgrade</em>)<a class="headerlink" href="#51-tabela-de-rebaixamento-automatico-de-fase-auto-downgrade" title="Permanent link">&para;</a></h3>
+<p>O módulo <code>shadow_manager.py</code> monitora a saúde estatística da operação ao final de cada trade fechado:</p>
+<table>
+<thead>
+<tr>
+<th>Condição Detectada em Produção</th>
+<th>Ação Automática do Robô</th>
+<th>Como Recuperar o Status Anterior</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Drawdown Tático atinge <span class="arithmatex">\(-4,0\%\)</span></strong> abaixo do Topo Histórico (<em>High-Water Mark</em>)</td>
+<td><strong>Ativa <code>DRAWDOWN_RISK_SCALING</code>:</strong> Corta o risco de todas as novas operações pela metade (ex.: de <span class="arithmatex">\(1,0\%\)</span> para <span class="arithmatex">\(0,5\%\)</span>) e pausa transferências do Cofre.</td>
+<td>Automático assim que o saldo da Carteira Tática voltar a superar o Topo Histórico.</td>
+</tr>
+<tr>
+<td><strong>Na Fase 2:</strong> A média móvel dos últimos <strong>30 trades reais</strong> fica negativa (<span class="arithmatex">\(\bar{R}_{30} \lt 0,0R\)</span>) ou a IA apresenta descalibração (<span class="arithmatex">\(\text{ECE}_{30} \gt 0,08\)</span>)</td>
+<td><strong>Downgrade Automático para Fase 1:</strong> Desliga a alocação extra da Nota A+ (volta tudo para risco base de <span class="arithmatex">\(0,5\%\)</span> a <span class="arithmatex">\(1,0\%\)</span>) e notifica no Telegram.</td>
+<td>Exige nova sequência de 30 trades com <span class="arithmatex">\(\bar{R}_{30} \ge +0,10R\)</span> e auditoria do modelo no Colab.</td>
+</tr>
+<tr>
+<td><strong>Na Fase 3:</strong> A estratégia <code>sideways_pingpong</code> acumula <strong><span class="arithmatex">\(-3,0R\)</span> líquidos</strong> nos últimos 20 trades laterais</td>
+<td><strong>Desarme Isolado de Clima:</strong> Desliga <code>sideways_pingpong</code> (<code>enabled: false</code>), voltando a ficar 100% em USDT no clima <code>SIDEWAYS</code>, sem interromper o clima <code>BULL</code>.</td>
+<td>Reavaliação completa no Bloco 3.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="52-disjuntores-de-parada-total-hard-kill-switches-estado-emergency_halt">5.2. Disjuntores de Parada Total (<em>Hard Kill-Switches</em> — Estado <code>EMERGENCY_HALT</code>)<a class="headerlink" href="#52-disjuntores-de-parada-total-hard-kill-switches-estado-emergency_halt" title="Permanent link">&para;</a></h3>
+<p>O robô interrompe imediatamente <strong>qualquer nova compra</strong> (mantendo a vigilância e proteção das posições que já estiverem abertas) e envia alerta sonoro prioritário no Telegram se ocorrer qualquer um dos 4 eventos abaixo:</p>
+<ol>
+<li><strong>Limite Máximo de perda da Carteira Tática (<em>Hard Stop Patrimonial</em> de <span class="arithmatex">\(-12,0\%\)</span>):</strong> Se a Carteira Tática cair <span class="arithmatex">\(12\%\)</span> abaixo do topo histórico (ou abaixo do capital inicial), o robô entra em <code>HALT</code> para revisão humana, impedindo qualquer risco de destruição da banca.</li>
+<li><strong>Esgotamento da Reserva de Taxas em BNB:</strong> Se o saldo livre de <code>BNB</code> cair abaixo do equivalente a <strong>$2,00 USDT</strong>, o robô bloqueia novas entradas até que você recarregue o BNB, garantindo que nenhuma ordem OCO falhe por comissão descontada no ativo base.</li>
+<li><strong>Falha Repetida de Reconciliação ou API:</strong> Se <code>state_reconciler.py</code> encontrar uma divergência de saldo na corretora que não consiga curar em 3 tentativas consecutivas, ou se a Binance retornar erro de permissão/assinatura (<code>-1002</code>, <code>-1022</code>, <code>-2015</code>).</li>
+<li><strong>Anomalia de Frequência (<em>Runaway Loop Protection</em>):</strong> Se o sistema tentar disparar mais do que <code>max_daily_trades_cap</code> (6 ordens de entrada em 24 horas).</li>
+</ol>
+<h3 id="53-regra-de-ouro-da-supervisao-humana-o-que-voce-deve-e-nao-deve-fazer">5.3. Regra de Ouro da Supervisão Humana (O Que Você Deve e Não Deve Fazer)<a class="headerlink" href="#53-regra-de-ouro-da-supervisao-humana-o-que-voce-deve-e-nao-deve-fazer" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Proibido intervir por tédio:</strong> Em meses de queda ou mercado travado (<code>BEAR</code> ou <code>TRANSITION</code>), é normal e esperado que o robô passe <strong>10 a 20 dias seguidos sem fazer nenhuma compra</strong>, mantendo 100% do seu dinheiro protegido em dólar (USDT). <strong>Não diminua os limiares do <code>strategies.yaml</code> para "forçar o robô a operar"</strong> — ficar fora de mercados ruins é exatamente a fonte da preservação de capital do Chameleon.</li>
+<li><strong>Rito de Manutenção Mensal (15 minutos no dia 1º de cada mês):</strong></li>
+<li>Verificar na mensagem mensal do Telegram se a reserva de <code>BNB</code> está acima de $5,00 USDT.</li>
+<li>Verificar se o backup automático do SQLite foi salvo corretamente e se o espaço em disco da VPS está abaixo de 70%.</li>
+<li>Se houver saldo de lucro acumulado na carteira <code>FUNDING</code> (na Fase 2), decidir se deseja mantê-lo em dólar ou converter manualmente para <code>XRP</code> para somar à sua Carteira Core.</li>
+</ul>
+<hr />
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Voltar ao topo
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.sections", "navigation.top", "content.code.copy"], "search": "../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copiado para \u00e1rea de transfer\u00eancia", "clipboard.copy": "Copiar para \u00e1rea de transfer\u00eancia", "search.result.more.one": "Mais 1 nesta p\u00e1gina", "search.result.more.other": "Mais # nesta p\u00e1gina", "search.result.none": "Nenhum resultado encontrado", "search.result.one": "1 resultado encontrado", "search.result.other": "# resultados encontrados", "search.result.placeholder": "Digite para iniciar a busca", "search.result.term.missing": "Ausente", "select.version": "Selecione a vers\u00e3o"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.a5f9d56c.min.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>
